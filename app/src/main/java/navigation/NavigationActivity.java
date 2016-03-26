@@ -36,7 +36,6 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     private static String mUsername;
     private static String mPassword;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -128,10 +127,9 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentManager fragmentManager         = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        // Create a new fragment and specify the fragment to show based on nav item clicked
-        RelativeLayout container    = (RelativeLayout) findViewById(R.id.contentNav);
+        RelativeLayout container                = (RelativeLayout) findViewById(R.id.contentNav);
 
         if (id == R.id.nav_assigned_issues) {
             AssignedToMeFragment fragment = new AssignedToMeFragment();

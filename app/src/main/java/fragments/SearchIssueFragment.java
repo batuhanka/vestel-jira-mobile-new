@@ -23,42 +23,6 @@ public class SearchIssueFragment extends Fragment {
 		View rootView 				= inflater.inflate(R.layout.fragment_searched, container, false);
 		final Context context				= rootView.getContext();
 
-		/*LinearLayout mainLayout		= (LinearLayout) rootView.findViewById(R.id.mainlayout);
-
-		LinearLayout projectLayout 	= new LinearLayout(context);
-		projectLayout.setOrientation(LinearLayout.HORIZONTAL);
-		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(	LinearLayout.LayoutParams.FILL_PARENT,
-																				LinearLayout.LayoutParams.WRAP_CONTENT);
-		projectLayout.setLayoutParams(layoutParams);
-
-		TextView projectTextView					= new TextView(context);
-		LinearLayout.LayoutParams textItemParams 	= new LinearLayout.LayoutParams(	LinearLayout.LayoutParams.FILL_PARENT,
-																						LinearLayout.LayoutParams.FILL_PARENT);
-		textItemParams.weight = new Float(0.75);
-		projectLayout.setLayoutParams(textItemParams);
-		projectTextView.setText("Project");
-		projectLayout.addView(projectTextView);
-
-		Spinner projectListView 					= new Spinner(context);
-		LinearLayout.LayoutParams selectItemParams 	= new LinearLayout.LayoutParams(	LinearLayout.LayoutParams.MATCH_PARENT,
-																						LinearLayout.LayoutParams.FILL_PARENT);
-		selectItemParams.weight = new Float(0.25);
-		ArrayList<String> projectItems				= new ArrayList<String>();
-		projectItems.add("NEW1");
-		projectItems.add("NEW2");
-		projectItems.add("NEW3");
-		projectItems.add("NEW4");
-
-		ArrayAdapter<String> projectListAdapter		= new ArrayAdapter<String>(	context,
-																				android.R.layout.simple_list_item_1,
-																				projectItems);
-		projectListView.setAdapter(projectListAdapter);
-		projectLayout.addView(projectListView);
-
-		mainLayout.addView(projectLayout);*/
-
-
-
 		ArrayList<String> assigneeItems				= new ArrayList<String>();
 		assigneeItems.add("ASSIGNEE1");
 		assigneeItems.add("ASSIGNEE2");
