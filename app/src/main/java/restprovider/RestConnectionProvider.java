@@ -3,6 +3,7 @@ package restprovider;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.StrictMode;
+import android.util.Base64;
 import android.util.Log;
 
 import org.apache.http.HttpResponse;
@@ -268,7 +269,15 @@ public class RestConnectionProvider {
                 JSONObject avatarUrlsJSON   = new JSONObject(jsonObject2.get("avatarUrls").toString());
                 String src                  = avatarUrlsJSON.get("48x48").toString();
 
+                JSONObject sessionJSON = new JSONObject(jsonObject.get("session").toString());
 
+                URL url = new URL(src);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestProperty ("Cookie","JSESSIONID="+sessionJSON.get("value"));
+                connection.setDoInput(true);
+                connection.connect();
+                InputStream input   = connection.getInputStream();
+                myBitmap            = BitmapFactory.decodeStream(input);
 
 
 

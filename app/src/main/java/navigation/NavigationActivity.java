@@ -2,6 +2,7 @@ package navigation;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -68,28 +69,27 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         TextView userFullNameView       = (TextView) navigationView.findViewById(R.id.userFullName);
         String userFullNameText         = provider.getUserFullName();
 
-        //userAvatar.setImageBitmap(userAvatarBitmap);
+        Bitmap userAvatarBitmap = provider.getUserAvatar();
+        Bitmap resizedAvatar = getResizedBitmap(userAvatarBitmap, 180, 180);
+        userAvatar.setImageBitmap(resizedAvatar);
         userFullNameView.setText(userFullNameText);
     }
 
-    public static Bitmap getBitmapFromURL(String src) {
-        try {
-            Log.e("src",src);
-            URL url = new URL(src);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoInput(true);
-            connection.connect();
-            InputStream input = connection.getInputStream();
-            Bitmap myBitmap = BitmapFactory.decodeStream(input);
-            Log.e("Bitmap","returned");
-            return myBitmap;
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.e("Exception",e.getMessage());
-            return null;
-        }
+    public Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth) {
+        // GET CURRENT SIZE
+        int width = bm.getWidth();
+        int height = bm.getHeight();
+        // GET SCALE SIZE
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;
+        // CREATE A MATRIX FOR THE MANIPULATION
+        Matrix matrix = new Matrix();
+        // RESIZE THE BIT MAP
+        matrix.postScale(scaleWidth, scaleHeight);
+        // "RECREATE" THE NEW BITMAP
+        Bitmap resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
+        return resizedBitmap;
     }
-
 
     @Override
     public void onBackPressed() {
