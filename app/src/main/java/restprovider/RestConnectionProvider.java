@@ -1,5 +1,7 @@
 package restprovider;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.StrictMode;
 import android.util.Log;
 
@@ -18,8 +20,11 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -203,6 +208,142 @@ public class RestConnectionProvider {
 
         }catch(Exception ignored){	Log.e("BATU", ignored.toString()); }
         return null;
+    }
+
+    public Bitmap getUserAvatar() {
+
+        String json = "";
+        InputStream is;
+        Bitmap myBitmap = null;
+
+        try {
+            HttpClient client = new DefaultHttpClient();
+            CookieStore cookieStore = new BasicCookieStore();
+            HttpContext httpContext = new BasicHttpContext();
+            HttpPost post = new HttpPost("http://10.108.95.25/jira/rest/auth/1/session");
+            httpContext.setAttribute(ClientContext.COOKIE_STORE, cookieStore);
+            post.setHeader("Content-type", "application/json");
+
+            JSONObject obj = new JSONObject();
+            obj.put("username", mUsername);
+            obj.put("password", mPassword);
+
+            post.setEntity(new StringEntity(obj.toString(), "UTF-8"));
+            HttpResponse response = client.execute(post, httpContext);
+            is = response.getEntity().getContent();
+
+            try {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line).append("\n");
+                }
+                is.close();
+                json = sb.toString();
+            } catch (Exception e) {
+                Log.e("Buffer Error", "Error converting result " + e.toString());
+            }
+
+            JSONObject jsonObject = new JSONObject(json);
+            if (jsonObject.get("session") != null) {
+
+                String userInfo = "http://10.108.95.25/jira/rest/api/2/user?username=batuhanka";
+                HttpGet get = new HttpGet(userInfo);
+
+                get.setHeader("Content-type", "application/json");
+                get.addHeader(response.getFirstHeader("Set-Cookie"));
+
+                HttpResponse res = client.execute(get, httpContext);
+                InputStream inputStream = res.getEntity().getContent();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"), 8);
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line + "\n");
+                }
+
+                String json2 = sb.toString();
+                JSONObject jsonObject2      = new JSONObject(json2);
+                JSONObject avatarUrlsJSON   = new JSONObject(jsonObject2.get("avatarUrls").toString());
+                String src                  = avatarUrlsJSON.get("48x48").toString();
+
+
+
+
+
+            }
+        } catch (Exception e) {
+
+        }
+
+        return myBitmap;
+
+    }
+
+    public String getUserFullName(){
+
+        String userFullName = "";
+        String json = "";
+        InputStream is;
+
+        try{
+            HttpClient client 			= new DefaultHttpClient();
+            CookieStore cookieStore 	= new BasicCookieStore();
+            HttpContext httpContext 	= new BasicHttpContext();
+            HttpPost post 				= new HttpPost("http://10.108.95.25/jira/rest/auth/1/session");
+            httpContext.setAttribute(ClientContext.COOKIE_STORE, cookieStore);
+            post.setHeader("Content-type", "application/json");
+
+            JSONObject obj = new JSONObject();
+            obj.put("username", mUsername);
+            obj.put("password", mPassword);
+
+            post.setEntity(new StringEntity(obj.toString(), "UTF-8"));
+            HttpResponse response    = client.execute(post, httpContext);
+            is                      = response.getEntity().getContent();
+
+            try {
+                BufferedReader reader   = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
+                StringBuilder sb        = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line).append("\n");
+                }
+                is.close();
+                json = sb.toString();
+            } catch (Exception e) {
+                Log.e("Buffer Error", "Error converting result " + e.toString());
+            }
+
+            JSONObject jsonObject = new JSONObject(json);
+            if(jsonObject.get("session") != null){
+
+                String userInfo = "http://10.108.95.25/jira/rest/api/2/user?username="+mUsername;
+                HttpGet get 			= new HttpGet(userInfo);
+
+                get.setHeader("Content-type", "application/json");
+                get.addHeader(response.getFirstHeader("Set-Cookie"));
+
+                HttpResponse res 		= client.execute(get, httpContext);
+                InputStream inputStream	= res.getEntity().getContent();
+                BufferedReader reader 	= new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"), 8);
+                StringBuilder sb 		= new StringBuilder();
+                String line 			= null;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line + "\n");
+                }
+                is.close();
+                String json2            = sb.toString();
+                JSONObject jsonObject2  = new JSONObject(json2);
+                userFullName            = new String(jsonObject2.getString("displayName").getBytes("ISO-8859-1"), "UTF-8");
+            }
+            else{
+                Log.e("BATU", "Login Failed");
+            }
+
+        }catch(Exception ignored){	Log.e("BATU", ignored.toString()); }
+        return userFullName;
     }
 
 }

@@ -30,11 +30,13 @@ import fragments.AssignedToMeFragment;
 import fragments.ReportedToMeFragment;
 import fragments.SearchIssueFragment;
 import project.ozyegin.vestel.com.vesteljiramobile.R;
+import restprovider.RestConnectionProvider;
 
 public class NavigationActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static String mUsername;
     private static String mPassword;
+    RestConnectionProvider provider = new RestConnectionProvider();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,12 +65,11 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         NavigationView navigationView   = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         ImageView userAvatar            = (ImageView) navigationView.findViewById(R.id.userAvatar);
-        TextView userFullName           = (TextView) navigationView.findViewById(R.id.userFullName);
+        TextView userFullNameView       = (TextView) navigationView.findViewById(R.id.userFullName);
+        String userFullNameText         = provider.getUserFullName();
 
-        String avatarURL = "http://10.108.95.25/jira/secure/useravatar?ownerId=batuhanka&avatarId=23801";
-
-//        userAvatar.setImageBitmap(getBitmapFromURL(avatarURL));
-        userFullName.setText(mUsername + " : " + mPassword);
+        //userAvatar.setImageBitmap(userAvatarBitmap);
+        userFullNameView.setText(userFullNameText);
     }
 
     public static Bitmap getBitmapFromURL(String src) {
