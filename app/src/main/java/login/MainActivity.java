@@ -40,6 +40,7 @@ public class MainActivity extends ActionBarActivity {
 
     public static String mUsername;
     public static String mPassword;
+    public static String JSESSION_ID;
 
     public EditText mUsernameView;
     public EditText mPasswordView;
@@ -170,6 +171,9 @@ public class MainActivity extends ActionBarActivity {
             JSONObject jsonObject = new JSONObject(json);
             if(jsonObject.get("session") != null){
 
+                JSONObject sessionJSON  = new JSONObject(jsonObject.get("session").toString());
+                JSESSION_ID             = sessionJSON.get("value").toString();
+
                 Log.e("BATU", "Login Successful");
                 Intent intent   = new Intent(getBaseContext(), NavigationActivity.class);
                 intent.putExtra("username", username);
@@ -205,4 +209,11 @@ public class MainActivity extends ActionBarActivity {
         MainActivity.mPassword = mPassword;
     }
 
+    public static String getJsessionId() {
+        return JSESSION_ID;
+    }
+
+    public static void setJsessionId(String jsessionId) {
+        JSESSION_ID = jsessionId;
+    }
 }

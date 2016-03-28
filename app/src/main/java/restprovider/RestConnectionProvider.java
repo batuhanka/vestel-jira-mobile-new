@@ -6,15 +6,19 @@ import android.os.StrictMode;
 import android.util.Base64;
 import android.util.Log;
 
+import org.apache.http.Header;
 import org.apache.http.HttpResponse;
+import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.protocol.ClientContext;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.auth.BasicScheme;
 import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.cookie.BasicClientCookie;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 import org.json.JSONArray;
@@ -37,13 +41,61 @@ import login.MainActivity;
  */
 public class RestConnectionProvider {
 
-    private String mUsername = MainActivity.getmUsername();
-    private String mPassword = MainActivity.getmPassword();
+    private String mUsername    = MainActivity.getmUsername();
+    private String mPassword    = MainActivity.getmPassword();
+    private String mJsessionID  = MainActivity.getJsessionId();
 
     public RestConnectionProvider(){
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
     }
+
+    public void getAssigneeTest(){
+
+        HashMap<String, List<String>> issues = new HashMap<String, List<String>>();
+
+    try{
+
+        String assignedToMeStr  = "http://10.108.95.25/jira/rest/api/2/search?jql=assignee="+mUsername+"+and+resolution=unresolved";
+        URL url = new URL(assignedToMeStr);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestProperty ("Cookie","JSESSIONID="+mJsessionID);
+        connection.setDoInput(true);
+        connection.connect();
+        InputStream input   = connection.getInputStream();
+        BufferedReader reader 	= new BufferedReader(new InputStreamReader(input, "iso-8859-1"), 8);
+        StringBuilder sb 		= new StringBuilder();
+
+
+        String line 			= null;
+        while ((line = reader.readLine()) != null) {
+            sb.append(line + "\n");
+        }
+        String json2 = sb.toString();
+        JSONObject jsonObject2  = new JSONObject(json2);
+        JSONArray jsonArray     = jsonObject2.getJSONArray("issues");
+
+        for(int i=0; i<jsonArray.length(); i++){
+            String key      = jsonArray.getJSONObject(i).get("key").toString();
+            String priority = jsonArray.getJSONObject(i).getJSONObject("fields").getJSONObject("priority").get("name").toString();
+
+            if(issues.keySet().contains(priority)){
+                issues.get(priority).add(key);
+            }else{
+                List<String> templist = new ArrayList<String>();
+                templist.add(key);
+                issues.put(priority, templist);
+           }
+        }
+
+
+        Log.e("BATU", " ISSUES : " + issues);
+
+
+        }catch(Exception ex){
+        }
+    }
+
 
     public HashMap<String, List<String>> getAssignedIssues() {
 
@@ -249,7 +301,7 @@ public class RestConnectionProvider {
             JSONObject jsonObject = new JSONObject(json);
             if (jsonObject.get("session") != null) {
 
-                String userInfo = "http://10.108.95.25/jira/rest/api/2/user?username=batuhanka";
+                String userInfo = "http://10.108.95.25/jira/rest/api/2/user?username="+mUsername;
                 HttpGet get = new HttpGet(userInfo);
 
                 get.setHeader("Content-type", "application/json");

@@ -23,6 +23,7 @@ import android.widget.TextView;
 import fragments.AssignedToMeFragment;
 import fragments.ReportedToMeFragment;
 import fragments.SearchIssueFragment;
+import login.MainActivity;
 import project.ozyegin.vestel.com.vesteljiramobile.R;
 import restprovider.RestConnectionProvider;
 
@@ -56,6 +57,8 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         ImageView userAvatar            = (ImageView) navigationView.findViewById(R.id.userAvatar);
         TextView userFullNameView       = (TextView) navigationView.findViewById(R.id.userFullName);
         String userFullNameText         = provider.getUserFullName();
+
+        provider.getAssigneeTest();
 
         Bitmap userAvatarBitmap = provider.getUserAvatar();
         Bitmap resizedAvatar = getResizedBitmap(userAvatarBitmap, 180, 180);
