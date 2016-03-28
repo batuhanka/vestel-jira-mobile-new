@@ -23,7 +23,6 @@ import android.widget.TextView;
 import fragments.AssignedToMeFragment;
 import fragments.ReportedToMeFragment;
 import fragments.SearchIssueFragment;
-import login.MainActivity;
 import project.ozyegin.vestel.com.vesteljiramobile.R;
 import restprovider.RestConnectionProvider;
 
@@ -58,10 +57,8 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         TextView userFullNameView       = (TextView) navigationView.findViewById(R.id.userFullName);
         String userFullNameText         = provider.getUserFullName();
 
-        provider.getAssigneeTest();
-
         Bitmap userAvatarBitmap = provider.getUserAvatar();
-        Bitmap resizedAvatar = getResizedBitmap(userAvatarBitmap, 180, 180);
+        Bitmap resizedAvatar    = getResizedBitmap(userAvatarBitmap, 180, 180);
         userAvatar.setImageBitmap(resizedAvatar);
         userFullNameView.setText(userFullNameText);
     }
@@ -118,7 +115,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
+        int id                                  = item.getItemId();
         FragmentManager fragmentManager         = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         RelativeLayout container                = (RelativeLayout) findViewById(R.id.contentNav);
