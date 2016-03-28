@@ -12,11 +12,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.protocol.ClientContext;
 import org.apache.http.entity.StringEntity;
@@ -24,7 +22,6 @@ import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -33,7 +30,6 @@ import java.io.InputStreamReader;
 
 import navigation.NavigationActivity;
 import project.ozyegin.vestel.com.vesteljiramobile.R;
-
 
 
 public class MainActivity extends ActionBarActivity {
@@ -213,7 +209,4 @@ public class MainActivity extends ActionBarActivity {
         return JSESSION_ID;
     }
 
-    public static void setJsessionId(String jsessionId) {
-        JSESSION_ID = jsessionId;
-    }
 }

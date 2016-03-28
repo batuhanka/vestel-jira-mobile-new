@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/VestelJIRAMobile.iml" filepath="$PROJECT_DIR$/VestelJIRAMobile.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vestel-jira-mobile-new.iml" filepath="$PROJECT_DIR$/vestel-jira-mobile-new.iml" />
     </modules>
   </component>
 </project>
