@@ -117,24 +117,17 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         // Handle navigation view item clicks here.
         int id                                  = item.getItemId();
         FragmentManager fragmentManager         = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         RelativeLayout container                = (RelativeLayout) findViewById(R.id.contentNav);
 
         if (id == R.id.nav_assigned_issues) {
-            AssignedToMeFragment fragment = new AssignedToMeFragment();
             container.removeAllViews();
-            fragmentTransaction.add(R.id.contentNav, fragment);
-            fragmentTransaction.commit();
+            fragmentManager.beginTransaction().add(R.id.contentNav, new AssignedToMeFragment()).commit();
         } else if (id == R.id.nav_reported_issues) {
-            ReportedToMeFragment fragment = new ReportedToMeFragment();
             container.removeAllViews();
-            fragmentTransaction.add(R.id.contentNav, fragment);
-            fragmentTransaction.commit();
+            fragmentManager.beginTransaction().add(R.id.contentNav, new ReportedToMeFragment()).commit();
         } else if (id == R.id.nav_search_issues) {
-            SearchIssueFragment fragment = new SearchIssueFragment();
             container.removeAllViews();
-            fragmentTransaction.add(R.id.contentNav, fragment);
-            fragmentTransaction.commit();
+            fragmentManager.beginTransaction().add(R.id.contentNav, new SearchIssueFragment()).commit();
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
