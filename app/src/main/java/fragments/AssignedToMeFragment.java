@@ -69,8 +69,8 @@ public class AssignedToMeFragment extends Fragment {
             final String childText = (String) getChild(groupPosition, childPosition);
 
             if (convertView == null) {
-                LayoutInflater infalInflater = (LayoutInflater) this._context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = infalInflater.inflate(R.layout.list_item, null);
+                LayoutInflater layoutInflater = (LayoutInflater) this._context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = layoutInflater.inflate(R.layout.list_item, null);
             }
 
             TextView txtListChild = (TextView) convertView.findViewById(R.id.lblListItem);
