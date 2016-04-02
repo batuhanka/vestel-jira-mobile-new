@@ -1,19 +1,14 @@
 package fragments;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.ListAdapter;
-
 
 import java.util.ArrayList;
 
@@ -23,7 +18,6 @@ import restprovider.RestConnectionProvider;
 public class SearchIssueFragment extends Fragment {
 
 	RestConnectionProvider provider = new RestConnectionProvider();
-	ArrayList<String> assigneeItems	= new ArrayList<>();
 
 	// AsyncTask
 	class UserOptionTask extends AsyncTask<Void, String, ArrayList<String>> {
