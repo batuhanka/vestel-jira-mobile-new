@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.StrictMode;
+import android.util.Base64;
 import android.util.Log;
 
 import org.apache.http.HttpResponse;
@@ -18,6 +19,8 @@ import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -34,6 +37,7 @@ import navigation.NavigationActivity;
 public class RestConnectionProvider {
 
     private String mUsername            = MainActivity.getmUsername();
+    private String mPassword            = MainActivity.getmPassword();
     private String mJsessionID          = MainActivity.getJsessionId();
     private String JIRA_REST_BASE_URL   = "http://10.108.95.25/jira/rest/api/2";
 
@@ -310,5 +314,38 @@ public class RestConnectionProvider {
 
         return ADMIN_JSESSION_ID;
     }
+
+    //TODO: xml parser implementation for activity streams
+    public void xmlParser(){
+        try{
+            Log.e("BATU", "here");
+            String activityStreams          = "http://10.108.95.25/jira/activity";
+            URL url                         = new URL(activityStreams);
+            HttpURLConnection connection    = (HttpURLConnection) url.openConnection();
+            String userAndPassword          = mUsername+":"+mPassword;
+            final String basicAuth = "Basic " + Base64.encodeToString(userAndPassword.getBytes(), Base64.NO_WRAP);
+            connection.setRequestProperty("Authorization", basicAuth);
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(input, "iso-8859-1"), 8);
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line).append("\n");
+            }
+
+            XmlPullParserFactory parserFactory  = XmlPullParserFactory.newInstance();
+            XmlPullParser parser                = parserFactory.newPullParser();
+            parser.setInput(input, "iso-8859-1");
+
+
+            Log.e("BATU", "STREAM : " + parser.getName());
+
+
+
+        }catch (Exception ex) {  }
+    }
+
 
 }

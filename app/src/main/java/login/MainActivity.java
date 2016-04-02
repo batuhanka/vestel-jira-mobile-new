@@ -199,6 +199,10 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.mUsername = mUsername;
     }
 
+    public static String getmPassword() {
+        return mPassword;
+    }
+
     public static void setmPassword(String mPassword) {
         MainActivity.mPassword = mPassword;
     }

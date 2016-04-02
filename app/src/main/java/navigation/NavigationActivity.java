@@ -19,6 +19,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
+import java.io.InputStream;
+
 import fragments.AssignedToMeFragment;
 import fragments.ReportedToMeFragment;
 import fragments.SearchIssueFragment;
@@ -29,7 +34,9 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
     RestConnectionProvider provider = new RestConnectionProvider();
 
-    @Override
+
+
+   @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
