@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/mainlayout"
+    android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -18,14 +18,14 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="center_vertical"
-            android:layout_weight="75"
-            android:text="Project :" />
+            android:layout_weight="65"
+            android:text="@string/search_project_label" />
 
         <AutoCompleteTextView
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:id="@+id/projectAutoComplete"
-            android:layout_weight="25"/>
+            android:layout_weight="35"/>
 
     </LinearLayout>
 
@@ -42,14 +42,14 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="center_vertical"
-            android:layout_weight="75"
-            android:text="Assignee :" />
+            android:layout_weight="65"
+            android:text="@string/search_assignee_label" />
 
         <AutoCompleteTextView
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:id="@+id/assigneeAutoComplete"
-            android:layout_weight="25"/>
+            android:layout_weight="35"/>
 
     </LinearLayout>
 
@@ -65,14 +65,14 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="center_vertical"
-            android:layout_weight="75"
-            android:text="Issue Type :" />
+            android:layout_weight="65"
+            android:text="@string/search_issueType_label" />
 
         <AutoCompleteTextView
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:id="@+id/issueTypeAutoComplete"
-            android:layout_weight="25"/>
+            android:layout_weight="35"/>
 
     </LinearLayout>
 
@@ -88,14 +88,14 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="center_vertical"
-            android:layout_weight="75"
-            android:text="Reporter :" />
+            android:layout_weight="65"
+            android:text="@string/search_reporter_label" />
 
         <AutoCompleteTextView
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:id="@+id/reporterAutoComplete"
-            android:layout_weight="25"/>
+            android:layout_weight="35"/>
 
     </LinearLayout>
 

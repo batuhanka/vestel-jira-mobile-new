@@ -4,5 +4,10 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <string name="search_project_label">Project :</string>
+    <string name="search_assignee_label">Assignee :</string>
+    <string name="search_reporter_label">Reporter :</string>
+    <string name="search_issueType_label">Issue Type :</string>
     <string name="action_settings">Settings</string>
+
 </resources>

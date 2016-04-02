@@ -167,4 +167,40 @@ public class RestConnectionProvider {
         return userFullName;
     }
 
+    public  ArrayList<String> getProjects(){
+
+        ArrayList<String> projects  = new ArrayList<>();
+        String getAllProjects       = JIRA_REST_BASE_URL+"/project";
+
+
+        try{
+
+            URL url                         = new URL(getAllProjects);
+            HttpURLConnection connection    = (HttpURLConnection) url.openConnection();
+            connection.setRequestProperty("Cookie", "JSESSIONID=" + mJsessionID);
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input       = connection.getInputStream();
+            BufferedReader reader   = new BufferedReader(new InputStreamReader(input, "iso-8859-1"), 8);
+            StringBuilder sb        = new StringBuilder();
+
+            String line;
+            while ((line = reader.readLine()) != null){
+                sb.append(line).append("\n");
+            }
+
+            JSONArray jsonArray = new JSONArray(sb.toString());
+            for(int i=0; i<jsonArray.length(); i++){
+                JSONObject object = new JSONObject(jsonArray.get(i).toString());
+                projects.add(object.getString("name"));
+            }
+
+        }catch (Exception ex){
+            Log.e("BATU",ex.getMessage());
+        }
+
+        return projects;
+    }
+
+
 }

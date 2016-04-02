@@ -12,10 +12,12 @@ import android.widget.AutoCompleteTextView;
 
 import java.util.ArrayList;
 
-import model.ProjectListProvider;
 import project.ozyegin.vestel.com.vesteljiramobile.R;
+import restprovider.RestConnectionProvider;
 
 public class SearchIssueFragment extends Fragment {
+
+	RestConnectionProvider provider = new RestConnectionProvider();
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
@@ -48,16 +50,11 @@ public class SearchIssueFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 
-				AutoCompleteTextView view = (AutoCompleteTextView) v;
-
-
-				ProjectListProvider provider 	= new ProjectListProvider();
-				ArrayList<String> projectItems 	= provider.getProjectList();
-
-				ArrayAdapter projectAdapter = new ArrayAdapter<>(context,
-						android.R.layout.simple_dropdown_item_1line,
-						projectItems);
-
+				AutoCompleteTextView view 		= (AutoCompleteTextView) v;
+				ArrayList<String> projectItems 	= provider.getProjects();
+				ArrayAdapter projectAdapter 	= new ArrayAdapter<>(context,
+																	android.R.layout.simple_dropdown_item_1line,
+																	projectItems);
 
 				view.setAdapter(projectAdapter);
 			}
@@ -65,8 +62,8 @@ public class SearchIssueFragment extends Fragment {
 
 
 
-		AutoCompleteTextView assigneeAutoCompleteTextView = (AutoCompleteTextView) rootView.findViewById(R.id.assigneeAutoComplete);
-		ArrayAdapter assigneeAdapter 				= new ArrayAdapter<>(	context,
+		AutoCompleteTextView assigneeAutoCompleteTextView 	= (AutoCompleteTextView) rootView.findViewById(R.id.assigneeAutoComplete);
+		ArrayAdapter assigneeAdapter 						= new ArrayAdapter<>(	context,
 																				android.R.layout.simple_dropdown_item_1line,
 																				assigneeItems);
 		assigneeAutoCompleteTextView.setAdapter(assigneeAdapter);
