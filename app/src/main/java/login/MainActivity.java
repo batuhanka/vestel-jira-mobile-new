@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
                 obj.put("password", password);
 
                 post.setEntity(new StringEntity(obj.toString(), "UTF-8"));
-               HttpResponse response    = client.execute(post, httpContext);
+                HttpResponse response    = client.execute(post, httpContext);
                 is                      = response.getEntity().getContent();
 
                 try {
