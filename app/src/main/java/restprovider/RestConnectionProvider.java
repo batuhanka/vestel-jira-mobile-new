@@ -1,11 +1,11 @@
 package restprovider;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.StrictMode;
 import android.util.Base64;
 import android.util.Log;
+import android.util.Xml;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.CookieStore;
@@ -25,14 +25,16 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.xml.parsers.DocumentBuilder;
+
 import login.MainActivity;
-import navigation.NavigationActivity;
 
 public class RestConnectionProvider {
 
@@ -226,14 +228,13 @@ public class RestConnectionProvider {
         char[] ch = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
 
 
-
-            for (int index = 0; index < ch.length; index++) {
-                try {
+        for (char letter : ch) {
+            try {
                 //String getAllUsers = JIRA_REST_BASE_URL + "/group?groupname=jira-users&expand=users";
-                String getAllUsers = JIRA_REST_BASE_URL + "/user/search?username="+Character.toString(ch[index]);
+                String getAllUsers = JIRA_REST_BASE_URL + "/user/search?username=" + Character.toString(letter);
                 URL url = new URL(getAllUsers);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestProperty("Cookie", "JSESSIONID=" +adminJSessionID );
+                connection.setRequestProperty("Cookie", "JSESSIONID=" + adminJSessionID);
                 connection.setDoInput(true);
                 connection.connect();
                 InputStream input = connection.getInputStream();
@@ -252,7 +253,7 @@ public class RestConnectionProvider {
                     users.add(new String(object.getString("displayName").getBytes("ISO-8859-1"), "UTF-8"));
                 }
 
-            }catch(Exception ex){
+            } catch (Exception ex) {
                 Log.e("BATU", ex.getMessage());
             }
         }
@@ -317,35 +318,54 @@ public class RestConnectionProvider {
 
     //TODO: xml parser implementation for activity streams
     public void xmlParser(){
-        try{
-            Log.e("BATU", "here");
-            String activityStreams          = "http://10.108.95.25/jira/activity";
-            URL url                         = new URL(activityStreams);
-            HttpURLConnection connection    = (HttpURLConnection) url.openConnection();
-            String userAndPassword          = mUsername+":"+mPassword;
+        try {
+            String activityStreams = "http://10.108.95.25/jira/activity";
+            URL url = new URL(activityStreams);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            String userAndPassword = mUsername + ":" + mPassword;
             final String basicAuth = "Basic " + Base64.encodeToString(userAndPassword.getBytes(), Base64.NO_WRAP);
             connection.setRequestProperty("Authorization", basicAuth);
             connection.setDoInput(true);
             connection.connect();
             InputStream input = connection.getInputStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(input, "iso-8859-1"), 8);
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line).append("\n");
+
+            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+            factory.setNamespaceAware(true);
+            XmlPullParser xpp = factory.newPullParser();
+            xpp.setInput(input, "UTF-8");
+            int eventType = xpp.getEventType();
+            boolean titleFlag = false;
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+
+                if (eventType == XmlPullParser.START_TAG) {
+                    if(xpp.getName().matches("title"))
+                        titleFlag = true;
+                        //Log.e("BATU", "<==="+xpp.getName());
+                }
+
+                else  if(eventType == XmlPullParser.TEXT) {
+                    if(titleFlag) {
+                        if(!xpp.getText().contains("Activity Streams")){
+                            if( xpp.getText().contains("<a href")){
+                                Log.e("BATU","ACTIVITY : "+xpp.getText());
+                            }else{
+                                Log.e("BATU","ISSUE KEY : "+xpp.getText());
+                                Log.e("BATU","===================");
+                            }
+                        }
+                    }
+
+                }
+
+                else if(eventType == XmlPullParser.END_TAG) {
+                    if(xpp.getName().matches("title"))
+                        titleFlag = false;
+                        //Log.e("BATU", "===>"+xpp.getName());
+                }
+                eventType = xpp.next();
             }
 
-            XmlPullParserFactory parserFactory  = XmlPullParserFactory.newInstance();
-            XmlPullParser parser                = parserFactory.newPullParser();
-            parser.setInput(input, "iso-8859-1");
 
-
-            Log.e("BATU", "STREAM : " + parser.getName());
-
-
-
-        }catch (Exception ex) {  }
+            }catch(Exception ex){   }
     }
-
-
 }
