@@ -5,7 +5,6 @@ import android.graphics.BitmapFactory;
 import android.os.StrictMode;
 import android.util.Base64;
 import android.util.Log;
-import android.util.Xml;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.CookieStore;
@@ -25,17 +24,15 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.xml.parsers.DocumentBuilder;
-
 import login.MainActivity;
 
+@SuppressWarnings("deprecation")
 public class RestConnectionProvider {
 
     private String mUsername            = MainActivity.getmUsername();
@@ -334,38 +331,72 @@ public class RestConnectionProvider {
             XmlPullParser xpp = factory.newPullParser();
             xpp.setInput(input, "UTF-8");
             int eventType = xpp.getEventType();
-            boolean titleFlag = false;
+            boolean entryFlag = false;
+            String tagName = "";
+
+            String displayName  = "";
+            String action       = "";
+            String issueKey     = "";
+            String issueSummary = "";
+            String userName     = "";
             while (eventType != XmlPullParser.END_DOCUMENT) {
 
                 if (eventType == XmlPullParser.START_TAG) {
-                    if(xpp.getName().matches("title"))
-                        titleFlag = true;
-                        //Log.e("BATU", "<==="+xpp.getName());
+                    tagName = xpp.getName();
+                    if(xpp.getName().matches("entry")){
+                        entryFlag = true;
+                    }
                 }
 
-                else  if(eventType == XmlPullParser.TEXT) {
-                    if(titleFlag) {
-                        if(!xpp.getText().contains("Activity Streams")){
-                            if( xpp.getText().contains("<a href")){
-                                Log.e("BATU","ACTIVITY : "+xpp.getText());
+                if (eventType == XmlPullParser.TEXT) {
+                    if(entryFlag){
+
+                        // retrieve display name of user
+                        if( tagName.matches("name")) {
+                            displayName = xpp.getText();
+                        }
+
+                        // retrieve issue key and action
+                        if(tagName.matches("title")){
+                            if(xpp.getText().contains("<a href")){
+                                String temp     = xpp.getText();
+                                String[] sub    = temp.split("</a>");
+                                String[] real   = sub[1].trim().split("<a");
+                                action          = real[0].trim();
                             }else{
-                                Log.e("BATU","ISSUE KEY : "+xpp.getText());
-                                Log.e("BATU","===================");
+                                issueKey = xpp.getText();
                             }
                         }
+
+                        //retrieve username
+                        if(tagName.matches("username")){
+                            userName = xpp.getText();
+                        }
+
+                        //retrieve issue summary
+                        if(tagName.matches("summary")){
+                            issueSummary = xpp.getText();
+                        }
+
                     }
-
                 }
 
-                else if(eventType == XmlPullParser.END_TAG) {
-                    if(xpp.getName().matches("title"))
-                        titleFlag = false;
-                        //Log.e("BATU", "===>"+xpp.getName());
+                if (eventType == XmlPullParser.END_TAG) {
+                    if(xpp.getName().matches("entry")){
+                        entryFlag = false;
+                        Log.e("BATU",displayName);
+                        Log.e("BATU",userName);
+                        Log.e("BATU",action);
+                        Log.e("BATU",issueKey);
+                        Log.e("BATU",issueSummary);
+                        Log.e("BATU","===============================================");
+                    }
                 }
+
                 eventType = xpp.next();
             }
 
 
-            }catch(Exception ex){   }
+            }catch(Exception ex){  Log.e("BATU",ex.getMessage());  }
     }
 }
