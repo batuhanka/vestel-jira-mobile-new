@@ -46,8 +46,8 @@ public class AssignedToMeFragment extends Fragment {
         elv.setAdapter(new SavedTabsListAdapter(getActivity().getApplicationContext(), headers, results));
 
         FloatingActionButton fab = NavigationActivity.fab;
-        fab.setBackgroundTintList(ColorStateList.valueOf(Color.MAGENTA));
-        fab.setImageDrawable(getResources().getDrawable(R.drawable.high));
+        //fab.setBackgroundTintList(ColorStateList.valueOf(Color.MAGENTA));
+        fab.setImageDrawable(getResources().getDrawable(R.drawable.create));
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

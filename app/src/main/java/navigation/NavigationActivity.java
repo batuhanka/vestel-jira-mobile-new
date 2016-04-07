@@ -47,8 +47,8 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
        provider.xmlParser();
 
         fab        = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
-        fab.setImageDrawable(getResources().getDrawable(R.drawable.showstopper));
+        //fab.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
+        fab.setImageDrawable(getResources().getDrawable(R.drawable.refresh));
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,6 +73,10 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         Bitmap resizedAvatar    = getResizedBitmap(userAvatarBitmap, 180, 180);
         userAvatar.setImageBitmap(resizedAvatar);
         userFullNameView.setText(userFullNameText);
+
+       FragmentManager fragmentManager = getSupportFragmentManager();
+       fragmentManager.beginTransaction().add(R.id.contentNav, new SearchIssueFragment()).addToBackStack("SearchFragment").commit();
+
     }
 
     public Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth) {
@@ -93,11 +97,25 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
     @Override
     public void onBackPressed() {
-        int fragments = getFragmentManager().getBackStackEntryCount();
-        if (fragments == 1) {
+//        int fragments = getFragmentManager().getBackStackEntryCount();
+//        if (fragments == 1) {
+//            finish();
+//        }
+//        super.onBackPressed();
+
+//        super.onBackPressed();
+//        getFragmentManager().popBackStack();
+//
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        fragmentManager.beginTransaction().add(R.id.contentNav, new SearchIssueFragment()).addToBackStack("SearchFragment").commit();
+
+        if (getFragmentManager().getBackStackEntryCount() == 0) {
             finish();
+        } else {
+            getFragmentManager().popBackStack();
         }
-        super.onBackPressed();
+
+
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

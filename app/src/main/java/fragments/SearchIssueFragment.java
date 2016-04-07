@@ -19,6 +19,7 @@ import navigation.NavigationActivity;
 import project.ozyegin.vestel.com.vesteljiramobile.R;
 import restprovider.RestConnectionProvider;
 
+@SuppressWarnings("deprecation")
 public class SearchIssueFragment extends Fragment {
 
 	RestConnectionProvider provider = new RestConnectionProvider();
@@ -89,6 +90,7 @@ public class SearchIssueFragment extends Fragment {
 		new ProjectOptionTask(rootView, context).execute();
 
 		FloatingActionButton fab = NavigationActivity.fab;
+		//fab.setImageDrawable(getResources().getDrawable(R.drawable.search_issue));
 		fab.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {

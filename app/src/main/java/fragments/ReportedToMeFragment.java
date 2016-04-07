@@ -26,7 +26,7 @@ import navigation.NavigationActivity;
 import project.ozyegin.vestel.com.vesteljiramobile.R;
 import restprovider.RestConnectionProvider;
 
-
+@SuppressWarnings("deprecation")
 public class ReportedToMeFragment extends Fragment {
 
     @Override
@@ -42,7 +42,8 @@ public class ReportedToMeFragment extends Fragment {
         elv.setAdapter(new SavedTabsListAdapter(getActivity().getApplicationContext(), headers, results ));
 
         FloatingActionButton fab = NavigationActivity.fab;
-        fab.setBackgroundTintList(ColorStateList.valueOf(Color.LTGRAY));
+        //fab.setBackgroundTintList(ColorStateList.valueOf(Color.LTGRAY));
+        fab.setImageDrawable(getResources().getDrawable(R.drawable.create));
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
