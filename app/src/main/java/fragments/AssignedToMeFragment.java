@@ -28,9 +28,9 @@ import navigation.NavigationActivity;
 import project.ozyegin.vestel.com.vesteljiramobile.R;
 import restprovider.RestConnectionProvider;
 
+@SuppressWarnings("deprecation")
 public class AssignedToMeFragment extends Fragment {
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -47,7 +47,7 @@ public class AssignedToMeFragment extends Fragment {
 
         FloatingActionButton fab = NavigationActivity.fab;
         fab.setBackgroundTintList(ColorStateList.valueOf(Color.MAGENTA));
-        fab.setImageDrawable(getResources().getDrawable(R.drawable.high, null));
+        fab.setImageDrawable(getResources().getDrawable(R.drawable.high));
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

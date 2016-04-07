@@ -29,12 +29,12 @@ import fragments.SearchIssueFragment;
 import project.ozyegin.vestel.com.vesteljiramobile.R;
 import restprovider.RestConnectionProvider;
 
+@SuppressWarnings("deprecation")
 public class NavigationActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     RestConnectionProvider provider = new RestConnectionProvider();
     public static FloatingActionButton fab;
 
-   @TargetApi(Build.VERSION_CODES.LOLLIPOP)
    @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -48,7 +48,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
         fab        = (FloatingActionButton) findViewById(R.id.fab);
         fab.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
-        fab.setImageDrawable(getResources().getDrawable(R.drawable.showstopper, null));
+        fab.setImageDrawable(getResources().getDrawable(R.drawable.showstopper));
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
