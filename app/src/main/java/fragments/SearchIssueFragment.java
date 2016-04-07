@@ -3,7 +3,10 @@ package fragments;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +15,7 @@ import android.widget.AutoCompleteTextView;
 
 import java.util.ArrayList;
 
+import navigation.NavigationActivity;
 import project.ozyegin.vestel.com.vesteljiramobile.R;
 import restprovider.RestConnectionProvider;
 
@@ -83,6 +87,15 @@ public class SearchIssueFragment extends Fragment {
 		final Context context		= rootView.getContext();
 		new UserOptionTask(rootView, context).execute();
 		new ProjectOptionTask(rootView, context).execute();
+
+		FloatingActionButton fab = NavigationActivity.fab;
+		fab.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Log.e("BATU", "CONTEXT : Search");
+				Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+			}
+		});
 
 		return rootView;
 	}

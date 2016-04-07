@@ -175,9 +175,9 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("BATU", "Login Successful");
                 Intent intent   = new Intent(getBaseContext(), NavigationActivity.class);
                 intent.putExtra("username", username);
-                intent.putExtra("password"  ,password);
+                intent.putExtra("password", password);
                 startActivity(intent);
-                MainActivity.this.finishActivity(0);
+                MainActivity.this.finish();
 
             }
             else{
