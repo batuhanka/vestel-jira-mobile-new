@@ -314,7 +314,8 @@ public class RestConnectionProvider {
     }
 
     //TODO: xml parser implementation for activity streams
-    public void xmlParser(){
+    public ArrayList<String> xmlParser(){
+        ArrayList<String> result = new ArrayList<>();
         try {
             String activityStreams = "http://10.108.95.25/jira/activity";
             URL url = new URL(activityStreams);
@@ -384,12 +385,14 @@ public class RestConnectionProvider {
                 if (eventType == XmlPullParser.END_TAG) {
                     if(xpp.getName().matches("entry")){
                         entryFlag = false;
-                        Log.e("BATU",displayName);
-                        Log.e("BATU",userName);
-                        Log.e("BATU",action);
-                        Log.e("BATU",issueKey);
-                        Log.e("BATU",issueSummary);
-                        Log.e("BATU","===============================================");
+                        String temp = displayName+" : "+userName+" : "+action+" : "+issueKey+" : "+issueSummary;
+                        result.add(temp);
+//                        Log.e("BATU",displayName);
+//                        Log.e("BATU",userName);
+//                        Log.e("BATU",action);
+//                        Log.e("BATU",issueKey);
+//                        Log.e("BATU",issueSummary);
+//                        Log.e("BATU","===============================================");
                     }
                 }
 
@@ -397,6 +400,9 @@ public class RestConnectionProvider {
             }
 
 
+
             }catch(Exception ex){  Log.e("BATU",ex.getMessage());  }
+
+            return result;
     }
 }

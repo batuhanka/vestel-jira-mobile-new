@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <group android:checkableBehavior="single">
+        <group
+            android:id="@+id/menu_top"
+            android:checkableBehavior="single">
         <item
             android:id="@+id/nav_assigned_issues"
             android:icon="@drawable/assign"
@@ -14,23 +15,24 @@
             android:id="@+id/nav_search_issues"
             android:icon="@drawable/search"
             android:title="Search For Issues" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
     </group>
 
-    <item android:title="Communicate">
-        <menu>
+    <group
+        android:id="@+id/menu_bottom"
+        android:checkableBehavior="none">
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/nav_projects"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
-        </menu>
-    </item>
+                android:title="View Projects" />
 
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_menu_share"
+                android:title="About" />
+
+        <item
+            android:id="@+id/nav_log_out"
+            android:icon="@drawable/ic_menu_share"
+            android:title="Log Out" />
+        </group>
 </menu>

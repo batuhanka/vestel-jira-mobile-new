@@ -1,15 +1,12 @@
 package navigation;
 
-import android.annotation.TargetApi;
-import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.Matrix;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -23,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import fragments.ActivityStreamFragment;
 import fragments.AssignedToMeFragment;
 import fragments.ReportedToMeFragment;
 import fragments.SearchIssueFragment;
@@ -52,8 +50,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.e("BATU", "CONTEXT : " + view.getContext().toString());
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                Snackbar.make(view, "Switching to create issue screen...", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
             }
         });
 
@@ -75,7 +72,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         userFullNameView.setText(userFullNameText);
 
        FragmentManager fragmentManager = getSupportFragmentManager();
-       fragmentManager.beginTransaction().add(R.id.contentNav, new SearchIssueFragment()).addToBackStack("SearchFragment").commit();
+       fragmentManager.beginTransaction().add(R.id.contentNav, new ActivityStreamFragment()).addToBackStack("ActivityStreamFragment").commit();
 
     }
 
@@ -97,25 +94,21 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
     @Override
     public void onBackPressed() {
-//        int fragments = getFragmentManager().getBackStackEntryCount();
-//        if (fragments == 1) {
-//            finish();
-//        }
-//        super.onBackPressed();
 
-//        super.onBackPressed();
-//        getFragmentManager().popBackStack();
+        //TODO: Onbackpress event method must be override
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.popBackStackImmediate();
+//        int stackCount = fragmentManager.getBackStackEntryCount();
 //
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        fragmentManager.beginTransaction().add(R.id.contentNav, new SearchIssueFragment()).addToBackStack("SearchFragment").commit();
+//        if(stackCount > 1) {
+//            fragmentManager.beginTransaction().remove(fragmentManager.getFragments().get(stackCount - 1)).commit();
+//            Log.e("BATU","COUNT : "+stackCount);
+//            Fragment latestFragment = fragmentManager.getFragments().get(stackCount - 2);
+//            Log.e("BATU", "LATEST : " + latestFragment);
+//            fragmentManager.beginTransaction().replace(R.id.contentNav, latestFragment).addToBackStack(latestFragment.getTag()).commit();
+//        }
 
-        if (getFragmentManager().getBackStackEntryCount() == 0) {
-            finish();
-        } else {
-            getFragmentManager().popBackStack();
-        }
-
-
+       // fragmentManager.beginTransaction().add(R.id.contentNav, new ActivityStreamFragment()).addToBackStack("ActivityStreamFragment").commit();
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -135,11 +128,11 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         } else if (id == R.id.nav_search_issues) {
             container.removeAllViews();
             fragmentManager.beginTransaction().add(R.id.contentNav, new SearchIssueFragment()).addToBackStack("SearchFragment").commit();
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_projects) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_about) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_log_out) {
 
         }
 

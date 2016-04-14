@@ -90,12 +90,11 @@ public class SearchIssueFragment extends Fragment {
 		new ProjectOptionTask(rootView, context).execute();
 
 		FloatingActionButton fab = NavigationActivity.fab;
-		//fab.setImageDrawable(getResources().getDrawable(R.drawable.search_issue));
+		fab.setImageDrawable(getResources().getDrawable(R.drawable.search_issue));
 		fab.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Log.e("BATU", "CONTEXT : Search");
-				Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+				Snackbar.make(view, "Switching to search for issue screen...", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
 			}
 		});
 
