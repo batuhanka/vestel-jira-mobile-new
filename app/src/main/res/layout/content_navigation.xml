@@ -13,12 +13,6 @@
     tools:context=".navigation.NavigationActivity"
     tools:showIn="@layout/app_bar_navigation">
 
-
-        <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-            <!--android:layout_width="fill_parent"-->
-            <!--android:layout_height="fill_parent"-->
-            <!--android:orientation="vertical">-->
-
             <ListView
                 android:id="@+id/activityStreamsList"
                 android:layout_width="fill_parent"
@@ -26,8 +20,5 @@
                 android:divider="#b5b5b5"
                 android:dividerHeight="1dp"
                 android:listSelector="@drawable/list_selector" />
-
-        <!--</LinearLayout>-->
-
 
 </RelativeLayout>
