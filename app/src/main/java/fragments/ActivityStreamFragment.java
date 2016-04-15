@@ -9,12 +9,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import adapter.LazyAdapter;
 import navigation.NavigationActivity;
 import project.ozyegin.vestel.com.vesteljiramobile.R;
 import restprovider.RestConnectionProvider;
@@ -23,40 +23,14 @@ import restprovider.RestConnectionProvider;
 public class ActivityStreamFragment extends Fragment {
 
 	RestConnectionProvider provider = new RestConnectionProvider();
-
-	// AsyncTask
-	class ActivityStreamTask extends AsyncTask<Void, String, ArrayList<String>> {
-
-		private View mRootView;
-		private Context mContext;
-		ActivityStreamTask(View rootView, Context context){
-			mRootView	= rootView;
-			mContext	= context;
-		}
-		@Override
-		protected ArrayList<String> doInBackground(Void... params) {
-			return  provider.xmlParser();
-		}
-
-		@Override
-		protected void onPostExecute(ArrayList<String> resultList) {
-			super.onPostExecute(resultList);
-			ArrayAdapter activityAdapter = new ArrayAdapter<>(mContext,
-					android.R.layout.simple_dropdown_item_1line,
-					resultList);
-
-			ListView activityStreamView = (ListView) mRootView.findViewById(R.id.activityStreamsList);
-
-			activityStreamView.setAdapter(activityAdapter);
-			activityAdapter.notifyDataSetChanged();
-		}
-	}
+	private LayoutInflater mInflator;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
-		View rootView 				= inflater.inflate(R.layout.content_navigation, container, false);
-		final Context context		= rootView.getContext();
+		this.mInflator = inflater;
+		View rootView = inflater.inflate(R.layout.content_navigation, container, false);
+		final Context context = rootView.getContext();
 		new ActivityStreamTask(rootView, context).execute();
 
 		FloatingActionButton fab = NavigationActivity.fab;
@@ -69,6 +43,34 @@ public class ActivityStreamFragment extends Fragment {
 		});
 
 		return rootView;
+	}
+
+
+	// AsyncTask
+	class ActivityStreamTask extends AsyncTask<Void, String, ArrayList<HashMap<String,String>>> {
+
+		private View mRootView;
+		@SuppressWarnings("unused")
+		private Context mContext;
+		ActivityStreamTask(View rootView, Context context){
+			mRootView	= rootView;
+			mContext	= context;
+		}
+		@Override
+		protected ArrayList<HashMap<String,String>> doInBackground(Void... params) {
+			return  provider.getActivityStreams();
+		}
+
+		@Override
+		protected void onPostExecute(ArrayList<HashMap<String,String>> resultList) {
+			super.onPostExecute(resultList);
+			LazyAdapter adapter 	= new LazyAdapter(mInflator, resultList);
+			ListView activityList	= (ListView) mRootView.findViewById(R.id.activityStreamsList);
+			activityList.setAdapter(adapter);
+			adapter.notifyDataSetChanged();
+		}
+
+
 	}
 
 }

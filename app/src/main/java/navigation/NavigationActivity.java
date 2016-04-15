@@ -42,7 +42,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         setSupportActionBar(toolbar);
 
        //TODO: Remove this dummy test function after implementation
-       provider.xmlParser();
+       provider.getActivityStreams();
 
         fab        = (FloatingActionButton) findViewById(R.id.fab);
         //fab.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
