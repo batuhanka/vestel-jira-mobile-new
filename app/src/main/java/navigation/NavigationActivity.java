@@ -6,14 +6,12 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -24,6 +22,7 @@ import fragments.ActivityStreamFragment;
 import fragments.AssignedToMeFragment;
 import fragments.ReportedToMeFragment;
 import fragments.SearchIssueFragment;
+import login.MainActivity;
 import project.ozyegin.vestel.com.vesteljiramobile.R;
 import restprovider.RestConnectionProvider;
 
@@ -66,7 +65,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         TextView userFullNameView       = (TextView) navigationView.findViewById(R.id.userFullName);
         String userFullNameText         = provider.getUserFullName();
 
-        Bitmap userAvatarBitmap = provider.getUserAvatar();
+        Bitmap userAvatarBitmap = provider.getUserAvatar(MainActivity.getmUsername());
         Bitmap resizedAvatar    = getResizedBitmap(userAvatarBitmap, 180, 180);
         userAvatar.setImageBitmap(resizedAvatar);
         userFullNameView.setText(userFullNameText);
@@ -96,8 +95,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     public void onBackPressed() {
 
         //TODO: Onbackpress event method must be override
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.popBackStackImmediate();
+        super.onBackPressed();
 //        int stackCount = fragmentManager.getBackStackEntryCount();
 //
 //        if(stackCount > 1) {

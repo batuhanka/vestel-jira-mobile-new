@@ -21,6 +21,7 @@ import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.widget.ImageView;
 
+import login.MainActivity;
 import project.ozyegin.vestel.com.vesteljiramobile.R;
 
 public class ImageLoader {
@@ -35,9 +36,11 @@ public class ImageLoader {
         executorService = Executors.newFixedThreadPool(5);
     }
 
-    final int stub_id = R.drawable.showstopper;
+    final int stub_id = R.drawable.no_avatar;
 
-    public void DisplayImage(String url, ImageView imageView) {
+    public void displayImage(String username, ImageView imageView) {
+
+        String url = "http://10.108.95.25/jira/secure/useravatar?username="+username;
         imageViews.put(imageView, url);
         Bitmap bitmap = memoryCache.get(url);
         if (bitmap != null)
@@ -68,6 +71,7 @@ public class ImageLoader {
             conn.setConnectTimeout(30000);
             conn.setReadTimeout(30000);
             conn.setInstanceFollowRedirects(true);
+            conn.setRequestProperty("Cookie", "JSESSIONID=" + MainActivity.getJsessionId());
             InputStream is = conn.getInputStream();
             OutputStream os = new FileOutputStream(f);
             Utils.CopyStream(is, os);

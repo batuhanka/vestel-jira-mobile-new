@@ -6,7 +6,6 @@ import android.os.StrictMode;
 import android.util.Base64;
 import android.util.Log;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.HttpClient;
@@ -17,31 +16,19 @@ import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.StringReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 import login.MainActivity;
 
@@ -150,13 +137,13 @@ public class RestConnectionProvider {
         return issues;
     }
 
-    public Bitmap getUserAvatar() {
+    public Bitmap getUserAvatar(String username) {
 
         Bitmap myBitmap = null;
 
         try {
 
-            String userInfo             = JIRA_REST_BASE_URL+"/user?username="+mUsername;
+            String userInfo             = JIRA_REST_BASE_URL+"/user?username="+username;
             JSONObject jsonObject       = createRestRequest(userInfo);
             JSONObject avatarUrlsJSON   = new JSONObject(jsonObject.get("avatarUrls").toString());
             String src                  = avatarUrlsJSON.get("48x48").toString();
@@ -326,12 +313,10 @@ public class RestConnectionProvider {
         return ADMIN_JSESSION_ID;
     }
 
-    //TODO: xml parser implementation for activity streams
     public ArrayList<HashMap<String,String>> getActivityStreams(){
 
         ArrayList<HashMap<String,String>> result = new ArrayList<>();
 
-        //ArrayList<String> result = new ArrayList<>();
         try {
             String activityStreams = "http://10.108.95.25/jira/activity";
             URL url = new URL(activityStreams);
@@ -401,7 +386,6 @@ public class RestConnectionProvider {
                 if (eventType == XmlPullParser.END_TAG) {
                     if(xpp.getName().matches("entry")){
                         entryFlag = false;
-                        String temp = displayName+" : "+userName+" : "+action+" : "+issueKey+" : "+issueSummary;
                         HashMap<String,String> map = new HashMap<>();
                         map.put("ISSUE_KEY",        issueKey);
                         map.put("ISSUE_SUMMARY",    issueSummary);
@@ -410,19 +394,11 @@ public class RestConnectionProvider {
                         map.put("DISPLAY_NAME",     displayName);
 
                         result.add(map);
-//                        Log.e("BATU",displayName);
-//                        Log.e("BATU",userName);
-//                        Log.e("BATU",action);
-//                        Log.e("BATU",issueKey);
-//                        Log.e("BATU",issueSummary);
-//                        Log.e("BATU","===============================================");
                     }
                 }
 
                 eventType = xpp.next();
             }
-
-
 
             }catch(Exception ex){  Log.e("BATU",ex.getMessage());  }
 
