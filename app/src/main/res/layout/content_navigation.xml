@@ -14,10 +14,10 @@
     tools:showIn="@layout/app_bar_navigation">
 
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:orientation="vertical">
+        <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="fill_parent"-->
+            <!--android:orientation="vertical">-->
 
             <ListView
                 android:id="@+id/activityStreamsList"
@@ -27,7 +27,7 @@
                 android:dividerHeight="1dp"
                 android:listSelector="@drawable/list_selector" />
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
 
 </RelativeLayout>
