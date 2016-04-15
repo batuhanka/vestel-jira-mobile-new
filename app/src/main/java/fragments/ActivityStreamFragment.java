@@ -9,7 +9,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -67,6 +70,15 @@ public class ActivityStreamFragment extends Fragment {
 			LazyAdapter adapter 	= new LazyAdapter(mInflator, resultList);
 			ListView activityList	= (ListView) mRootView.findViewById(R.id.activityStreamsList);
 			activityList.setAdapter(adapter);
+
+			//TODO: implement on click events for each item
+			activityList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					TextView issueKeyView = (TextView) view.findViewById(R.id.issueKey);
+					Toast.makeText(getActivity().getBaseContext(), issueKeyView.getText(), Toast.LENGTH_SHORT).show();
+				}
+			});
 			adapter.notifyDataSetChanged();
 		}
 
