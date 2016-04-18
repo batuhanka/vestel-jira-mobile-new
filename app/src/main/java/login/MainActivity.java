@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 int i=0;
                 while(i <= 10) {
                     // Simulate network access.
-                    Thread.sleep(700);
+                    Thread.sleep(500);
                     publishProgress(i*4);
                     i++;
                 }

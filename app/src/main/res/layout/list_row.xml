@@ -23,46 +23,19 @@
 
     </LinearLayout>
 
-    <!-- Issue Key Info -->
-    <TextView
-        android:id="@+id/issueKey"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/thumbnail"
-        android:layout_toRightOf="@+id/thumbnail"
-        android:text="Issue Key"
-        android:textColor="#040404"
-        android:typeface="sans"
-        android:textSize="15dip"
-        android:textStyle="bold"/>
-
-    <!-- Action Info -->
-    <TextView
-        android:id="@+id/actionInfo"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#343434"
-        android:textSize="10dip"
-        android:text="Author"
-        android:layout_alignLeft="@+id/issueKey"
-        android:layout_alignStart="@+id/issueKey"
-        android:layout_below="@+id/issueKey"
-        android:layout_toLeftOf="@+id/author"
-        android:layout_toStartOf="@+id/author" />
-
     <!-- Author Name -->
     <TextView
         android:id="@+id/author"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@id/issueKey"
         android:gravity="right"
-        android:text="5:45"
-        android:layout_marginRight="5dip"
-        android:textSize="10dip"
-        android:textColor="#10bcc9"
-        android:textStyle="bold"/>
+        android:text="username"
+        android:textSize="12dip"
+        android:textColor="#3b73af"
+        android:textStyle="bold"
+        android:layout_toRightOf="@+id/thumbnail"
+        android:layout_toEndOf="@+id/thumbnail"
+        android:layout_alignTop="@+id/thumbnail" />
 
     <!-- Rightend Arrow -->
     <ImageView android:layout_width="wrap_content"
@@ -71,5 +44,52 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:id="@+id/imageView" />
+
+    <LinearLayout
+        android:id="@+id/actionAndKeyLayout"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/author"
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_toLeftOf="@+id/imageView"
+        android:layout_toRightOf="@+id/thumbnail"
+        android:layout_toEndOf="@+id/thumbnail">
+
+        <!-- Action Info -->
+        <TextView
+            android:id="@+id/actionInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#343434"
+            android:textSize="10dip"
+            android:text="action of this issue"/>
+
+        <!-- Issue Key Info -->
+        <TextView
+            android:id="@+id/issueKey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Issue Key"
+            android:textColor="#3b73af"
+            android:typeface="sans"
+            android:textSize="10dip"
+            android:textStyle="bold"
+            android:paddingLeft="5dp" />
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/actionSummary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#343434"
+        android:textSize="10dip"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        android:layout_below="@+id/actionAndKeyLayout"
+        android:layout_toLeftOf="@+id/imageView"
+        android:layout_toRightOf="@+id/thumbnail"
+        android:background="#e0f0ff"/>
 
 </RelativeLayout>
