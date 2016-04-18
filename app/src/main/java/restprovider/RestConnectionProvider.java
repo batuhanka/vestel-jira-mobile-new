@@ -341,6 +341,7 @@ public class RestConnectionProvider {
             String issueKey     = "";
             String issueSummary = "";
             String userName     = "";
+            String published    = "";
             while (eventType != XmlPullParser.END_DOCUMENT) {
 
                 if (eventType == XmlPullParser.START_TAG) {
@@ -370,6 +371,10 @@ public class RestConnectionProvider {
                             }
                         }
 
+                        if(tagName.matches("published")){
+                            published = xpp.getText();
+                        }
+
                         //retrieve username
                         if(tagName.matches("username")){
                             userName = xpp.getText();
@@ -392,6 +397,7 @@ public class RestConnectionProvider {
                         map.put("ACTION",           action);
                         map.put("USER_NAME",        userName);
                         map.put("DISPLAY_NAME",     displayName);
+                        map.put("PUBLISHED",        published);
 
                         result.add(map);
                     }

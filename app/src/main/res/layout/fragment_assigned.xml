@@ -4,6 +4,15 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
+    <TextView
+        android:id="@+id/assignedToMeHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/assigned_to_me_header"
+        android:textSize="15dip"
+        android:gravity="center_horizontal"
+        android:textStyle="bold"/>
+
     <ExpandableListView android:id="@+id/assigneelist"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

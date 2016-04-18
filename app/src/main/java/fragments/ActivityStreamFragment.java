@@ -32,7 +32,7 @@ public class ActivityStreamFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
 		this.mInflator = inflater;
-		View rootView = inflater.inflate(R.layout.content_navigation, container, false);
+		View rootView = inflater.inflate(R.layout.fragment_activities, container, false);
 		final Context context = rootView.getContext();
 		new ActivityStreamTask(rootView, context).execute();
 

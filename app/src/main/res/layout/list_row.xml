@@ -37,7 +37,7 @@
         android:layout_toEndOf="@+id/thumbnail"
         android:layout_alignTop="@+id/thumbnail" />
 
-    <!-- Rightend Arrow -->
+    <!-- Right End Arrow -->
     <ImageView android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_menu_send"
@@ -62,6 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#343434"
+            android:textStyle="bold"
             android:textSize="10dip"
             android:text="action of this issue"/>
 
@@ -80,16 +81,30 @@
 
     </LinearLayout>
 
+    <!-- issue summary -->
     <TextView
-        android:id="@+id/actionSummary"
+        android:id="@+id/issueSummary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#343434"
+        android:textColor="#3b73af"
         android:textSize="10dip"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        android:text="issue summary"
         android:layout_below="@+id/actionAndKeyLayout"
         android:layout_toLeftOf="@+id/imageView"
+        android:layout_toRightOf="@+id/thumbnail"/>
+
+    <!-- publish time -->
+    <TextView
+        android:id="@+id/publishTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="35 minutes ago"
+        android:textColor="#000000"
+        android:typeface="sans"
+        android:textSize="10dip"
+        android:layout_below="@+id/issueSummary"
+        android:layout_toLeftOf="@+id/imageView"
         android:layout_toRightOf="@+id/thumbnail"
-        android:background="#e0f0ff"/>
+        android:paddingTop="5dp" />
 
 </RelativeLayout>
