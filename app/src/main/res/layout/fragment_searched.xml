@@ -4,99 +4,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="30dp">
+    android:paddingLeft="25dp"
+    android:paddingTop="10dp"
+    android:paddingRight="25dp"
+    android:paddingBottom="10dp">
 
-    <LinearLayout
-        android:id="@+id/projectLayout"
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="100">
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/search_for_issues_title"
+        android:id="@+id/search_header"
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="25dp" />
 
-        <TextView
-            android:id="@+id/projectLabel"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center_vertical"
-            android:layout_weight="65"
-            android:text="@string/search_project_label" />
-
-        <AutoCompleteTextView
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:id="@+id/projectAutoComplete"
-            android:layout_weight="35"/>
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/assigneeLayout"
+    <AutoCompleteTextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="100">
+        android:layout_height="40dp"
+        android:id="@+id/projectAutoComplete"
+        android:hint="Project" />
 
-        <TextView
-            android:id="@+id/assigneeLabel"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center_vertical"
-            android:layout_weight="65"
-            android:text="@string/search_assignee_label" />
-
-        <AutoCompleteTextView
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:id="@+id/assigneeAutoComplete"
-            android:layout_weight="35"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/issueTypeLayout"
+    <AutoCompleteTextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="100">
+        android:layout_height="40dp"
+        android:id="@+id/assigneeAutoComplete"
+        android:hint="Assignee" />
 
-        <TextView
-            android:id="@+id/issueTypeLabel"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center_vertical"
-            android:layout_weight="65"
-            android:text="@string/search_issueType_label" />
-
-        <AutoCompleteTextView
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:id="@+id/issueTypeAutoComplete"
-            android:layout_weight="35"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/reporterLayout"
+    <AutoCompleteTextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="100">
+        android:layout_height="40dp"
+        android:id="@+id/issueTypeAutoComplete"
+        android:hint="Issue Type" />
 
-        <TextView
-            android:id="@+id/reporterLabel"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center_vertical"
-            android:layout_weight="65"
-            android:text="@string/search_reporter_label" />
-
-        <AutoCompleteTextView
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:id="@+id/reporterAutoComplete"
-            android:layout_weight="35"/>
-
-    </LinearLayout>
+    <AutoCompleteTextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/reporterAutoComplete"
+        android:hint="Reporter" />
 
 </LinearLayout>

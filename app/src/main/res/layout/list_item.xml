@@ -1,17 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="55dip"
-    android:orientation="vertical" >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/issueItem"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/list_selector"
+    android:orientation="horizontal"
+    android:padding="5dip" >
+
+    <!--  ListRow Left sied Thumbnail image -->
+    <LinearLayout android:id="@+id/thumbnail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="5dip"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/issueTypeLogo"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@android:drawable/ic_menu_manage"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:id="@+id/issueType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BUG"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:typeface="sans"
+            android:textSize="10dip"
+            android:paddingTop="3dp"
+            android:layout_below="@+id/thumbnail"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentStart="true"
+            android:layout_alignRight="@+id/thumbnail"
+            android:layout_alignEnd="@+id/thumbnail"
+            android:layout_alignParentBottom="false"
+            android:gravity="center_horizontal" />
+
+    </LinearLayout>
+
+    <!-- Issue Key -->
+    <TextView
+        android:id="@+id/issueKey"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:text="RDSS-3131"
+        android:textSize="12dip"
+        android:textColor="#3b73af"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/issueStatus"
+        android:layout_toRightOf="@+id/thumbnail"
+        android:layout_toEndOf="@+id/thumbnail" />
+
+    <!-- Right End Arrow -->
+    <ImageView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/abc_ic_go_search_api_mtrl_alpha"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:id="@+id/imageView"
+        android:visibility="invisible" />
+
+    <!-- Issue Status -->
+    <TextView
+        android:id="@+id/issueStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OPEN"
+        android:textColor="#000000"
+        android:typeface="sans"
+        android:textStyle="bold"
+        android:textSize="10dip"
+        android:layout_alignRight="@+id/imageView"
+        android:layout_alignEnd="@+id/imageView"
+        android:layout_alignBottom="@+id/issueKey"
+        android:layout_alignParentTop="true"
+        android:gravity="center_vertical" />
+
+
 
     <TextView
-        android:id="@+id/lblListItem"
-        android:layout_width="fill_parent"
+        android:id="@+id/issueSummary"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="17sp"
-        android:textColor="#336699"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft" />
+        android:textColor="#3b73af"
+        android:textSize="10dip"
+        android:text="summary of this issue"
+        android:paddingRight="5dp"
+        android:layout_below="@+id/issueKey"
+        android:layout_alignLeft="@+id/issueKey"
+        android:layout_alignStart="@+id/issueKey"
+        android:layout_toLeftOf="@+id/issueStatus"
+        android:layout_toStartOf="@+id/issueStatus"
+        android:paddingTop="3dp" />
 
-</LinearLayout>
+</RelativeLayout>

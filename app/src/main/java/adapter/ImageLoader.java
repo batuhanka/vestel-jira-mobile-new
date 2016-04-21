@@ -36,7 +36,8 @@ public class ImageLoader {
         executorService = Executors.newFixedThreadPool(5);
     }
 
-    final int stub_id = R.drawable.no_avatar;
+    final int stubAvatar    = R.drawable.no_avatar;
+    final int stubIssue     = R.drawable.ic_menu_manage;
 
     public void displayImage(String username, ImageView imageView) {
 
@@ -47,7 +48,7 @@ public class ImageLoader {
             imageView.setImageBitmap(bitmap);
         else {
             queuePhoto(url, imageView);
-            imageView.setImageResource(stub_id);
+            imageView.setImageResource(stubAvatar);
         }
     }
 
@@ -56,7 +57,7 @@ public class ImageLoader {
         executorService.submit(new PhotosLoader(p));
     }
 
-    private Bitmap getBitmap(String url) {
+    public Bitmap getBitmap(String url) {
         File f = fileCache.getFile(url);
 
         //from SD cache
@@ -168,7 +169,7 @@ public class ImageLoader {
             if (bitmap != null)
                 photoToLoad.imageView.setImageBitmap(bitmap);
             else
-                photoToLoad.imageView.setImageResource(stub_id);
+                photoToLoad.imageView.setImageResource(stubAvatar);
         }
     }
 }

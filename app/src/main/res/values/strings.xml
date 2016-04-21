@@ -28,5 +28,6 @@
     <string name="user_avatar_logo_desc">User Avatar</string>
     <string name="welcome_note">Welcome To JIRA Mobile</string>
     <string name="user_full_name_info">User Full Name</string>
+    <string name="search_for_issues_title"><u>Please Select Search Criteria</u></string>
 
 </resources>

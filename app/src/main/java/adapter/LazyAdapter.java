@@ -50,11 +50,9 @@ public class LazyAdapter extends BaseAdapter {
         TextView author         = (TextView)vi.findViewById(R.id.author); // author
         TextView issueSummary   = (TextView)vi.findViewById(R.id.issueSummary); // issue summary
         TextView publishTime    = (TextView)vi.findViewById(R.id.publishTime); // issue summary
-        ImageView thumb_image   =(ImageView)vi.findViewById(R.id.list_avatar); // thumb image
+        ImageView thumb_image   = (ImageView)vi.findViewById(R.id.list_avatar); // thumb image
 
         HashMap<String, String> item = mDataList.get(position);
-
-
 
         // Setting all values in list view
         issueKey.setText(item.get("ISSUE_KEY"));

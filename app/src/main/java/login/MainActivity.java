@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 int i=0;
                 while(i <= 10) {
                     // Simulate network access.
-                    Thread.sleep(500);
+                    Thread.sleep(100);
                     publishProgress(i*4);
                     i++;
                 }
@@ -178,7 +178,6 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("password", password);
                 startActivity(intent);
                 finish();
-                //MainActivity.this.finish();
 
             }
             else{

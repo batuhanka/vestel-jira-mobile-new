@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import adapter.IssueModel;
 import login.MainActivity;
 
 @SuppressWarnings("deprecation")
@@ -73,9 +74,9 @@ public class RestConnectionProvider {
 
     }
 
-    public  HashMap<String, List<String>> getAssignedIssues(){
+    public  HashMap<String, List<IssueModel>> getAssignedIssues(){
 
-        HashMap<String, List<String>> issues = new HashMap<>();
+        HashMap<String, List<IssueModel>> issues = new HashMap<>();
 
         try {
 
@@ -88,12 +89,17 @@ public class RestConnectionProvider {
                 String rawSummary   = jsonArray.getJSONObject(i).getJSONObject("fields").getString("summary");
                 String summary      = new String(rawSummary.getBytes("ISO-8859-1"), "UTF-8");
                 String priority     = jsonArray.getJSONObject(i).getJSONObject("fields").getJSONObject("priority").get("name").toString();
+                String status       = jsonArray.getJSONObject(i).getJSONObject("fields").getJSONObject("status").get("name").toString();
+                String issueType    = jsonArray.getJSONObject(i).getJSONObject("fields").getJSONObject("issuetype").get("name").toString();
+                String typeIconURL  = jsonArray.getJSONObject(i).getJSONObject("fields").getJSONObject("issuetype").get("iconUrl").toString();
 
                 if (issues.keySet().contains(priority)) {
-                    issues.get(priority).add(key+" "+summary);
+                    IssueModel issueModel = new IssueModel(key, summary, status.toUpperCase(), issueType, typeIconURL);
+                    issues.get(priority).add(issueModel);
                 } else {
-                    List<String> tempList = new ArrayList<>();
-                    tempList.add(key+" "+summary);
+                    List<IssueModel> tempList = new ArrayList<>();
+                    IssueModel issueModel = new IssueModel(key, summary, status.toUpperCase(), issueType, typeIconURL);
+                    tempList.add(issueModel);
                     issues.put(priority, tempList);
                 }
             }
@@ -105,9 +111,9 @@ public class RestConnectionProvider {
         return issues;
     }
 
-    public  HashMap<String, List<String>> getReportedIssues(){
+    public  HashMap<String, List<IssueModel>> getReportedIssues(){
 
-        HashMap<String, List<String>> issues = new HashMap<>();
+        HashMap<String, List<IssueModel>> issues = new HashMap<>();
 
         try {
 
@@ -120,12 +126,17 @@ public class RestConnectionProvider {
                 String rawSummary   = jsonArray.getJSONObject(i).getJSONObject("fields").getString("summary");
                 String summary      = new String(rawSummary.getBytes("ISO-8859-1"), "UTF-8");
                 String priority     = jsonArray.getJSONObject(i).getJSONObject("fields").getJSONObject("priority").get("name").toString();
+                String status       = jsonArray.getJSONObject(i).getJSONObject("fields").getJSONObject("status").get("name").toString();
+                String issueType    = jsonArray.getJSONObject(i).getJSONObject("fields").getJSONObject("issuetype").get("name").toString();
+                String typeIconURL  = jsonArray.getJSONObject(i).getJSONObject("fields").getJSONObject("issuetype").get("iconUrl").toString();
 
                 if (issues.keySet().contains(priority)) {
-                    issues.get(priority).add(key+" "+summary);
+                    IssueModel issueModel = new IssueModel(key, summary, status.toUpperCase(), issueType, typeIconURL);
+                    issues.get(priority).add(issueModel);
                 } else {
-                    List<String> tempList = new ArrayList<>();
-                    tempList.add(key+" "+summary);
+                    List<IssueModel> tempList = new ArrayList<>();
+                    IssueModel issueModel = new IssueModel(key, summary, status.toUpperCase(), issueType, typeIconURL);
+                    tempList.add(issueModel);
                     issues.put(priority, tempList);
                 }
             }
@@ -165,6 +176,29 @@ public class RestConnectionProvider {
 
     }
 
+    public Bitmap getIssueTypeLogo(String issueTypeLogoURL) {
+
+        Bitmap myBitmap = null;
+
+        try {
+
+            URL url = new URL(issueTypeLogoURL);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestProperty("Cookie", "JSESSIONID="+mJsessionID);
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input   = connection.getInputStream();
+            myBitmap            = BitmapFactory.decodeStream(input);
+
+
+        } catch (Exception ex) {
+            Log.e("BATU", ex.getMessage());
+        }
+
+        return myBitmap;
+
+    }
+
     public String getUserFullName(){
 
         String userFullName = "";
@@ -181,7 +215,6 @@ public class RestConnectionProvider {
 
         return userFullName;
     }
-
 
     public  ArrayList<String> getProjects(){
 
