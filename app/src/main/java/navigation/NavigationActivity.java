@@ -6,18 +6,15 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import fragments.ActivityStreamFragment;
@@ -42,11 +39,8 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-       //TODO: Remove this dummy test function after implementation
-       provider.getActivityStreams();
 
         fab        = (FloatingActionButton) findViewById(R.id.fab);
-        //fab.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
         fab.setImageDrawable(getResources().getDrawable(R.drawable.refresh));
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +72,10 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
     }
 
+    public void setActionBarTitle(String title) {
+        getSupportActionBar().setTitle(title);
+    }
+
     public Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth) {
         // GET CURRENT SIZE
         int width = bm.getWidth();
@@ -101,7 +99,10 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         int id                                  = item.getItemId();
         FragmentManager fragmentManager         = getSupportFragmentManager();
 
-        if (id == R.id.nav_assigned_issues) {
+        if (id == R.id.nav_recent_activities) {
+            fragmentManager.beginTransaction().replace(R.id.contentNav, new ActivityStreamFragment()).addToBackStack("ActivityStreamsFragment").commit();
+            fragmentManager.executePendingTransactions();
+        } else if (id == R.id.nav_assigned_issues) {
             fragmentManager.beginTransaction().replace(R.id.contentNav, new AssignedToMeFragment()).addToBackStack("AssignedFragment").commit();
             fragmentManager.executePendingTransactions();
         } else if (id == R.id.nav_reported_issues) {

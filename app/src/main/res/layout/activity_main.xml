@@ -16,17 +16,17 @@
             android:layout_width="wrap_content"
             android:layout_height="72dp"
             android:layout_marginBottom="24dp"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="@string/app_logo_description" />
 
 
         <!-- Username Label -->
-
             <EditText
                 android:id="@+id/username_field"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:hint="Username"
+                android:hint="@string/username_hint"
                 android:text="batuhanka"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"/>
@@ -37,7 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:hint="Password"
+                android:hint="@string/password_hint"
                 android:text="150201036"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"/>
@@ -49,63 +49,8 @@
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
             android:padding="12dp"
-            android:text="Login"/>
+            android:text="@string/login_text"/>
 
 
     </LinearLayout>
 </ScrollView>
-
-
-
-
-
-
-<!--
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/username_field"
-        android:layout_marginTop="63dp"
-        android:hint="@string/username_hint"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:text="batuhanka" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/password_field"
-        android:layout_alignParentStart="true"
-        android:hint="@string/password_hint"
-        android:layout_below="@+id/username_field"
-        android:layout_alignEnd="@+id/username_field"
-        android:layout_alignParentEnd="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:text="150201036" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/signin_hint"
-        android:id="@+id/signin_btn"
-        android:layout_below="@+id/password_field"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:enabled="true" />
-</RelativeLayout>
--->

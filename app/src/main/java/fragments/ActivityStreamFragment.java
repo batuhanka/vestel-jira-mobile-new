@@ -1,5 +1,6 @@
 package fragments;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ public class ActivityStreamFragment extends Fragment {
 
 	RestConnectionProvider provider = new RestConnectionProvider();
 	private LayoutInflater mInflator;
+	private boolean refreshCheck = false;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
@@ -35,13 +37,17 @@ public class ActivityStreamFragment extends Fragment {
 		View rootView = inflater.inflate(R.layout.fragment_activities, container, false);
 		final Context context = rootView.getContext();
 		new ActivityStreamTask(rootView, context).execute();
+		((NavigationActivity) getActivity()).setActionBarTitle("Recent Activities in JIRA");
 
 		FloatingActionButton fab = NavigationActivity.fab;
 		fab.setImageDrawable(getResources().getDrawable(R.drawable.refresh));
 		fab.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
+				refreshCheck = true;
 				Snackbar.make(view, "Refreshing recent activities in JIRA...", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+				new ActivityStreamTask(view.getRootView(), context).execute();
+				refreshCheck = false;
 			}
 		});
 
@@ -53,15 +59,25 @@ public class ActivityStreamFragment extends Fragment {
 	class ActivityStreamTask extends AsyncTask<Void, String, ArrayList<HashMap<String,String>>> {
 
 		private View mRootView;
-		@SuppressWarnings("unused")
+		private ProgressDialog loadingDialog;
 		private Context mContext;
 		ActivityStreamTask(View rootView, Context context){
 			mRootView	= rootView;
 			mContext	= context;
+			loadingDialog = new ProgressDialog(mContext);
+			loadingDialog.setMessage("Loading... Please Wait...");
 		}
 		@Override
 		protected ArrayList<HashMap<String,String>> doInBackground(Void... params) {
 			return  provider.getActivityStreams();
+		}
+
+		@Override
+		protected void onPreExecute() {
+			if(refreshCheck)
+				loadingDialog.hide();
+			else
+				loadingDialog.show();
 		}
 
 		@Override
@@ -80,9 +96,8 @@ public class ActivityStreamFragment extends Fragment {
 				}
 			});
 			adapter.notifyDataSetChanged();
+			loadingDialog.hide();
+			loadingDialog.dismiss();
 		}
-
-
 	}
-
 }

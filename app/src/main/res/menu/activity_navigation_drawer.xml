@@ -3,36 +3,44 @@
         <group
             android:id="@+id/menu_top"
             android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_assigned_issues"
-            android:icon="@drawable/assign"
-            android:title="Assigned To Me" />
-        <item
-            android:id="@+id/nav_reported_issues"
-            android:icon="@drawable/reported"
-            android:title="Reported To Me" />
-        <item
-            android:id="@+id/nav_search_issues"
-            android:icon="@drawable/search"
-            android:title="Search For Issues" />
+
+            <item
+                android:id="@+id/nav_recent_activities"
+                android:icon="@drawable/recent"
+                android:title="@string/recent_activities_label" />
+
+            <item
+                android:id="@+id/nav_assigned_issues"
+                android:icon="@drawable/assign"
+                android:title="@string/assigned_to_me_label" />
+            <item
+                android:id="@+id/nav_reported_issues"
+                android:icon="@drawable/reported"
+                android:title="@string/reported_by_me_label" />
+            <item
+                android:id="@+id/nav_search_issues"
+                android:icon="@drawable/search"
+                android:title="@string/search_for_issues_label" />
+
+            <item
+                android:id="@+id/nav_projects"
+                android:icon="@drawable/projects"
+                android:title="@string/view_projects_label" />
     </group>
 
     <group
         android:id="@+id/menu_bottom"
         android:checkableBehavior="none">
-            <item
-                android:id="@+id/nav_projects"
-                android:icon="@drawable/ic_menu_share"
-                android:title="View Projects" />
 
-            <item
-                android:id="@+id/nav_about"
-                android:icon="@drawable/ic_menu_share"
-                android:title="About" />
+
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/about"
+            android:title="@string/about_label" />
 
         <item
             android:id="@+id/nav_log_out"
-            android:icon="@drawable/ic_menu_share"
-            android:title="Log Out" />
-        </group>
+            android:icon="@drawable/logout"
+            android:title="@string/log_out_label" />
+    </group>
 </menu>

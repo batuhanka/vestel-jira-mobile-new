@@ -6,15 +6,6 @@
     android:orientation="vertical"
     android:padding="30dp">
 
-    <TextView
-        android:id="@+id/searchHeader"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/search_header"
-        android:textSize="15dip"
-        android:gravity="center_horizontal"
-        android:textStyle="bold"/>
-
     <LinearLayout
         android:id="@+id/projectLayout"
         android:layout_width="match_parent"

@@ -4,15 +4,6 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
-    <TextView
-        android:id="@+id/activityStreamHeader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/activity_stream_header"
-        android:textSize="15dip"
-        android:layout_centerHorizontal="true"
-        android:textStyle="bold"/>
-
     <ListView
         android:id="@+id/activityStreamsList"
         android:layout_width="fill_parent"
@@ -20,7 +11,6 @@
         android:divider="#b5b5b5"
         android:dividerHeight="1dp"
         android:listSelector="@drawable/list_selector"
-        android:layout_below="@+id/activityStreamHeader"
         android:paddingTop="5dp"/>
 
 </RelativeLayout>

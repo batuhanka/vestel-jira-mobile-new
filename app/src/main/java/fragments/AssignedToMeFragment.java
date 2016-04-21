@@ -1,16 +1,11 @@
 package fragments;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,9 +39,9 @@ public class AssignedToMeFragment extends Fragment {
             headers.add(str);
         }
         elv.setAdapter(new SavedTabsListAdapter(getActivity().getApplicationContext(), headers, results));
+        ((NavigationActivity) getActivity()).setActionBarTitle("Assigned Issues To Me");
 
         FloatingActionButton fab = NavigationActivity.fab;
-        //fab.setBackgroundTintList(ColorStateList.valueOf(Color.MAGENTA));
         fab.setImageDrawable(getResources().getDrawable(R.drawable.create));
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

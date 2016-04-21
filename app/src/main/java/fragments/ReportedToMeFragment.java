@@ -1,14 +1,11 @@
 package fragments;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,9 +37,9 @@ public class ReportedToMeFragment extends Fragment {
         List<String> headers                    = new ArrayList<>();
         for(String str : results.keySet()){     headers.add(str);   }
         elv.setAdapter(new SavedTabsListAdapter(getActivity().getApplicationContext(), headers, results ));
+        ((NavigationActivity) getActivity()).setActionBarTitle("Reported Issues By Me");
 
         FloatingActionButton fab = NavigationActivity.fab;
-        //fab.setBackgroundTintList(ColorStateList.valueOf(Color.LTGRAY));
         fab.setImageDrawable(getResources().getDrawable(R.drawable.create));
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

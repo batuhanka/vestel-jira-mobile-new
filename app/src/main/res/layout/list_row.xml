@@ -40,7 +40,7 @@
     <!-- Right End Arrow -->
     <ImageView android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_menu_send"
+        android:src="@drawable/abc_ic_go_search_api_mtrl_alpha"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:id="@+id/imageView" />

@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,6 +87,7 @@ public class SearchIssueFragment extends Fragment {
 		final Context context		= rootView.getContext();
 		new UserOptionTask(rootView, context).execute();
 		new ProjectOptionTask(rootView, context).execute();
+		((NavigationActivity) getActivity()).setActionBarTitle("Search For Issues");
 
 		FloatingActionButton fab = NavigationActivity.fab;
 		fab.setImageDrawable(getResources().getDrawable(R.drawable.search_issue));
