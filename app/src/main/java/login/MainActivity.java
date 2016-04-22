@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.CookieStore;
@@ -27,6 +28,7 @@ import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     public static String mPassword;
     public static String JSESSION_ID;
 
+
     public EditText mUsernameView;
     public EditText mPasswordView;
     public Button mSignInButton;
@@ -55,9 +58,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mSignInButton = (Button)    findViewById(R.id.signin_btn);
-        mUsernameView = (EditText)  findViewById(R.id.username_field);
-        mPasswordView = (EditText)  findViewById(R.id.password_field);
+        mSignInButton = (Button) findViewById(R.id.signin_btn);
+        mUsernameView = (EditText) findViewById(R.id.username_field);
+        mPasswordView = (EditText) findViewById(R.id.password_field);
 
         mSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,18 +109,11 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            try {
-                int i=0;
-                while(i <= 10) {
-                    // Simulate network access.
-                    Thread.sleep(100);
-                    publishProgress(i*4);
-                    i++;
-                }
-            } catch (InterruptedException e) {
-                return false;
+            int i = 0;
+            while (i <= 10) {
+                publishProgress(i * 4);
+                i++;
             }
-
             checkAccount(mUsername, mPassword);
             return true;
         }
@@ -139,15 +135,16 @@ public class MainActivity extends AppCompatActivity {
             mAuthTask = null;
         }
 
-        private void checkAccount(String username, String password){
+        private void checkAccount(String username, String password) {
             String json = "";
             InputStream is;
+            String errorMessage = "";
 
-           try{
-                HttpClient client 			= new DefaultHttpClient();
-                CookieStore cookieStore 	= new BasicCookieStore();
-                HttpContext httpContext 	= new BasicHttpContext();
-                HttpPost post 				= new HttpPost("http://10.108.95.25/jira/rest/auth/1/session");
+            try {
+                HttpClient client = new DefaultHttpClient();
+                CookieStore cookieStore = new BasicCookieStore();
+                HttpContext httpContext = new BasicHttpContext();
+                HttpPost post = new HttpPost("http://10.108.95.25/jira/rest/auth/1/session");
                 httpContext.setAttribute(ClientContext.COOKIE_STORE, cookieStore);
                 post.setHeader("Content-type", "application/json");
 
@@ -156,49 +153,80 @@ public class MainActivity extends AppCompatActivity {
                 obj.put("password", password);
 
                 post.setEntity(new StringEntity(obj.toString(), "UTF-8"));
-                HttpResponse response    = client.execute(post, httpContext);
-                is                      = response.getEntity().getContent();
+                HttpResponse response = client.execute(post, httpContext);
+                is = response.getEntity().getContent();
 
                 try {
-                    BufferedReader reader   = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
-                    StringBuilder sb        = new StringBuilder();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
+                    StringBuilder sb = new StringBuilder();
                     String line;
-                        while ((line = reader.readLine()) != null) {
-                            sb.append(line).append("\n");
-                        }
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line).append("\n");
+                    }
                     is.close();
                     json = sb.toString();
                 } catch (Exception e) {
-                Log.e("Buffer Error", "Error converting result " + e.toString());
+                    Log.e("Buffer Error", "Error converting result " + e.toString());
+                }
+
+                JSONObject jsonObject = new JSONObject(json);
+                try {
+                    JSONArray errorMessagesArray = jsonObject.getJSONArray("errorMessages");
+                    errorMessage = errorMessagesArray.getString(0);
+                } catch (Exception ex) {
+                    Log.e("BATU", "No valid error messages");
+                }
+
+                if (errorMessage.matches("Login failed")) {
+                    new Thread() {
+                        public void run() {
+                            MainActivity.this.runOnUiThread(new Runnable() {
+                                public void run() {
+                                    AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+                                    alertDialog.setTitle("Login Failed");
+                                    alertDialog.setMessage("Please check your username and password");
+                                    alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                                    alertDialog.show();
+                                }
+                            });
+                        }
+                    }.start();
+                } else if (jsonObject.get("session") != null) {
+                    JSONObject sessionJSON = new JSONObject(jsonObject.get("session").toString());
+                    JSESSION_ID = sessionJSON.get("value").toString();
+                    Intent intent = new Intent(getBaseContext(), NavigationActivity.class);
+                    intent.putExtra("username", username);
+                    intent.putExtra("password", password);
+                    startActivity(intent);
+                    finish();
+                }
+
+            } catch (Exception ignored) {
+                new Thread() {
+                    public void run() {
+                        MainActivity.this.runOnUiThread(new Runnable() {
+                            public void run() {
+                                AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+                                alertDialog.setTitle("Connection Refused");
+                                alertDialog.setMessage("Please check your VPN Settings");
+                                alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Intent intent = new Intent("android.net.vpn.SETTINGS");
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                    }
+                                });
+                                alertDialog.show();
+                            }
+                        });
+                    }
+                }.start();
             }
-
-            JSONObject jsonObject = new JSONObject(json);
-            if(jsonObject.get("session") != null){
-
-                JSONObject sessionJSON  = new JSONObject(jsonObject.get("session").toString());
-                JSESSION_ID             = sessionJSON.get("value").toString();
-
-                Log.e("BATU", "Login Successful");
-                Intent intent   = new Intent(getBaseContext(), NavigationActivity.class);
-                intent.putExtra("username", username);
-                intent.putExtra("password", password);
-                startActivity(intent);
-                finish();
-            }
-            else{
-                Log.e("BATU", "Login Failed");
-            }
-
-        }catch(Exception ignored){
-               // TODO: Implement dialog in order to open VPN Settings
-               Intent intent = new Intent("android.net.vpn.SETTINGS");
-               intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-               startActivity(intent);
-
-               Log.e("BATU", "Please check your VPN connections");
-               Log.e("BATU", ignored.toString());
-           }
-       }
+        }
     }
 
     public static String getmUsername() {
