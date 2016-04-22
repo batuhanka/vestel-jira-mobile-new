@@ -2,8 +2,10 @@ package login;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -188,6 +190,11 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }catch(Exception ignored){
+               // TODO: Implement dialog in order to open VPN Settings
+               Intent intent = new Intent("android.net.vpn.SETTINGS");
+               intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+               startActivity(intent);
+
                Log.e("BATU", "Please check your VPN connections");
                Log.e("BATU", ignored.toString());
            }
