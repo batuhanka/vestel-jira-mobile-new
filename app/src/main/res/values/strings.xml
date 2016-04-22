@@ -31,5 +31,13 @@
     <string name="welcome_note">Welcome To JIRA Mobile</string>
     <string name="user_full_name_info">User Full Name</string>
     <string name="search_for_issues_title"><u>Please Select Search Criteria</u></string>
+    <string name="project_ac_hint">Project</string>
+    <string name="assignee_ac_hint">Assignee</string>
+    <string name="reporter_ac_hint">Reporter</string>
+    <string name="issuetype_ac_hint">Issue Type</string>
+    <string name="priority_ac_hint">Priority</string>
+    <string name="description_ac_hint">Description</string>
+    <string name="summary_ac_hint">Summary</string>
+    <string name="created_ac_hint">Created</string>
 
 </resources>

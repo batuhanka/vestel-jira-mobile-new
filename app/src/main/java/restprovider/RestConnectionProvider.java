@@ -176,29 +176,6 @@ public class RestConnectionProvider {
 
     }
 
-    public Bitmap getIssueTypeLogo(String issueTypeLogoURL) {
-
-        Bitmap myBitmap = null;
-
-        try {
-
-            URL url = new URL(issueTypeLogoURL);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestProperty("Cookie", "JSESSIONID="+mJsessionID);
-            connection.setDoInput(true);
-            connection.connect();
-            InputStream input   = connection.getInputStream();
-            myBitmap            = BitmapFactory.decodeStream(input);
-
-
-        } catch (Exception ex) {
-            Log.e("BATU", ex.getMessage());
-        }
-
-        return myBitmap;
-
-    }
-
     public String getUserFullName(){
 
         String userFullName = "";
@@ -220,7 +197,6 @@ public class RestConnectionProvider {
 
         ArrayList<String> projects  = new ArrayList<>();
         String getAllProjects       = JIRA_REST_BASE_URL+"/project";
-
 
         try{
 

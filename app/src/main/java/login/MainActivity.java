@@ -173,9 +173,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     JSONArray errorMessagesArray = jsonObject.getJSONArray("errorMessages");
                     errorMessage = errorMessagesArray.getString(0);
-                } catch (Exception ex) {
-                    Log.e("BATU", "No valid error messages");
-                }
+                } catch (Exception ex) {  Log.e("BATU", ex.getMessage());   }
 
                 if (errorMessage.matches("Login failed")) {
                     new Thread() {
