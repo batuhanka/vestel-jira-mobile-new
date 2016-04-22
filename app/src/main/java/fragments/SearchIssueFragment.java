@@ -53,6 +53,7 @@ public class SearchIssueFragment extends Fragment {
 							Log.d("BATU", "onDateSet");
 							Calendar c = Calendar.getInstance();
 							c.set(year, month, day);
+							@SuppressLint("SimpleDateFormat")
 							SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
 							dateACView.setText(simpleDateFormat.format(c.getTime()), false);
 							rootView.requestFocus();

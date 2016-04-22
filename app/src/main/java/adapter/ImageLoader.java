@@ -37,7 +37,6 @@ public class ImageLoader {
     }
 
     final int stubAvatar    = R.drawable.no_avatar;
-    final int stubIssue     = R.drawable.ic_menu_manage;
 
     public void displayImage(String username, ImageView imageView) {
 

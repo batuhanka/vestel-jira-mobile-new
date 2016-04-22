@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
-import android.text.format.Time;
+import android.annotation.SuppressLint;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,6 +64,7 @@ public class LazyAdapter extends BaseAdapter {
         return vi;
     }
 
+    @SuppressWarnings("deprecation")
     public String calculateTime(String rawTime){
 
         String result   = "";
@@ -71,6 +72,7 @@ public class LazyAdapter extends BaseAdapter {
         String dateText = temp[0];
         String hourText = rawTime.substring(rawTime.indexOf("T")+1, rawTime.indexOf("."));
         String timeText = dateText+" "+hourText;
+        @SuppressLint("SimpleDateFormat")
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date currentTime = new Date();
 
