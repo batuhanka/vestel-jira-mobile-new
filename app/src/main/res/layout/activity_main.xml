@@ -2,7 +2,9 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:id="@+id/mainLayout"
+    android:background="@drawable/back">
 
     <LinearLayout
         android:orientation="vertical"
@@ -12,13 +14,15 @@
         android:paddingLeft="24dp"
         android:paddingRight="24dp">
 
-        <ImageView android:src="@android:drawable/btn_star"
-            android:layout_width="wrap_content"
-            android:layout_height="72dp"
-            android:layout_marginBottom="24dp"
-            android:layout_gravity="center_horizontal"
-            android:contentDescription="@string/app_logo_description" />
 
+        <ImageView
+            android:src="@drawable/jiramobile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="@string/app_logo_description">
+        </ImageView>
 
         <!-- Username Label -->
             <EditText
@@ -28,8 +32,11 @@
                 android:inputType="textPersonName"
                 android:hint="@string/username_hint"
                 android:text="batuhanka"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"/>
+
 
         <!-- Password Label -->
             <EditText
@@ -39,6 +46,8 @@
                 android:inputType="textPassword"
                 android:hint="@string/password_hint"
                 android:text="150201036"
+                android:textStyle="bold"
+                android:textColor="#ffffff"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"/>
 
