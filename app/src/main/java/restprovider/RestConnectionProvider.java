@@ -31,6 +31,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import adapter.IssueModel;
+import adapter.ViewIssueModel;
 import login.MainActivity;
 
 @SuppressWarnings("deprecation")
@@ -146,6 +147,61 @@ public class RestConnectionProvider {
         }
 
         return issues;
+    }
+
+
+    public ViewIssueModel getSingleIssueDetails(String issueKey){
+
+        ViewIssueModel resultIssueItem = null;
+
+        try {
+
+            String issueURL = JIRA_REST_BASE_URL + "/issue/" + issueKey;
+            JSONObject jsonObject = createRestRequest(issueURL);
+
+            Log.e("BATU", jsonObject.toString());
+
+            String key          = jsonObject.get("key").toString();
+            String summary      = new String(jsonObject.getJSONObject("fields").getString("summary").getBytes("ISO-8859-1"), "UTF-8");
+            String priority     = jsonObject.getJSONObject("fields").getJSONObject("priority").get("name").toString();
+            String status       = jsonObject.getJSONObject("fields").getJSONObject("status").get("name").toString();
+            String issueType    = jsonObject.getJSONObject("fields").getJSONObject("issuetype").get("name").toString();
+            String typeIconURL  = jsonObject.getJSONObject("fields").getJSONObject("issuetype").get("iconUrl").toString();
+            String assignee     = new String(jsonObject.getJSONObject("fields").getJSONObject("assignee").get("displayName").toString().getBytes("ISO-8859-1"), "UTF-8");
+            String assigneeURL  = jsonObject.getJSONObject("fields").getJSONObject("assignee").getJSONObject("avatarUrls").get("48x48").toString();
+            String reporter     = new String(jsonObject.getJSONObject("fields").getJSONObject("reporter").get("displayName").toString().getBytes("ISO-8859-1"), "UTF-8");;
+            String reporterURL  = jsonObject.getJSONObject("fields").getJSONObject("reporter").getJSONObject("avatarUrls").get("48x48").toString();
+            String projectName  = jsonObject.getJSONObject("fields").getJSONObject("project").get("name").toString();
+            String projectURL   = jsonObject.getJSONObject("fields").getJSONObject("project").getJSONObject("avatarUrls").get("48x48").toString();
+            String description  = new String(jsonObject.getJSONObject("fields").getString("description").getBytes("ISO-8859-1"), "UTF-8");
+            String resolution   = jsonObject.getJSONObject("fields").getString("resolution");
+            if(resolution.matches("null"))
+                resolution = "Unresolved";
+
+
+            resultIssueItem = new ViewIssueModel(
+                    key,
+                    projectURL,
+                    projectName,
+                    summary,
+                    issueType,
+                    typeIconURL,
+                    status,
+                    priority,
+                    assignee,
+                    assigneeURL,
+                    reporter,
+                    reporterURL,
+                    resolution,
+                    description
+            );
+
+
+        } catch (Exception ex) {
+            Log.e("BATU", ex.getMessage());
+        }
+
+        return resultIssueItem;
     }
 
     public Bitmap getUserAvatar(String username) {

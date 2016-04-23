@@ -1,5 +1,8 @@
 package navigation;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.os.Bundle;
@@ -127,8 +130,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id                                  = item.getItemId();
-
+        int id = item.getItemId();
 
         if (id == R.id.nav_recent_activities) {
             fragmentManager.beginTransaction().replace(R.id.contentNav, new ActivityStreamFragment()).addToBackStack("ActivityStreamsFragment").commit();
@@ -142,11 +144,32 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         } else if (id == R.id.nav_search_issues) {
             fragmentManager.beginTransaction().replace(R.id.contentNav, new SearchIssueFragment()).addToBackStack("SearchFragment").commit();
             fragmentManager.executePendingTransactions();
+        } else if (id == R.id.nav_favourite_filter) {
+
         } else if (id == R.id.nav_projects) {
 
         } else if (id == R.id.nav_about) {
 
         } else if (id == R.id.nav_log_out) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Log Out");
+            builder.setMessage("Will you log out ?");
+            builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+
+            builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            AlertDialog alert = builder.create();
+            alert.show();
 
         }
 

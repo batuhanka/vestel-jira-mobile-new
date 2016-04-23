@@ -1,6 +1,7 @@
 package fragments;
 
 import android.annotation.SuppressLint;
+import android.support.v4.app.FragmentManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
@@ -31,6 +32,8 @@ import restprovider.RestConnectionProvider;
 @SuppressWarnings("deprecation")
 public class AssignedToMeFragment extends Fragment {
 
+    HashMap<String, List<IssueModel>> results;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -38,7 +41,7 @@ public class AssignedToMeFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_assigned, container, false);
 
         ExpandableListView elv = (ExpandableListView) rootView.findViewById(R.id.assigneelist);
-        HashMap<String, List<IssueModel>> results = provider.getAssignedIssues();
+        results = provider.getAssignedIssues();
         List<String> headers = new ArrayList<>();
         for (String str : results.keySet()) {
             headers.add(str);
@@ -135,8 +138,15 @@ public class AssignedToMeFragment extends Fragment {
             issueItemLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getActivity().getApplicationContext(), "Item : " + keyChild.getText().toString(), Toast.LENGTH_SHORT).show();
-
+                    TextView issueKeyView   = (TextView) v.findViewById(R.id.issueKey);
+                    String issueKey         = issueKeyView.getText().toString();
+                    FragmentManager fragmentManager = getFragmentManager();
+                    Fragment viewIssueFragment = new ViewIssueFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("ISSUE_KEY", issueKey);
+                    viewIssueFragment.setArguments(bundle);
+                    fragmentManager.beginTransaction().replace(R.id.contentNav, viewIssueFragment).addToBackStack("ViewFragment").commit();
+                    fragmentManager.executePendingTransactions();
                 }
             });
 
