@@ -1,5 +1,6 @@
 package fragments;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -24,6 +25,7 @@ public class ViewIssueFragment extends Fragment {
 	String mIssueKey;
 
 
+	@SuppressLint("NewApi")
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
@@ -40,8 +42,12 @@ public class ViewIssueFragment extends Fragment {
 
 
 		ImageView projectLogoView 	= (ImageView) rootView.findViewById(R.id.projectLogo);
-		Bitmap projectBitmap		= imageLoader.getBitmap(issueItem.getProjectIconURL());
-		projectLogoView.setImageBitmap(projectBitmap);
+		try {
+			Bitmap projectBitmap = imageLoader.getBitmap(issueItem.getProjectIconURL());
+			projectLogoView.setImageBitmap(provider.getResizedBitmap(projectBitmap, 120, 120));
+		}catch (Exception ex){
+			projectLogoView.setImageDrawable(getResources().getDrawable(R.drawable.projects));
+		}
 
 		TextView pnameAndIssueKeyView 	= (TextView) rootView.findViewById(R.id.pname_and_issuekey);
 		String combinedText				= issueItem.getProjectName()+" / "+issueItem.getIssueKey();
@@ -54,12 +60,36 @@ public class ViewIssueFragment extends Fragment {
 		issueTypeView.setText(issueItem.getIssueType());
 
 		ImageView issueTypeLogo			= (ImageView) rootView.findViewById(R.id.issueTypeImage);
-		Bitmap issueTypeBitmap			= imageLoader.getBitmap(issueItem.getTypeIconURL());
-		issueTypeLogo.setImageBitmap(issueTypeBitmap);
-
+		try {
+			Bitmap issueTypeBitmap = imageLoader.getBitmap(issueItem.getTypeIconURL());
+			issueTypeLogo.setImageBitmap(issueTypeBitmap);
+		}catch (Exception ex){
+			issueTypeLogo.setImageDrawable(getResources().getDrawable(R.drawable.recent));
+		}
 
 		TextView issueStatusView 			= (TextView) rootView.findViewById(R.id.issueStatusValue);
+		String issueStatus      			= issueItem.getIssueStatus();
+		switch (issueStatus.toUpperCase()){
+			case "SUBMITTED":
+			case "OPEN":
+			case "REOPENED":
+				issueStatusView.setBackground(getResources().getDrawable(R.drawable.status_blue));
+				break;
+
+			case "RESOLVED":
+			case "CLOSED":
+			case "CANCELED":
+			case "APPROVED":
+			case "DONE":
+				issueStatusView.setBackground(getResources().getDrawable(R.drawable.status_green));
+				break;
+
+			default:
+				issueStatusView.setBackground(getResources().getDrawable(R.drawable.status_yellow));
+				break;
+		}
 		issueStatusView.setText(issueItem.getIssueStatus());
+
 
 		TextView issuePriorityView 			= (TextView) rootView.findViewById(R.id.issuePriorityValue);
 		issuePriorityView.setText(issueItem.getIssuePriority());
@@ -76,15 +106,23 @@ public class ViewIssueFragment extends Fragment {
 
 
 		ImageView issueAssigneeAvatar	= (ImageView) rootView.findViewById(R.id.issueAssigneeAvatar);
-		Bitmap assigneeBitmap			= imageLoader.getBitmap(issueItem.getAssigneeURL());
- 		issueAssigneeAvatar.setImageBitmap(assigneeBitmap);
+		try {
+			Bitmap assigneeBitmap = imageLoader.getBitmap(issueItem.getAssigneeURL());
+			issueAssigneeAvatar.setImageBitmap(assigneeBitmap);
+		}catch (Exception ex) {
+			issueAssigneeAvatar.setImageDrawable(getResources().getDrawable(R.drawable.no_avatar));
+		}
 
 		TextView issueAssigneeView 		= (TextView) rootView.findViewById(R.id.issueAssigneeValue);
 		issueAssigneeView.setText(issueItem.getAssignee());
 
 		ImageView issueReporterAvatar	= (ImageView) rootView.findViewById(R.id.issueReporterAvatar);
-		Bitmap reporterBitmap			= imageLoader.getBitmap(issueItem.getReporterURL());
- 		issueReporterAvatar.setImageBitmap(reporterBitmap);
+		try {
+			Bitmap reporterBitmap = imageLoader.getBitmap(issueItem.getReporterURL());
+			issueReporterAvatar.setImageBitmap(reporterBitmap);
+		}catch (Exception ex) {
+			issueReporterAvatar.setImageDrawable(getResources().getDrawable(R.drawable.no_avatar));
+		}
 
 		TextView issueReporterView 		= (TextView) rootView.findViewById(R.id.issueReporterValue);
 		issueReporterView.setText(issueItem.getReporter());

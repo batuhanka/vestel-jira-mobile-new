@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,8 +92,19 @@ public class ActivityStreamFragment extends Fragment {
 			activityList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-					TextView issueKeyView = (TextView) view.findViewById(R.id.issueKey);
-					Toast.makeText(getActivity().getBaseContext(), issueKeyView.getText(), Toast.LENGTH_SHORT).show();
+					TextView issueKeyView   = (TextView) view.findViewById(R.id.issueKey);
+					String issueKey         = issueKeyView.getText().toString();
+					if(issueKey.matches("Activity Stream")){
+						Toast.makeText(mRootView.getContext(), "Just an activity stream event", Toast.LENGTH_SHORT).show();
+					}else {
+						FragmentManager fragmentManager = getFragmentManager();
+						Fragment viewIssueFragment = new ViewIssueFragment();
+						Bundle bundle = new Bundle();
+						bundle.putString("ISSUE_KEY", issueKey);
+						viewIssueFragment.setArguments(bundle);
+						fragmentManager.beginTransaction().replace(R.id.contentNav, viewIssueFragment).addToBackStack("ViewFragment").commit();
+						fragmentManager.executePendingTransactions();
+					}
 				}
 			});
 			adapter.notifyDataSetChanged();

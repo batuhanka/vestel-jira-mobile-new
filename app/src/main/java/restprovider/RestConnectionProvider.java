@@ -2,6 +2,7 @@ package restprovider;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.os.StrictMode;
 import android.util.Base64;
 import android.util.Log;
@@ -73,6 +74,22 @@ public class RestConnectionProvider {
         }
         return jsonObject;
 
+    }
+
+    public Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth) {
+        // GET CURRENT SIZE
+        int width = bm.getWidth();
+        int height = bm.getHeight();
+        // GET SCALE SIZE
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;
+        // CREATE A MATRIX FOR THE MANIPULATION
+        Matrix matrix = new Matrix();
+        // RESIZE THE BIT MAP
+        matrix.postScale(scaleWidth, scaleHeight);
+        // "RECREATE" THE NEW BITMAP
+
+        return Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
     }
 
     public  HashMap<String, List<IssueModel>> getAssignedIssues(){
@@ -169,7 +186,7 @@ public class RestConnectionProvider {
             String typeIconURL  = jsonObject.getJSONObject("fields").getJSONObject("issuetype").get("iconUrl").toString();
             String assignee     = new String(jsonObject.getJSONObject("fields").getJSONObject("assignee").get("displayName").toString().getBytes("ISO-8859-1"), "UTF-8");
             String assigneeURL  = jsonObject.getJSONObject("fields").getJSONObject("assignee").getJSONObject("avatarUrls").get("48x48").toString();
-            String reporter     = new String(jsonObject.getJSONObject("fields").getJSONObject("reporter").get("displayName").toString().getBytes("ISO-8859-1"), "UTF-8");;
+            String reporter     = new String(jsonObject.getJSONObject("fields").getJSONObject("reporter").get("displayName").toString().getBytes("ISO-8859-1"), "UTF-8");
             String reporterURL  = jsonObject.getJSONObject("fields").getJSONObject("reporter").getJSONObject("avatarUrls").get("48x48").toString();
             String projectName  = jsonObject.getJSONObject("fields").getJSONObject("project").get("name").toString();
             String projectURL   = jsonObject.getJSONObject("fields").getJSONObject("project").getJSONObject("avatarUrls").get("48x48").toString();

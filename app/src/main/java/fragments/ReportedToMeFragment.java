@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,6 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -113,8 +113,15 @@ public class ReportedToMeFragment extends Fragment {
             issueItemLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getActivity().getApplicationContext(), "Item : " + keyChild.getText().toString(), Toast.LENGTH_SHORT).show();
-
+                    TextView issueKeyView   = (TextView) v.findViewById(R.id.issueKey);
+                    String issueKey         = issueKeyView.getText().toString();
+                    FragmentManager fragmentManager = getFragmentManager();
+                    Fragment viewIssueFragment = new ViewIssueFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("ISSUE_KEY", issueKey);
+                    viewIssueFragment.setArguments(bundle);
+                    fragmentManager.beginTransaction().replace(R.id.contentNav, viewIssueFragment).addToBackStack("ViewFragment").commit();
+                    fragmentManager.executePendingTransactions();
                 }
             });
 

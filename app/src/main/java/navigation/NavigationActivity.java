@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -68,7 +67,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         String userFullNameText         = provider.getUserFullName();
 
         Bitmap userAvatarBitmap = provider.getUserAvatar(MainActivity.getmUsername());
-        Bitmap resizedAvatar    = getResizedBitmap(userAvatarBitmap, 180, 180);
+        Bitmap resizedAvatar    = provider.getResizedBitmap(userAvatarBitmap, 180, 180);
         userAvatar.setImageBitmap(resizedAvatar);
         userFullNameView.setText(userFullNameText);
 
@@ -82,21 +81,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         getSupportActionBar().setTitle(title);
     }
 
-    public Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth) {
-        // GET CURRENT SIZE
-        int width = bm.getWidth();
-        int height = bm.getHeight();
-        // GET SCALE SIZE
-        float scaleWidth = ((float) newWidth) / width;
-        float scaleHeight = ((float) newHeight) / height;
-        // CREATE A MATRIX FOR THE MANIPULATION
-        Matrix matrix = new Matrix();
-        // RESIZE THE BIT MAP
-        matrix.postScale(scaleWidth, scaleHeight);
-        // "RECREATE" THE NEW BITMAP
 
-        return Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
