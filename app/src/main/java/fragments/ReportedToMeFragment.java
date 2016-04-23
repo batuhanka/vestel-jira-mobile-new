@@ -1,5 +1,6 @@
 package fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
@@ -82,6 +83,7 @@ public class ReportedToMeFragment extends Fragment {
             return childPosition;
         }
 
+        @SuppressLint("NewApi")
         @Override
         public View getChildView(int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
 
@@ -99,6 +101,26 @@ public class ReportedToMeFragment extends Fragment {
             typeChild.setText(childItem.getIssueType());
 
             TextView statusChild = (TextView) convertView.findViewById(R.id.issueStatus);
+            String issueStatus      = childItem.getIssueStatus();
+            switch (issueStatus){
+                case "SUBMITTED":
+                case "OPEN":
+                case "REOPENED":
+                    statusChild.setBackground(getResources().getDrawable(R.drawable.status_blue));
+                    break;
+
+                case "RESOLVED":
+                case "CLOSED":
+                case "CANCELED":
+                case "APPROVED":
+                case "DONE":
+                    statusChild.setBackground(getResources().getDrawable(R.drawable.status_green));
+                    break;
+
+                default:
+                    statusChild.setBackground(getResources().getDrawable(R.drawable.status_yellow));
+                    break;
+            }
             statusChild.setText(childItem.getIssueStatus());
 
             TextView summaryChild = (TextView) convertView.findViewById(R.id.issueSummary);
