@@ -39,5 +39,6 @@
     <string name="description_ac_hint">Description</string>
     <string name="summary_ac_hint">Summary</string>
     <string name="created_ac_hint">Created</string>
+    <string name="no_items_info">No Items</string>
 
 </resources>

@@ -46,16 +46,16 @@
         android:id="@+id/imageView"
         android:visibility="invisible" />
 
-    <LinearLayout
-        android:id="@+id/actionAndKeyLayout"
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/author"
-        android:layout_alignBottom="@+id/imageView"
-        android:layout_toLeftOf="@+id/imageView"
-        android:layout_toRightOf="@+id/thumbnail"
-        android:layout_toEndOf="@+id/thumbnail">
+    <!--<LinearLayout-->
+        <!--android:id="@+id/actionAndKeyLayout"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/author"-->
+        <!--android:layout_alignBottom="@+id/imageView"-->
+        <!--android:layout_toLeftOf="@+id/imageView"-->
+        <!--android:layout_toRightOf="@+id/thumbnail"-->
+        <!--android:layout_toEndOf="@+id/thumbnail">-->
 
         <!-- Action Info -->
         <TextView
@@ -65,7 +65,11 @@
             android:textColor="#343434"
             android:textStyle="bold"
             android:textSize="10dip"
-            android:text="action of this issue"/>
+            android:text="action of this issue"
+            android:layout_below="@+id/author"
+            android:layout_toRightOf="@+id/thumbnail"
+            android:layout_toEndOf="@+id/thumbnail"
+            android:paddingTop="3dp" />
 
         <!-- Issue Key Info -->
         <TextView
@@ -77,10 +81,14 @@
             android:typeface="sans"
             android:textSize="10dip"
             android:textStyle="bold"
-            android:paddingLeft="5dp" />
+            android:paddingLeft="5dp"
+            android:layout_alignTop="@+id/actionInfo"
+            android:layout_toRightOf="@+id/actionInfo"
+            android:layout_toEndOf="@+id/actionInfo"
+            android:paddingTop="3dp" />
 
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
     <!-- issue summary -->
     <TextView
@@ -90,9 +98,10 @@
         android:textColor="#3b73af"
         android:textSize="10dip"
         android:text="issue summary"
-        android:layout_below="@+id/actionAndKeyLayout"
-        android:layout_toLeftOf="@+id/imageView"
-        android:layout_toRightOf="@+id/thumbnail"/>
+        android:layout_below="@+id/actionInfo"
+        android:layout_alignLeft="@+id/actionInfo"
+        android:layout_alignStart="@+id/actionInfo"
+        android:paddingTop="3dp" />
 
     <!-- publish time -->
     <TextView
@@ -103,9 +112,10 @@
         android:textColor="#000000"
         android:typeface="sans"
         android:textSize="10dip"
+        android:paddingTop="3dp"
+
         android:layout_below="@+id/issueSummary"
-        android:layout_toLeftOf="@+id/imageView"
         android:layout_toRightOf="@+id/thumbnail"
-        android:paddingTop="5dp" />
+        android:layout_toEndOf="@+id/thumbnail" />
 
 </RelativeLayout>

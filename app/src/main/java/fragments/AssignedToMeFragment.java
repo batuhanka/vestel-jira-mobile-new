@@ -1,5 +1,6 @@
 package fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
@@ -34,10 +35,11 @@ public class AssignedToMeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         RestConnectionProvider provider = new RestConnectionProvider();
-        View rootView                   = inflater.inflate(R.layout.fragment_assigned, container, false);
-        ExpandableListView elv          = (ExpandableListView) rootView.findViewById(R.id.assigneelist);
+        View rootView = inflater.inflate(R.layout.fragment_assigned, container, false);
+
+        ExpandableListView elv = (ExpandableListView) rootView.findViewById(R.id.assigneelist);
         HashMap<String, List<IssueModel>> results = provider.getAssignedIssues();
-        List<String> headers            = new ArrayList<>();
+        List<String> headers = new ArrayList<>();
         for (String str : results.keySet()) {
             headers.add(str);
         }
@@ -80,6 +82,7 @@ public class AssignedToMeFragment extends Fragment {
             return childPosition;
         }
 
+        @SuppressLint("NewApi")
         @Override
         public View getChildView(int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
 
@@ -96,7 +99,27 @@ public class AssignedToMeFragment extends Fragment {
             TextView typeChild = (TextView) convertView.findViewById(R.id.issueType);
             typeChild.setText(childItem.getIssueType());
 
-            TextView statusChild = (TextView) convertView.findViewById(R.id.issueStatus);
+            TextView statusChild    = (TextView) convertView.findViewById(R.id.issueStatus);
+            String issueStatus      = childItem.getIssueStatus();
+            switch (issueStatus){
+                case "SUBMITTED":
+                case "OPEN":
+                case "REOPENED":
+                    statusChild.setBackground(getResources().getDrawable(R.drawable.status_blue));
+                break;
+
+                case "RESOLVED":
+                case "CLOSED":
+                case "CANCELED":
+                case "APPROVED":
+                case "DONE":
+                    statusChild.setBackground(getResources().getDrawable(R.drawable.status_green));
+                break;
+
+                default:
+                    statusChild.setBackground(getResources().getDrawable(R.drawable.status_yellow));
+                    break;
+            }
             statusChild.setText(childItem.getIssueStatus());
 
             TextView summaryChild = (TextView) convertView.findViewById(R.id.issueSummary);
@@ -104,7 +127,7 @@ public class AssignedToMeFragment extends Fragment {
 
             ImageView typeLogoChild = (ImageView) convertView.findViewById(R.id.issueTypeLogo);
             ImageLoader imageLoader = new ImageLoader(mContext);
-            Bitmap issueTypeLogo    = imageLoader.getBitmap(childItem.getTypeIconURL());
+            Bitmap issueTypeLogo = imageLoader.getBitmap(childItem.getTypeIconURL());
             typeLogoChild.setImageBitmap(issueTypeLogo);
 
 

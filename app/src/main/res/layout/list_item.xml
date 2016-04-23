@@ -72,15 +72,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="OPEN"
-        android:textColor="#000000"
+        android:textColor="#ffffff"
         android:typeface="sans"
         android:textStyle="bold"
-        android:textSize="10dip"
+        android:textSize="8dip"
         android:layout_alignRight="@+id/imageView"
         android:layout_alignEnd="@+id/imageView"
-        android:layout_alignBottom="@+id/issueKey"
-        android:layout_alignParentTop="true"
-        android:gravity="center_vertical" />
+        android:gravity="center_vertical"
+        android:padding="3dp"
+        android:layout_above="@+id/issueSummary"
+        android:layout_alignParentTop="true" />
 
 
 
