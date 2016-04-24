@@ -1,5 +1,7 @@
 package adapter;
 
+import java.util.List;
+
 public class ViewIssueModel {
 
     private String issueKey;
@@ -16,6 +18,7 @@ public class ViewIssueModel {
     private String reporterURL;
     private String resolution;
     private String description;
+    private List<String> comments;
 
     public ViewIssueModel(
             String issueKey,
@@ -31,7 +34,8 @@ public class ViewIssueModel {
             String reporter,
             String reporterURL,
             String resolution,
-            String description) {
+            String description,
+            List<String> comments) {
 
         this.issueKey       = issueKey;
         this.projectIconURL = projectIconURL;
@@ -47,6 +51,8 @@ public class ViewIssueModel {
         this.reporterURL    = reporterURL;
         this.resolution     = resolution;
         this.description    = description;
+        this.comments       = comments;
+
 
     }
 
@@ -104,6 +110,10 @@ public class ViewIssueModel {
 
     public String getDescription() {
         return description;
+    }
+
+    public List<String> getComments() {
+        return comments;
     }
 }
 

@@ -6,11 +6,18 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import adapter.ImageLoader;
 import adapter.ViewIssueModel;
@@ -36,7 +43,7 @@ public class ViewIssueFragment extends Fragment {
 		}
 		ViewIssueModel issueItem = provider.getSingleIssueDetails(mIssueKey);
 
-		final View rootView 		= inflater.inflate(R.layout.fragment_view_issue, container, false);
+		final View rootView 	= inflater.inflate(R.layout.fragment_view_issue, container, false);
 		((NavigationActivity) getActivity()).setActionBarTitle("Issue Details");
 		ImageLoader imageLoader = new ImageLoader(rootView.getContext());
 
@@ -133,6 +140,11 @@ public class ViewIssueFragment extends Fragment {
 		TextView issueDescriptionView 	= (TextView) rootView.findViewById(R.id.issueDescriptionValue);
 		issueDescriptionView.setText(issueItem.getDescription());
 
+		ListView commentsListView		= (ListView) rootView.findViewById(R.id.commentsList);
+		ArrayAdapter<String> adapter 	= new ArrayAdapter<>(rootView.getContext(), R.layout.comment_row, issueItem.getComments());
+		commentsListView.setAdapter(adapter);
+		//setListViewHeightBasedOnChildren(commentsListView);
+
 
 		FloatingActionButton fab = NavigationActivity.fab;
 		fab.setImageDrawable(getResources().getDrawable(R.drawable.edit_issue));
@@ -145,4 +157,27 @@ public class ViewIssueFragment extends Fragment {
 
 		return rootView;
 	}
+
+	public void setListViewHeightBasedOnChildren(ListView listView) {
+		ListAdapter listAdapter = listView.getAdapter();
+		if (listAdapter == null) {
+			return;
+		}
+		int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.AT_MOST);
+		int totalHeight = 0;
+		View view = null;
+		for (int i = 0; i < listAdapter.getCount(); i++) {
+			view = listAdapter.getView(i, view, listView);
+			if (i == 0) {
+				view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
+			}
+			view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+			totalHeight += view.getMeasuredHeight();
+		}
+		ViewGroup.LayoutParams params = listView.getLayoutParams();
+		params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+		listView.setLayoutParams(params);
+		listView.requestLayout();
+	}
+
 }
