@@ -18,7 +18,7 @@ public class ViewIssueModel {
     private String reporterURL;
     private String resolution;
     private String description;
-    private List<String> comments;
+    private List<CommentModel> comments;
 
     public ViewIssueModel(
             String issueKey,
@@ -35,7 +35,7 @@ public class ViewIssueModel {
             String reporterURL,
             String resolution,
             String description,
-            List<String> comments) {
+            List<CommentModel> comments) {
 
         this.issueKey       = issueKey;
         this.projectIconURL = projectIconURL;
@@ -112,7 +112,7 @@ public class ViewIssueModel {
         return description;
     }
 
-    public List<String> getComments() {
+    public List<CommentModel> getComments() {
         return comments;
     }
 }

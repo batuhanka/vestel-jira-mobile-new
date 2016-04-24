@@ -71,7 +71,7 @@ public class ImageLoader {
             conn.setConnectTimeout(30000);
             conn.setReadTimeout(30000);
             conn.setInstanceFollowRedirects(true);
-            conn.setRequestProperty("Cookie", "JSESSIONID=" + MainActivity.getJsessionId());
+            conn.setRequestProperty("Cookie", "JSESSIONID="+MainActivity.getJsessionId());
             InputStream is = conn.getInputStream();
             OutputStream os = new FileOutputStream(f);
             Utils.CopyStream(is, os);

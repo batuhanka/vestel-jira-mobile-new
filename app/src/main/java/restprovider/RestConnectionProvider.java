@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import adapter.CommentModel;
 import adapter.IssueModel;
 import adapter.ViewIssueModel;
 import login.MainActivity;
@@ -192,31 +193,22 @@ public class RestConnectionProvider {
             String resolution   = jsonObject.getJSONObject("fields").getString("resolution");
             if(resolution.matches("null")) {    resolution = "Unresolved";  }
 
-
-//            JSONObject commentJSONObject = jsonObject.getJSONObject("fields").getJSONObject("comment").getJSONArray("comments").getJSONObject(1);
-//            Log.e("BATU","AUTHOR : "+new String(commentJSONObject.getJSONObject("updateAuthor").getString("displayName").getBytes("ISO-8859-1"), "UTF-8"));
-//            Log.e("BATU","COMMENT : "+new String(commentJSONObject.getString("body").getBytes("ISO-8859-1"), "UTF-8"));
-            List<String> comments = new ArrayList<>();
+            String commentAuthor    = "";
+            String commentAuthorURL = "";
+            String commentBody      = "";
+            String commentCreated   = "";
+            List<CommentModel> comments = new ArrayList<>();
 
             JSONArray commentJSONArray = jsonObject.getJSONObject("fields").getJSONObject("comment").getJSONArray("comments");
             for(int i=0; i<commentJSONArray.length(); i++){
-                String body = new String(commentJSONArray.getJSONObject(i).getString("body").getBytes("ISO-8859-1"), "UTF-8");
-                comments.add(body);
+                JSONObject commentJSON  = commentJSONArray.getJSONObject(i);
+                commentAuthor           = new String(commentJSON.getJSONObject("updateAuthor").getString("displayName").getBytes("ISO-8859-1"), "UTF-8");
+                commentAuthorURL        = commentJSON.getJSONObject("updateAuthor").getJSONObject("avatarUrls").get("48x48").toString();
+                commentBody             = new String(commentJSON.getString("body").getBytes("ISO-8859-1"), "UTF-8");
+                commentCreated          = commentJSON.getString("created");
+                CommentModel commentItem = new CommentModel(commentAuthor, commentAuthorURL, commentBody, commentCreated);
+                comments.add(commentItem);
             }
-
-//            try {
-//                JSONArray commentJsonArray = jsonObject.getJSONObject("fields").getJSONObject("comment").getJSONArray("comments");
-//                for (int i = 0; i < commentJsonArray.length(); i++) {
-//                    JSONObject commentJSON  = commentJsonArray.getJSONObject(i);
-//                    String authorName       = new String(commentJSON.getJSONObject("updateAuthor").getString("displayName").getBytes("ISO-8859-1"), "UTF-8");
-//                    String authorURL        = commentJSON.getJSONObject("updateAuthor").getJSONObject("avatarUrl").get("48x48").toString();
-//                    String comment          = new String(commentJSON.getString("body").getBytes("ISO-8859-1"), "UTF-8");
-//                    String created          = commentJSON.getString("created");
-//                    Log.e("BATU", "COMMENT : " + authorName + " : " + authorURL + " : " + comment + " : " + created);
-//                    comments.add(comment);
-//                }
-//            }catch (Exception ex){  }
-
 
             resultIssueItem = new ViewIssueModel(
                     key,

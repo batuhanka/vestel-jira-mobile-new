@@ -46,17 +46,6 @@
         android:id="@+id/imageView"
         android:visibility="invisible" />
 
-    <!--<LinearLayout-->
-        <!--android:id="@+id/actionAndKeyLayout"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_below="@+id/author"-->
-        <!--android:layout_alignBottom="@+id/imageView"-->
-        <!--android:layout_toLeftOf="@+id/imageView"-->
-        <!--android:layout_toRightOf="@+id/thumbnail"-->
-        <!--android:layout_toEndOf="@+id/thumbnail">-->
-
         <!-- Action Info -->
         <TextView
             android:id="@+id/actionInfo"
@@ -86,9 +75,6 @@
             android:layout_toRightOf="@+id/actionInfo"
             android:layout_toEndOf="@+id/actionInfo"
             android:paddingTop="3dp" />
-
-
-    <!--</LinearLayout>-->
 
     <!-- issue summary -->
     <TextView

@@ -6,19 +6,16 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import adapter.CommentAdapter;
 import adapter.ImageLoader;
 import adapter.ViewIssueModel;
 import navigation.NavigationActivity;
@@ -30,14 +27,15 @@ public class ViewIssueFragment extends Fragment {
 
 	RestConnectionProvider provider = new RestConnectionProvider();
 	String mIssueKey;
+	private LayoutInflater mInflator;
 
 
 	@SuppressLint("NewApi")
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
-
-		Bundle bundle = this.getArguments();
+		this.mInflator 	= inflater;
+		Bundle bundle 	= this.getArguments();
 		if (bundle != null) {
 			mIssueKey 	= bundle.getString("ISSUE_KEY");
 		}
@@ -141,43 +139,55 @@ public class ViewIssueFragment extends Fragment {
 		issueDescriptionView.setText(issueItem.getDescription());
 
 		ListView commentsListView		= (ListView) rootView.findViewById(R.id.commentsList);
-		ArrayAdapter<String> adapter 	= new ArrayAdapter<>(rootView.getContext(), R.layout.comment_row, issueItem.getComments());
+		CommentAdapter adapter			= new CommentAdapter(mInflator, issueItem.getComments());
 		commentsListView.setAdapter(adapter);
-		//setListViewHeightBasedOnChildren(commentsListView);
+		commentsListView.setOnTouchListener(new View.OnTouchListener() {
+			// Setting on Touch Listener for handling the touch inside ScrollView
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				// Disallow the touch request for parent scroll on touch of child view
+				v.getParent().requestDisallowInterceptTouchEvent(true);
+				return false;
+			}
+		});
+		setListViewHeightBasedOnChildren(commentsListView);
 
 
 		FloatingActionButton fab = NavigationActivity.fab;
-		fab.setImageDrawable(getResources().getDrawable(R.drawable.edit_issue));
-		fab.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				Snackbar.make(view, "Switching to edit issue issue screen...", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
-			}
-		});
+		fab.setVisibility(View.INVISIBLE);
+//		fab.setImageDrawable(getResources().getDrawable(R.drawable.edit_issue));
+//		fab.setOnClickListener(new View.OnClickListener() {
+//			@Override
+//			public void onClick(View view) {
+//				Snackbar.make(view, "Switching to edit issue issue screen...", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+//			}
+//		});
 
 		return rootView;
 	}
 
+	/**** Method for Setting the Height of the ListView dynamically.
+	 **** Hack to fix the issue of not showing all the items of the ListView
+	 **** when placed inside a ScrollView  ****/
 	public void setListViewHeightBasedOnChildren(ListView listView) {
 		ListAdapter listAdapter = listView.getAdapter();
-		if (listAdapter == null) {
+		if (listAdapter == null)
 			return;
-		}
-		int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.AT_MOST);
+
+		int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
 		int totalHeight = 0;
 		View view = null;
 		for (int i = 0; i < listAdapter.getCount(); i++) {
 			view = listAdapter.getView(i, view, listView);
-			if (i == 0) {
+			if (i == 0)
 				view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
-			}
+
 			view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
 			totalHeight += view.getMeasuredHeight();
 		}
 		ViewGroup.LayoutParams params = listView.getLayoutParams();
 		params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
 		listView.setLayoutParams(params);
-		listView.requestLayout();
 	}
 
 }
