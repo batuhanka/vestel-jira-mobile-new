@@ -190,7 +190,7 @@ public class RestConnectionProvider {
             String projectName  = jsonObject.getJSONObject("fields").getJSONObject("project").get("name").toString();
             String projectURL   = jsonObject.getJSONObject("fields").getJSONObject("project").getJSONObject("avatarUrls").get("48x48").toString();
             String description  = new String(jsonObject.getJSONObject("fields").getString("description").getBytes("ISO-8859-1"), "UTF-8");
-            String resolution   = jsonObject.getJSONObject("fields").getString("resolution");
+            String resolution   = jsonObject.getJSONObject("fields").getJSONObject("resolution").getString("name");
             if(resolution.matches("null")) {    resolution = "Unresolved";  }
 
             String commentAuthor    = "";

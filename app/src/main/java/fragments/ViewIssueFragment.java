@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -53,10 +54,10 @@ public class ViewIssueFragment extends Fragment {
 		}catch (Exception ex){
 			projectLogoView.setImageDrawable(getResources().getDrawable(R.drawable.projects));
 		}
-
-		TextView pnameAndIssueKeyView 	= (TextView) rootView.findViewById(R.id.pname_and_issuekey);
-		String combinedText				= issueItem.getProjectName()+" / "+issueItem.getIssueKey();
-		pnameAndIssueKeyView.setText(combinedText);
+try {
+	TextView pnameAndIssueKeyView = (TextView) rootView.findViewById(R.id.pname_and_issuekey);
+	String combinedText = issueItem.getProjectName() + " / " + issueItem.getIssueKey();
+	pnameAndIssueKeyView.setText(combinedText);
 
 		TextView issueSummaryView 		= (TextView) rootView.findViewById(R.id.issueSummary);
 		issueSummaryView.setText(issueItem.getIssueSummary());
@@ -151,7 +152,7 @@ public class ViewIssueFragment extends Fragment {
 			}
 		});
 		setListViewHeightBasedOnChildren(commentsListView);
-
+}catch (Exception ex){	Log.e("BATU", "EXCEPTION : " + ex.getMessage()); }
 
 		FloatingActionButton fab = NavigationActivity.fab;
 		fab.setVisibility(View.INVISIBLE);
