@@ -41,5 +41,7 @@
     <string name="created_ac_hint">Created</string>
     <string name="no_items_info">No Items</string>
     <string name="favourite_search_filters_label">My Favourite Search Filters</string>
+    <string name="close_message">Are you sure ?</string>
+    <string name="close_message_title">Close Vestel JIRA Mobile</string>
 
 </resources>

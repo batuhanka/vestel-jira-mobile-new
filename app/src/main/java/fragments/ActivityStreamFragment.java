@@ -32,6 +32,7 @@ public class ActivityStreamFragment extends Fragment {
 	private LayoutInflater mInflater;
 	private boolean refreshCheck = false;
 
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
@@ -70,7 +71,7 @@ public class ActivityStreamFragment extends Fragment {
 		}
 		@Override
 		protected ArrayList<HashMap<String,String>> doInBackground(Void... params) {
-			return  provider.getActivityStreams();
+			return provider.getActivityStreams();
 		}
 
 		@Override
