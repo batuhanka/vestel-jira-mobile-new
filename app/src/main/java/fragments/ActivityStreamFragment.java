@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,13 +29,13 @@ import restprovider.RestConnectionProvider;
 public class ActivityStreamFragment extends Fragment {
 
 	RestConnectionProvider provider = new RestConnectionProvider();
-	private LayoutInflater mInflator;
+	private LayoutInflater mInflater;
 	private boolean refreshCheck = false;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
-		this.mInflator = inflater;
+		this.mInflater = inflater;
 		View rootView = inflater.inflate(R.layout.fragment_activities, container, false);
 		final Context context = rootView.getContext();
 		new ActivityStreamTask(rootView, context).execute();
@@ -54,7 +55,6 @@ public class ActivityStreamFragment extends Fragment {
 
 		return rootView;
 	}
-
 
 	// AsyncTask
 	class ActivityStreamTask extends AsyncTask<Void, String, ArrayList<HashMap<String,String>>> {
@@ -81,14 +81,14 @@ public class ActivityStreamFragment extends Fragment {
 				loadingDialog.show();
 		}
 
+
 		@Override
 		protected void onPostExecute(ArrayList<HashMap<String,String>> resultList) {
 			super.onPostExecute(resultList);
-			LazyAdapter adapter 	= new LazyAdapter(mInflator, resultList);
+			LazyAdapter adapter 	= new LazyAdapter(mInflater, resultList);
 			ListView activityList	= (ListView) mRootView.findViewById(R.id.activityStreamsList);
 			activityList.setAdapter(adapter);
 
-			//TODO: implement on click events for each item
 			activityList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
