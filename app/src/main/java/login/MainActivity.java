@@ -13,8 +13,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ScrollView;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.CookieStore;
@@ -32,11 +30,15 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.NetworkInterface;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import navigation.NavigationActivity;
 import project.ozyegin.vestel.com.vesteljiramobile.R;
 
-
+@SuppressWarnings("deprecation")
 public class MainActivity extends AppCompatActivity {
 
     public static String mUsername;
@@ -53,6 +55,32 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        List<String> networkList = new ArrayList<>();
+        try {
+            for (NetworkInterface networkInterface : Collections.list(NetworkInterface.getNetworkInterfaces())) {
+                if (networkInterface.isUp())
+                    networkList.add(networkInterface.getName());
+            }
+        } catch (Exception ex) {    Log.e("BATU", "Network List didn't received");  }
+
+        if (networkList.contains("tun0")) {
+            Log.e("BATU", "VPN IS CONNECTED");
+        } else {
+            AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+            alertDialog.setTitle("VPN Connection Required");
+            alertDialog.setCancelable(false);
+            alertDialog.setMessage("Please check your VPN Settings");
+            alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent("android.net.vpn.SETTINGS");
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }
+            });
+            alertDialog.show();
+        }
+
 
         mSignInButton = (Button) findViewById(R.id.signin_btn);
         mUsernameView = (EditText) findViewById(R.id.username_field);

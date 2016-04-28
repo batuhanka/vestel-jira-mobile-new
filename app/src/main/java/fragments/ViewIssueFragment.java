@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,14 +27,12 @@ public class ViewIssueFragment extends Fragment {
 
 	RestConnectionProvider provider = new RestConnectionProvider();
 	String mIssueKey;
-	private LayoutInflater mInflator;
 
 
 	@SuppressLint("NewApi")
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
-		this.mInflator 	= inflater;
 		Bundle bundle 	= this.getArguments();
 		if (bundle != null) {
 			mIssueKey 	= bundle.getString("ISSUE_KEY");
@@ -140,7 +137,7 @@ try {
 		issueDescriptionView.setText(issueItem.getDescription());
 
 		ListView commentsListView		= (ListView) rootView.findViewById(R.id.commentsList);
-		CommentAdapter adapter			= new CommentAdapter(mInflator, issueItem.getComments());
+		CommentAdapter adapter			= new CommentAdapter(inflater, issueItem.getComments());
 		commentsListView.setAdapter(adapter);
 		commentsListView.setOnTouchListener(new View.OnTouchListener() {
 			// Setting on Touch Listener for handling the touch inside ScrollView
