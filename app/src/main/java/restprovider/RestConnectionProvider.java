@@ -195,19 +195,15 @@ public class RestConnectionProvider {
                 resolution = jsonObject.getJSONObject("fields").getJSONObject("resolution").getString("name");
             }catch (Exception ex){  Log.e("BATU","Resolution JSON Object is empty");  }
 
-            String commentAuthor    = "";
-            String commentAuthorURL = "";
-            String commentBody      = "";
-            String commentCreated   = "";
             List<CommentModel> comments = new ArrayList<>();
 
             JSONArray commentJSONArray = jsonObject.getJSONObject("fields").getJSONObject("comment").getJSONArray("comments");
             for(int i=0; i<commentJSONArray.length(); i++){
                 JSONObject commentJSON  = commentJSONArray.getJSONObject(i);
-                commentAuthor           = new String(commentJSON.getJSONObject("updateAuthor").getString("displayName").getBytes("ISO-8859-1"), "UTF-8");
-                commentAuthorURL        = commentJSON.getJSONObject("updateAuthor").getJSONObject("avatarUrls").get("48x48").toString();
-                commentBody             = new String(commentJSON.getString("body").getBytes("ISO-8859-1"), "UTF-8");
-                commentCreated          = commentJSON.getString("created");
+                String commentAuthor           = new String(commentJSON.getJSONObject("updateAuthor").getString("displayName").getBytes("ISO-8859-1"), "UTF-8");
+                String commentAuthorURL        = commentJSON.getJSONObject("updateAuthor").getJSONObject("avatarUrls").get("48x48").toString();
+                String commentBody             = new String(commentJSON.getString("body").getBytes("ISO-8859-1"), "UTF-8");
+                String commentCreated          = commentJSON.getString("created");
                 CommentModel commentItem = new CommentModel(commentAuthor, commentAuthorURL, commentBody, commentCreated);
                 comments.add(commentItem);
             }

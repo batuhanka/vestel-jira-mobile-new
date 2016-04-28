@@ -151,6 +151,7 @@ public class ViewIssueFragment extends Fragment {
         });
         setListViewHeightBasedOnChildren(commentsListView);
 
+        //TODO: Change invisible of these fab buttons
         FloatingActionButton fab = NavigationActivity.fab;
         fab.setVisibility(View.INVISIBLE);
 //		fab.setImageDrawable(getResources().getDrawable(R.drawable.edit_issue));
