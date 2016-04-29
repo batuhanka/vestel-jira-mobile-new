@@ -37,12 +37,6 @@
         android:id="@+id/menu_bottom"
         android:checkableBehavior="none">
 
-
-        <item
-            android:id="@+id/nav_about"
-            android:icon="@drawable/about"
-            android:title="@string/about_label" />
-
         <item
             android:id="@+id/nav_log_out"
             android:icon="@drawable/logout"

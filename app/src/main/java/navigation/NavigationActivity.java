@@ -157,8 +157,6 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
         } else if (id == R.id.nav_projects) {
 
-        } else if (id == R.id.nav_about) {
-
         } else if (id == R.id.nav_log_out) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Log Out");

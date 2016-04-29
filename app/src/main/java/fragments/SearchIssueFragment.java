@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -81,6 +82,15 @@ public class SearchIssueFragment extends Fragment {
 					};
 					datePickerFragment.show(getActivity().getFragmentManager(), "datePicker");
 				}
+			}
+		});
+
+		ImageView dateClearView = (ImageView) rootView.findViewById(R.id.dateClearIcon);
+		dateClearView.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				startDateACView.setText("");
+				endDateACView.setText("");
 			}
 		});
 
