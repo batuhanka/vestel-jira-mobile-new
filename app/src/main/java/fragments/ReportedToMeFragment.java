@@ -1,9 +1,11 @@
 package fragments;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -31,22 +33,18 @@ import restprovider.RestConnectionProvider;
 @SuppressWarnings("deprecation")
 public class ReportedToMeFragment extends Fragment {
 
-
+    RestConnectionProvider provider = new RestConnectionProvider();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        RestConnectionProvider provider             = new RestConnectionProvider();
-        View rootView                               = inflater.inflate(R.layout.fragment_reported, container, false);
-        ExpandableListView elv                      = (ExpandableListView) rootView.findViewById(R.id.mylist);
-        HashMap<String, List<IssueModel>> results   = provider.getReportedIssues();
-        List<String> headers                        = new ArrayList<>();
-        for(String str : results.keySet()){     headers.add(str);   }
-        elv.setAdapter(new SavedTabsListAdapter(getActivity().getApplicationContext(), headers, results ));
+        View rootView = inflater.inflate(R.layout.fragment_reported, container, false);
+        new ReportedIssuesTask(rootView, rootView.getContext()).execute();
         ((NavigationActivity) getActivity()).setActionBarTitle("Reported Issues By Me");
 
         FloatingActionButton fab = NavigationActivity.fab;
         fab.setImageDrawable(getResources().getDrawable(R.drawable.create));
+        fab.setVisibility(View.VISIBLE);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,24 +56,61 @@ public class ReportedToMeFragment extends Fragment {
     }
 
 
+    // AsyncTask
+    class ReportedIssuesTask extends AsyncTask<Void, String, HashMap<String, List<IssueModel>>> {
+
+        private View mRootView;
+        private ProgressDialog loadingDialog;
+        private Context mContext;
+        ReportedIssuesTask(View rootView, Context context){
+            mRootView	= rootView;
+            mContext	= context;
+            loadingDialog = new ProgressDialog(mContext);
+            loadingDialog.setMessage("Loading Issues... Please Wait...");
+        }
+        @Override
+        protected HashMap<String, List<IssueModel>> doInBackground(Void... params) {
+            return provider.getReportedIssues();
+        }
+
+        @Override
+        protected void onPreExecute() {
+            loadingDialog.show();
+        }
 
 
-    public class SavedTabsListAdapter extends BaseExpandableListAdapter {
+        @Override
+        protected void onPostExecute(HashMap<String, List<IssueModel>> resultList) {
+            super.onPostExecute(resultList);
+            ExpandableListView elv = (ExpandableListView) mRootView.findViewById(R.id.reportedList);
+            List<String> headers = new ArrayList<>();
+            for (String str : resultList.keySet()) {
+                headers.add(str);
+            }
+            elv.setAdapter(new IssuesAdapter(getActivity().getApplicationContext(), headers, resultList));
+            loadingDialog.hide();
+            loadingDialog.dismiss();
+        }
+    }
+
+
+
+    public class IssuesAdapter extends BaseExpandableListAdapter {
 
 
         private Context mContext;
         private List<String> mListDataHeader; // header titles
         private HashMap<String, List<IssueModel>> mListDataChild; // child data in format of header title, child title
 
-        public SavedTabsListAdapter(Context context, List<String> listDataHeader, HashMap<String, List<IssueModel>> listChildData) {
+        public IssuesAdapter(Context context, List<String> listDataHeader, HashMap<String, List<IssueModel>> listChildData) {
             this.mContext = context;
             this.mListDataHeader = listDataHeader;
             this.mListDataChild = listChildData;
         }
 
         @Override
-        public Object getChild(int groupPosition, int childPosititon) {
-            return this.mListDataChild.get(this.mListDataHeader.get(groupPosition)).get(childPosititon);
+        public Object getChild(int groupPosition, int childPosition) {
+            return this.mListDataChild.get(this.mListDataHeader.get(groupPosition)).get(childPosition);
         }
 
         @Override

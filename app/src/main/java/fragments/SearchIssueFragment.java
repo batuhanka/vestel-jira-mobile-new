@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,8 +40,8 @@ public class SearchIssueFragment extends Fragment {
 		new ProjectOptionTask(rootView, context).execute();
 		((NavigationActivity) getActivity()).setActionBarTitle("Search For Issues");
 
-		final AutoCompleteTextView dateACView = (AutoCompleteTextView) rootView.findViewById(R.id.datePickerText);
-		dateACView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+		final AutoCompleteTextView startDateACView = (AutoCompleteTextView) rootView.findViewById(R.id.startDatePickerText);
+		startDateACView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
 				if (hasFocus) {
@@ -50,12 +49,33 @@ public class SearchIssueFragment extends Fragment {
 						@SuppressLint("NewApi")
 						@Override
 						public void onDateSet(DatePicker view, int year, int month, int day) {
-							Log.d("BATU", "onDateSet");
 							Calendar c = Calendar.getInstance();
 							c.set(year, month, day);
 							@SuppressLint("SimpleDateFormat")
 							SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-							dateACView.setText(simpleDateFormat.format(c.getTime()), false);
+							startDateACView.setText(simpleDateFormat.format(c.getTime()), false);
+							rootView.requestFocus();
+						}
+					};
+					datePickerFragment.show(getActivity().getFragmentManager(), "datePicker");
+				}
+			}
+		});
+
+		final AutoCompleteTextView endDateACView = (AutoCompleteTextView) rootView.findViewById(R.id.endDatePickerText);
+		endDateACView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				if (hasFocus) {
+					DialogFragment datePickerFragment = new DatePickerFragment() {
+						@SuppressLint("NewApi")
+						@Override
+						public void onDateSet(DatePicker view, int year, int month, int day) {
+							Calendar c = Calendar.getInstance();
+							c.set(year, month, day);
+							@SuppressLint("SimpleDateFormat")
+							SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+							endDateACView.setText(simpleDateFormat.format(c.getTime()), false);
 							rootView.requestFocus();
 						}
 					};
@@ -66,6 +86,7 @@ public class SearchIssueFragment extends Fragment {
 
 		FloatingActionButton fab = NavigationActivity.fab;
 		fab.setImageDrawable(getResources().getDrawable(R.drawable.search_issue));
+		fab.setVisibility(View.VISIBLE);
 		fab.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {

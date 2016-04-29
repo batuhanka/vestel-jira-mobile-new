@@ -61,10 +61,25 @@
         android:id="@+id/summaryText"
         android:hint="@string/summary_ac_hint" />
 
-    <AutoCompleteTextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:id="@+id/datePickerText"
-        android:hint="@string/created_ac_hint" />
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <AutoCompleteTextView
+            android:id="@+id/startDatePickerText"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:hint="@string/start_date_ac_hint" />
+
+        <AutoCompleteTextView
+            android:id="@+id/endDatePickerText"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:hint="@string/end_date_ac_hint" />
+    </LinearLayout>
 
 </LinearLayout>

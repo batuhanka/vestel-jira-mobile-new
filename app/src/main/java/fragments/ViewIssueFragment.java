@@ -26,14 +26,11 @@ public class ViewIssueFragment extends Fragment {
 
     RestConnectionProvider provider = new RestConnectionProvider();
     String mIssueKey;
-    private LayoutInflater mInflater;
-
 
     @SuppressLint("NewApi")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        this.mInflater = inflater;
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             mIssueKey = bundle.getString("ISSUE_KEY");
@@ -138,7 +135,7 @@ public class ViewIssueFragment extends Fragment {
         issueDescriptionView.setText(issueItem.getDescription());
 
         ListView commentsListView = (ListView) rootView.findViewById(R.id.commentsList);
-        CommentAdapter adapter = new CommentAdapter(mInflater, issueItem.getComments());
+        CommentAdapter adapter = new CommentAdapter(inflater, issueItem.getComments());
         commentsListView.setAdapter(adapter);
         commentsListView.setOnTouchListener(new View.OnTouchListener() {
             // Setting on Touch Listener for handling the touch inside ScrollView
@@ -151,16 +148,8 @@ public class ViewIssueFragment extends Fragment {
         });
         setListViewHeightBasedOnChildren(commentsListView);
 
-        //TODO: Change invisible of these fab buttons
         FloatingActionButton fab = NavigationActivity.fab;
         fab.setVisibility(View.INVISIBLE);
-//		fab.setImageDrawable(getResources().getDrawable(R.drawable.edit_issue));
-//		fab.setOnClickListener(new View.OnClickListener() {
-//			@Override
-//			public void onClick(View view) {
-//				Snackbar.make(view, "Switching to edit issue issue screen...", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
-//			}
-//		});
 
         return rootView;
     }

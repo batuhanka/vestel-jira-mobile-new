@@ -36,24 +36,31 @@ public class ActivityStreamFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
 		this.mInflater = inflater;
-		View rootView = inflater.inflate(R.layout.fragment_activities, container, false);
-		final Context context = rootView.getContext();
-		new ActivityStreamTask(rootView, context).execute();
+		final View rootView = inflater.inflate(R.layout.fragment_activities, container, false);
+		//final Context context = rootView.getContext();
+		new ActivityStreamTask(rootView, rootView.getContext()).execute();
 		((NavigationActivity) getActivity()).setActionBarTitle("Recent Activities in JIRA");
 
 		FloatingActionButton fab = NavigationActivity.fab;
 		fab.setImageDrawable(getResources().getDrawable(R.drawable.refresh));
+		fab.setVisibility(View.VISIBLE);
 		fab.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				refreshCheck = true;
 				Snackbar.make(view, "Refreshing recent activities in JIRA...", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
-				new ActivityStreamTask(view.getRootView(), context).execute();
+				new ActivityStreamTask(view.getRootView(), rootView.getContext()).execute();
 				refreshCheck = false;
 			}
 		});
 
 		return rootView;
+	}
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setRetainInstance(true);
 	}
 
 	// AsyncTask
@@ -66,7 +73,7 @@ public class ActivityStreamFragment extends Fragment {
 			mRootView	= rootView;
 			mContext	= context;
 			loadingDialog = new ProgressDialog(mContext);
-			loadingDialog.setMessage("Loading... Please Wait...");
+			loadingDialog.setMessage("Loading Activities... Please Wait...");
 		}
 		@Override
 		protected ArrayList<HashMap<String,String>> doInBackground(Void... params) {

@@ -5,7 +5,7 @@
     android:layout_height="fill_parent"
     android:background="#cfcfcf">
 
-    <ExpandableListView android:id="@+id/assigneelist"
+    <ExpandableListView android:id="@+id/assignedList"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:textColor="#000000" />

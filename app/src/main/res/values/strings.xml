@@ -38,7 +38,8 @@
     <string name="priority_ac_hint">Priority</string>
     <string name="description_ac_hint">Description</string>
     <string name="summary_ac_hint">Summary</string>
-    <string name="created_ac_hint">Created</string>
+    <string name="start_date_ac_hint">Start Date</string>
+    <string name="end_date_ac_hint">End Date</string>
     <string name="no_items_info">No Items</string>
     <string name="favourite_search_filters_label">My Favourite Search Filters</string>
     <string name="close_message">Are you sure ?</string>
