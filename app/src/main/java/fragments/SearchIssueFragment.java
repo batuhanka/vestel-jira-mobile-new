@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -100,11 +102,83 @@ public class SearchIssueFragment extends Fragment {
 		fab.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
+				collectSearchOptions(rootView);
 				Snackbar.make(view, "Switching to search for issue screen...", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
 			}
 		});
 
 		return rootView;
+	}
+
+	public void collectSearchOptions(View rootView){
+
+		String SEARCH_JQL		= "http://10.108.95.25/jira/rest/api/2/search?jql=";
+		String AND				= "%20AND%20";
+		String EQUAL			= "%20%3D%20";
+		String CONTAINS			= "%20~%20";
+
+		AutoCompleteTextView projectView 	= (AutoCompleteTextView) rootView.findViewById(R.id.projectAutoComplete);
+		AutoCompleteTextView assigneeView 	= (AutoCompleteTextView) rootView.findViewById(R.id.assigneeAutoComplete);
+		AutoCompleteTextView reporterView	= (AutoCompleteTextView) rootView.findViewById(R.id.reporterAutoComplete);
+		AutoCompleteTextView issueTypeView 	= (AutoCompleteTextView) rootView.findViewById(R.id.issueTypeAutoComplete);
+		AutoCompleteTextView priorityView 	= (AutoCompleteTextView) rootView.findViewById(R.id.priorityAutoComplete);
+		AutoCompleteTextView descriptionView= (AutoCompleteTextView) rootView.findViewById(R.id.descriptionText);
+		AutoCompleteTextView summaryView 	= (AutoCompleteTextView) rootView.findViewById(R.id.summaryText);
+		AutoCompleteTextView startDateView 	= (AutoCompleteTextView) rootView.findViewById(R.id.startDatePickerText);
+		AutoCompleteTextView endDateView 	= (AutoCompleteTextView) rootView.findViewById(R.id.endDatePickerText);
+
+		try{
+			String project		= projectView.getText().toString();
+			String assignee		= assigneeView.getText().toString();
+			String reporter		= reporterView.getText().toString();
+			String issueType	= issueTypeView.getText().toString();
+			String priority		= priorityView.getText().toString();
+			String description	= descriptionView.getText().toString();
+			String summary		= summaryView.getText().toString();
+			String startDate	= startDateView.getText().toString();
+			String endDate		= endDateView.getText().toString();
+
+			if(!project.isEmpty())
+				SEARCH_JQL += "project"+EQUAL+project+AND;
+
+			if(!assignee.isEmpty())
+				SEARCH_JQL += "assignee"+EQUAL+assignee+AND;
+
+			if(!reporter.isEmpty())
+				SEARCH_JQL += "reporter"+EQUAL+reporter+AND;
+
+			if(!issueType.isEmpty())
+				SEARCH_JQL += "issuetype"+EQUAL+issueType+AND;
+
+			if(!priority.isEmpty())
+				SEARCH_JQL += "priority"+EQUAL+priority+AND;
+
+			if(!description.isEmpty())
+				SEARCH_JQL += "description"+CONTAINS+description+AND;
+
+			if(!summary.isEmpty())
+				SEARCH_JQL += "summary"+CONTAINS+summary+AND;
+
+			String temp 	= SEARCH_JQL;
+			int pos 		= temp.lastIndexOf(AND);
+			String result	= temp.substring(0, pos);
+
+
+			//TODO: resolve buggy information
+			FragmentManager fragmentManager = getFragmentManager();
+			Fragment searchResultsFragment  = new SearchResultsFragment();
+			Bundle bundle = new Bundle();
+			bundle.putString("SEARCH_URL", result);
+			bundle.putString("FILTER_NAME", "Search Results");
+			searchResultsFragment.setArguments(bundle);
+			fragmentManager.beginTransaction().replace(R.id.contentNav, searchResultsFragment).addToBackStack("SearchResultsFragment").commit();
+			fragmentManager.executePendingTransactions();
+
+
+		}catch (Exception ex){	Log.e("BATU", "Search Option Empty");	}
+
+
+
 	}
 
 	public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener{

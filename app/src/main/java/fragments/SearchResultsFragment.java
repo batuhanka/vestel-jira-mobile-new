@@ -33,7 +33,7 @@ import restprovider.RestConnectionProvider;
 public class SearchResultsFragment extends Fragment {
 
     private String mSearchUrl;
-    private String mFilterName = "Search Results";
+    private String mFilterName;
     RestConnectionProvider provider = new RestConnectionProvider();
 
     @Override
