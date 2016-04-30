@@ -3,6 +3,7 @@ package fragments;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.HashMap;
 
@@ -38,8 +38,16 @@ public class FavouriteFiltersFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 LinearLayout layout = (LinearLayout) view;
                 TextView textView   = (TextView) layout.findViewById(R.id.filterName);
-                String filterUrl    = filters.get(textView.getText().toString());
-                Toast.makeText(rootView.getContext(), filterUrl, Toast.LENGTH_SHORT).show();
+                String filterName   = textView.getText().toString();
+                String filterUrl    = filters.get(filterName);
+                FragmentManager fragmentManager = getFragmentManager();
+                Fragment searchResultsFragment  = new SearchResultsFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("SEARCH_URL", filterUrl);
+                bundle.putString("FILTER_NAME", filterName);
+                searchResultsFragment.setArguments(bundle);
+                fragmentManager.beginTransaction().replace(R.id.contentNav, searchResultsFragment).addToBackStack("SearchResultsFragment").commit();
+                fragmentManager.executePendingTransactions();
             }
         });
 

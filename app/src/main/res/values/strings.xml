@@ -24,7 +24,6 @@
     <string name="assigned_to_me_label">Assigned To Me</string>
     <string name="reported_by_me_label">Reported By Me</string>
     <string name="search_for_issues_label">Search For Issues</string>
-    <string name="view_projects_label">View Projects</string>
     <string name="about_label">About</string>
     <string name="log_out_label">Log Out</string>
     <string name="user_avatar_logo_desc">User Avatar</string>

@@ -130,6 +130,42 @@ public class RestConnectionProvider {
         return issues;
     }
 
+    public  HashMap<String, List<IssueModel>> getSearchResults(String searchUrl){
+
+        HashMap<String, List<IssueModel>> issues = new HashMap<>();
+
+        try {
+
+            JSONObject jsonObject   = createRestRequest(searchUrl);
+            JSONArray jsonArray     = jsonObject.getJSONArray("issues");
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                String key          = jsonArray.getJSONObject(i).get("key").toString();
+                String rawSummary   = jsonArray.getJSONObject(i).getJSONObject("fields").getString("summary");
+                String summary      = new String(rawSummary.getBytes("ISO-8859-1"), "UTF-8");
+                String priority     = jsonArray.getJSONObject(i).getJSONObject("fields").getJSONObject("priority").get("name").toString();
+                String status       = jsonArray.getJSONObject(i).getJSONObject("fields").getJSONObject("status").get("name").toString();
+                String issueType    = jsonArray.getJSONObject(i).getJSONObject("fields").getJSONObject("issuetype").get("name").toString();
+                String typeIconURL  = jsonArray.getJSONObject(i).getJSONObject("fields").getJSONObject("issuetype").get("iconUrl").toString();
+
+                if (issues.keySet().contains(priority)) {
+                    IssueModel issueModel = new IssueModel(key, summary, status.toUpperCase(), issueType, typeIconURL);
+                    issues.get(priority).add(issueModel);
+                } else {
+                    List<IssueModel> tempList = new ArrayList<>();
+                    IssueModel issueModel = new IssueModel(key, summary, status.toUpperCase(), issueType, typeIconURL);
+                    tempList.add(issueModel);
+                    issues.put(priority, tempList);
+                }
+            }
+
+        } catch (Exception ex) {
+            Log.e("BATU",ex.getMessage());
+        }
+
+        return issues;
+    }
+
     public  HashMap<String, String> getFavouriteFilters(){
 
         HashMap<String, String> filters = new HashMap<>();

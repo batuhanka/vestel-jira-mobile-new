@@ -74,10 +74,11 @@ public class CommentAdapter extends BaseAdapter {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         try {
+            @SuppressLint("SimpleDateFormat")
             Format formatter    = new SimpleDateFormat("dd/MMM/yy HH:mm");
             Date resultTime     = dateFormat.parse(timeText);
             result              = formatter.format(resultTime);
-        }catch (Exception ex){  }
+        }catch (Exception ex){  Log.e("BATU", "Wrong simple date format");  }
 
         return result;
 

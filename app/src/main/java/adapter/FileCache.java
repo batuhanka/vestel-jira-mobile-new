@@ -14,8 +14,9 @@ public class FileCache {
             cacheDir=new File(android.os.Environment.getExternalStorageDirectory(),"LazyList");
         else
             cacheDir=context.getCacheDir();
-        if(!cacheDir.exists())
+        if(!cacheDir.exists()) {
             cacheDir.mkdirs();
+        }
     }
 
     public File getFile(String url){
