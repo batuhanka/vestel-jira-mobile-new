@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import fragments.ActivityStreamFragment;
 import fragments.AssignedToMeFragment;
+import fragments.FavouriteFiltersFragment;
 import fragments.ReportedToMeFragment;
 import fragments.SearchIssueFragment;
 import login.MainActivity;
@@ -154,7 +155,8 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
             fragmentManager.beginTransaction().replace(R.id.contentNav, new SearchIssueFragment()).addToBackStack("SearchFragment").commit();
             fragmentManager.executePendingTransactions();
         } else if (id == R.id.nav_favourite_filter) {
-
+            fragmentManager.beginTransaction().replace(R.id.contentNav, new FavouriteFiltersFragment()).addToBackStack("FiltersFragment").commit();
+            fragmentManager.executePendingTransactions();
         } else if (id == R.id.nav_projects) {
 
         } else if (id == R.id.nav_log_out) {

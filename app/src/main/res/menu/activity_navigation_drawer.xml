@@ -25,7 +25,7 @@
             <item
                 android:id="@+id/nav_favourite_filter"
                 android:icon="@drawable/filter"
-                android:title="@string/favourite_search_filters_label" />
+                android:title="@string/favourite_filters_label" />
 
             <item
                 android:id="@+id/nav_projects"

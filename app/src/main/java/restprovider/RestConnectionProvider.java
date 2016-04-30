@@ -130,6 +130,43 @@ public class RestConnectionProvider {
         return issues;
     }
 
+    public  HashMap<String, String> getFavouriteFilters(){
+
+        HashMap<String, String> filters = new HashMap<>();
+        String requestURL               = JIRA_REST_BASE_URL+"/filter/favourite?expand";
+
+        try{
+
+            URL url                         = new URL(requestURL);
+            HttpURLConnection connection    = (HttpURLConnection) url.openConnection();
+            connection.setRequestProperty("Cookie", "JSESSIONID=" + mJsessionID);
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input       = connection.getInputStream();
+            BufferedReader reader   = new BufferedReader(new InputStreamReader(input, "iso-8859-1"), 8);
+            StringBuilder sb        = new StringBuilder();
+
+            String line;
+            while ((line = reader.readLine()) != null){
+                sb.append(line).append("\n");
+            }
+
+            JSONArray jsonArray = new JSONArray(sb.toString());
+            for(int i=0; i<jsonArray.length(); i++){
+                JSONObject jsonObject   = jsonArray.getJSONObject(i);
+                String filterName       = jsonObject.getString("name");
+                String searchUrl        = jsonObject.getString("searchUrl");
+                filters.put(filterName, searchUrl);
+            }
+
+
+        }catch (Exception ex){
+            Log.e("BATU",ex.getMessage());
+        }
+
+        return filters;
+    }
+
     public  HashMap<String, List<IssueModel>> getReportedIssues(){
 
         HashMap<String, List<IssueModel>> issues = new HashMap<>();
@@ -166,7 +203,6 @@ public class RestConnectionProvider {
 
         return issues;
     }
-
 
     public ViewIssueModel getSingleIssueDetails(String issueKey){
 
@@ -505,6 +541,5 @@ public class RestConnectionProvider {
 
             return result;
     }
-
 
 }

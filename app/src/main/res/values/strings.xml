@@ -41,7 +41,7 @@
     <string name="start_date_ac_hint">Start Date</string>
     <string name="end_date_ac_hint">End Date</string>
     <string name="no_items_info">No Items</string>
-    <string name="favourite_search_filters_label">My Favourite Search Filters</string>
+    <string name="favourite_filters_label">My Favourite Filters</string>
     <string name="close_message">Are you sure ?</string>
     <string name="close_message_title">Close Vestel JIRA Mobile</string>
 

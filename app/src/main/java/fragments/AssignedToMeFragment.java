@@ -82,8 +82,8 @@ public class AssignedToMeFragment extends Fragment {
         @Override
         protected void onPostExecute(HashMap<String, List<IssueModel>> resultList) {
             super.onPostExecute(resultList);
-            ExpandableListView elv = (ExpandableListView) mRootView.findViewById(R.id.assignedList);
-            List<String> headers = new ArrayList<>();
+            ExpandableListView elv  = (ExpandableListView) mRootView.findViewById(R.id.assignedList);
+            List<String> headers    = new ArrayList<>();
             for (String str : resultList.keySet()) {
                 headers.add(str);
             }
