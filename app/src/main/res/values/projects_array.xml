@@ -1,0 +1,871 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="project_names">
+        <item>14MB37 (14MB37)</item>
+        <item>14MB41 (14MB41)</item>
+        <item>14MON02 (14MON02)</item>
+        <item>14MON06 (14MON06)</item>
+        <item>16ESC01 (16ESC01)</item>
+        <item>16SP01 (16SP01)</item>
+        <item>16SP02 (16SP02)</item>
+        <item>16WFM12 (16WFM12)</item>
+        <item>16WFM13 (16WFM13)</item>
+        <item>16WFM14 (16WFM14)</item>
+        <item>17CON01 (17CON01)</item>
+        <item>17CON02 (17CON02)</item>
+        <item>17CON04 (17CON04)</item>
+        <item>17CON06 (17CON06)</item>
+        <item>17CON07 (17CON07)</item>
+        <item>17CON08 (17CON08)</item>
+        <item>17CON09 (17CON09)</item>
+        <item>17CON12 (17CON12)</item>
+        <item>17CON13 (17CON13)</item>
+        <item>17CON14 (17CON14)</item>
+        <item>17CON15 (17CON15)</item>
+        <item>17CON16 (17CON16)</item>
+        <item>17CON17 (17CON17)</item>
+        <item>17CON18 (17CON18)</item>
+        <item>17CON19 (17CON19)</item>
+        <item>17CON20 (17CON20)</item>
+        <item>17CON21 (17CON21)</item>
+        <item>17DB01 (17DB01)</item>
+        <item>17DB02 (17DB02)</item>
+        <item>17DB05 (17DB05)</item>
+        <item>17DB06 (17DB06)</item>
+        <item>17DB07 (17DB07)</item>
+        <item>17DB08 (17DB08)</item>
+        <item>17DB20 (17DB20)</item>
+        <item>17DB39 (17DB39)</item>
+        <item>17DB395 (17DB395)</item>
+        <item>17DB40 (17DB40)</item>
+        <item>17DB42 (17DB42)</item>
+        <item>17DB48 (17DB48)</item>
+        <item>17DB49 (17DB49)</item>
+        <item>17DB50 (17DB50)</item>
+        <item>17FL84 (17FL84)</item>
+        <item>17INV05 (17INV05)</item>
+        <item>17INV07 (17INV07)</item>
+        <item>17INV15 (17INV15)</item>
+        <item>17INV16 (17INV16)</item>
+        <item>17IPS01 (17IPS01)</item>
+        <item>17IPS04 (17IPS04)</item>
+        <item>17IPS06 (17IPS06)</item>
+        <item>17IPS07 (17IPS07)</item>
+        <item>17IPS08 (17IPS08)</item>
+        <item>17IPS10 (17IPS10)</item>
+        <item>17IPS11 (17IPS11)</item>
+        <item>17IPS12 (17IPS12)</item>
+        <item>17IPS15 (17IPS15)</item>
+        <item>17IPS16 (17IPS16)</item>
+        <item>17IPS17 (17IPS17)</item>
+        <item>17IPS19 (17IPS19)</item>
+        <item>17IPS20 (17IPS20)</item>
+        <item>17IPS20P (17IPS20P)</item>
+        <item>17IPS55 (17IPS55)</item>
+        <item>17IPS60 (17IPS60)</item>
+        <item>17IPS61 (17IPS61)</item>
+        <item>17IPS62 (17IPS62)</item>
+        <item>17IPS62P (17IPS62P)</item>
+        <item>17IPS70 (17IPS70)</item>
+        <item>17IPS71 (17IPS71)</item>
+        <item>17IPS71P (17IPS71P)</item>
+        <item>17IPS72 (17IPS72)</item>
+        <item>17MB100 (17MB100)</item>
+        <item>17MB110 (17MB110)</item>
+        <item>17MB12 (17MB12)</item>
+        <item>17MB120 (17MB120)</item>
+        <item>17MB120 Program Schedule (17MB120PS)</item>
+        <item>17MB120DS (17MB120DS)</item>
+        <item>17MB125 (17MB125)</item>
+        <item>17MB130 (17MB130)</item>
+        <item>17MB20 (17MB20)</item>
+        <item>17MB21 (17MB21)</item>
+        <item>17MB210 (17MB210)</item>
+        <item>17MB22 (17MB22)</item>
+        <item>17MB24 (17MB24)</item>
+        <item>17MB25 (17MB25)</item>
+        <item>17MB26 (17MB26)</item>
+        <item>17MB27 (17MB27)</item>
+        <item>17MB29 (17MB29)</item>
+        <item>17MB30 (17MB30)</item>
+        <item>17MB300 (17MB300)</item>
+        <item>17MB300DS (17MB300DS)</item>
+        <item>17MB33 (17MB33)</item>
+        <item>17MB35 (17MB35)</item>
+        <item>17MB36 (17MB36)</item>
+        <item>17MB38 (17MB38)</item>
+        <item>17MB45M (17MB45M)</item>
+        <item>17MB46 (17MB46)</item>
+        <item>17MB47 (17MB47)</item>
+        <item>17MB48 (17MB48)</item>
+        <item>17MB50 (17MB50)</item>
+        <item>17MB52 (17MB52)</item>
+        <item>17MB55 (17MB55)</item>
+        <item>17MB60 (17MB60)</item>
+        <item>17MB61 (17MB61)</item>
+        <item>17MB62 (17MB62)</item>
+        <item>17MB62_3D (17MB623D)</item>
+        <item>17MB63D (17MB63D)</item>
+        <item>17MB65 (17MB65)</item>
+        <item>17MB65_3D (17MB653D)</item>
+        <item>17MB67 (17MB67)</item>
+        <item>17MB69 (17MB69)</item>
+        <item>17MB70 (17MB70)</item>
+        <item>17MB71 (17MB71)</item>
+        <item>17MB72 (17MB72)</item>
+        <item>17MB80 (17MB80)</item>
+        <item>17MB81 (17MB81)</item>
+        <item>17MB82 (17MB82)</item>
+        <item>17MB82S (17MB82S)</item>
+        <item>17MB83 (17MB83)</item>
+        <item>17MB83S (17MB83S)</item>
+        <item>17MB84 (17MB84)</item>
+        <item>17MB90 (17MB90)</item>
+        <item>17MB91 (17MB91)</item>
+        <item>17MB91-R3 (17MB91R3)</item>
+        <item>17MB92 (17MB92)</item>
+        <item>17MB92-R4A (17MB92R4A)</item>
+        <item>17MB95 (17MB95)</item>
+        <item>17MB95M (17MB95M)</item>
+        <item>17MB95S (17MB95S)</item>
+        <item>17MB96 (17MB96)</item>
+        <item>17MB96T (17MB96T)</item>
+        <item>17MB97 (17MB97)</item>
+        <item>17MB98 (17MB98)</item>
+        <item>17PW01 (17PW01)</item>
+        <item>17PW02 (17PW02)</item>
+        <item>17PW03 (17PW03)</item>
+        <item>17PW04 (17PW04)</item>
+        <item>17PW05 (17PW05)</item>
+        <item>17PW06 (17PW06)</item>
+        <item>17PW07 (17PW07)</item>
+        <item>17PW08 (17PW08)</item>
+        <item>17PW16 (17PW16)</item>
+        <item>17PW17 (17PW17)</item>
+        <item>17PW19 (17PW19)</item>
+        <item>17PW20 (17PW20)</item>
+        <item>17PW22 (17PW22)</item>
+        <item>17PW25 (17PW25)</item>
+        <item>17PW26 (17PW26)</item>
+        <item>17PW27 (17PW27)</item>
+        <item>17PW30 (17PW30)</item>
+        <item>17PW46 (17PW46)</item>
+        <item>17PW80 (17PW80)</item>
+        <item>17PW82 (17PW82)</item>
+        <item>17WFM03 (17WFM03)</item>
+        <item>17WFM05 (17WFM05)</item>
+        <item>20BD01 (20BD01)</item>
+        <item>20BD02 (20BD02)</item>
+        <item>20BD03 (20BD03)</item>
+        <item>20BD04 (20BD04)</item>
+        <item>20BD04C (20BD04C)</item>
+        <item>20BD05 (20BD05)</item>
+        <item>20BD06 (20BD06)</item>
+        <item>20BD07 (20BD07)</item>
+        <item>20BD08 (20BD08)</item>
+        <item>20BD09 (20BD09)</item>
+        <item>20BD10 (20BD10)</item>
+        <item>20BD11 (20BD11)</item>
+        <item>20BD11A (20BD11A)</item>
+        <item>20BD12 (20BD12)</item>
+        <item>20BD14 (20BD14)</item>
+        <item>20BD15 (20BD15)</item>
+        <item>20BD16 (20BD16)</item>
+        <item>20BD17 (20BD17)</item>
+        <item>20BD17A (20BD17A)</item>
+        <item>20BD19 (20BD19)</item>
+        <item>20BD20 (20BD20)</item>
+        <item>20BD23 (20BD23)</item>
+        <item>20BD25 (20BD25)</item>
+        <item>20BD26 (20BD26)</item>
+        <item>20BD28 (20BD28)</item>
+        <item>20BD29 (20BD29)</item>
+        <item>20BD30 (20BD30)</item>
+        <item>20BD35 (20BD35)</item>
+        <item>20BD36 (20BD36)</item>
+        <item>20BD38 (20BD38)</item>
+        <item>20BD39 (20BD39)</item>
+        <item>20BD41 (20BD41)</item>
+        <item>20BD43 (20BD43)</item>
+        <item>20BD44 (20BD44)</item>
+        <item>20BD45 (20BD45)</item>
+        <item>20BD46 (20BD46)</item>
+        <item>20BD47 (20BD47)</item>
+        <item>20BD48 (20BD48)</item>
+        <item>20BD49 (20BD49)</item>
+        <item>20BD50 (20BD50)</item>
+        <item>20BD51 (20BD51)</item>
+        <item>20BD52 (20BD52)</item>
+        <item>20BD53 (20BD53)</item>
+        <item>20BD55 (20BD55)</item>
+        <item>20BD56 (20BD56)</item>
+        <item>20BD57 (20BD57)</item>
+        <item>20BD60 (20BD60)</item>
+        <item>20BD61 (20BD61)</item>
+        <item>20BD62 (20BD62)</item>
+        <item>20BM01 (20BM01)</item>
+        <item>20BM02 (20BM02)</item>
+        <item>20BM03 (20BM03)</item>
+        <item>20BM04 (20BM04)</item>
+        <item>20BM05 (20BM05)</item>
+        <item>20BM07 (20BM07)</item>
+        <item>20BM08 (20BM08)</item>
+        <item>20BMD01 (20BMD01)</item>
+        <item>20BMD02 (20BMD02)</item>
+        <item>20BMD03 (20BMD03)</item>
+        <item>20BMD04 (20BMD04)</item>
+        <item>20BMD05 (20BMD05)</item>
+        <item>20BMD06 (20BMD06)</item>
+        <item>20BMD07 (20BMD07)</item>
+        <item>20BMD08 (20BMD08)</item>
+        <item>20BMD09 (20BMD09)</item>
+        <item>20BMD10 (20BMD10)</item>
+        <item>20BMD11 (20BMD11)</item>
+        <item>20BMD12 (20BMD12)</item>
+        <item>20BMD13 (20BMD13)</item>
+        <item>20CMB01 (20CMB01)</item>
+        <item>20CMB04 (20CMB04)</item>
+        <item>20CMB05 (20CMB05)</item>
+        <item>20CMB06 (20CMB06)</item>
+        <item>20CMB07 (20CMB07)</item>
+        <item>20CMB08 (20CMB08)</item>
+        <item>20CMD01 (20CMD01)</item>
+        <item>20CMD02 (20CMD02)</item>
+        <item>20CMD04 (20CMD04)</item>
+        <item>20CMD05 (20CMD05)</item>
+        <item>20CMD06 (20CMD06)</item>
+        <item>20CMDC01 (20CMDC01)</item>
+        <item>20CML01 (20CML01)</item>
+        <item>20CML02 (20CML02)</item>
+        <item>20CMTL01 (20CMTL01)</item>
+        <item>20DK01 (20DK01)</item>
+        <item>20DK02 (20DK02)</item>
+        <item>20DK03 (20DK03)</item>
+        <item>20DK04 (20DK04)</item>
+        <item>20DK05 (20DK05)</item>
+        <item>20DK12 (20DK12)</item>
+        <item>20DK13 (20DK13)</item>
+        <item>20DK14 (20DK14)</item>
+        <item>20DS01 (20DS01)</item>
+        <item>20FR01 (20FR01)</item>
+        <item>20FR02 (20FR02)</item>
+        <item>20FR03 (20FR03)</item>
+        <item>20FR04 (20FR04)</item>
+        <item>20FR05 (20FR05)</item>
+        <item>20FR06 (20FR06)</item>
+        <item>20FR07 (20FR07)</item>
+        <item>20FR08 (20FR08)</item>
+        <item>20FR09 (20FR09)</item>
+        <item>20FR10 (20FR10)</item>
+        <item>20FR11 (20FR11)</item>
+        <item>20FR12 (20FR12)</item>
+        <item>20FR14 (20FR14)</item>
+        <item>20FR15 (20FR15)</item>
+        <item>20FR16 (20FR16)</item>
+        <item>20FR17 (20FR17)</item>
+        <item>20FR18 (20FR18)</item>
+        <item>20FR19 (20FR19)</item>
+        <item>20FR25 (20FR25)</item>
+        <item>20FR26 (20FR26)</item>
+        <item>20FR27 (20FR27)</item>
+        <item>20FR34 (20FR34)</item>
+        <item>20HM01 (20HM01)</item>
+        <item>20HM02 (20HM02)</item>
+        <item>20KL01 (20KL01)</item>
+        <item>20KL02 (20KL02)</item>
+        <item>20KL03 (20KL03)</item>
+        <item>20KL04 (20KL04)</item>
+        <item>20KL05 (20KL05)</item>
+        <item>20KL06 (20KL06)</item>
+        <item>20KL07 (20KL07)</item>
+        <item>20KL08 (20KL08)</item>
+        <item>20KL09 (20KL09)</item>
+        <item>20KL10 (20KL10)</item>
+        <item>20KL11 (20KL11)</item>
+        <item>20KLD01 (20KLD01)</item>
+        <item>20KLD02 (20KLD02)</item>
+        <item>20KLD03 (20KLD03)</item>
+        <item>20TM01 (20TM01)</item>
+        <item>20TM02 (20TM02)</item>
+        <item>20TM03 (20TM03)</item>
+        <item>20TMD01 (20TMD01)</item>
+        <item>20TMD02 (20TMD02)</item>
+        <item>21EVC01 (21EVC01)</item>
+        <item>23.6 ELED (236ELED)</item>
+        <item>25FPW01 (25FPW01)</item>
+        <item>25FPW02 (25FPW02)</item>
+        <item>25LPW01 (25LPW01)</item>
+        <item>25LPW02 (25LPW02)</item>
+        <item>25LPW03 (25LPW03)</item>
+        <item>25LPW04 (25LPW04)</item>
+        <item>25LPW05 (25LPW05)</item>
+        <item>25LPW06 (25LPW06)</item>
+        <item>25LPW07 (25LPW07)</item>
+        <item>25LPW08 (25LPW08)</item>
+        <item>25LPW09 (25LPW09)</item>
+        <item>25LPW10 (25LPW10)</item>
+        <item>25LPW11 (25LPW11)</item>
+        <item>25LPW12 (25LPW12)</item>
+        <item>25LPW13 (25LPW13)</item>
+        <item>25LPW14 (25LPW14)</item>
+        <item>25LPW15 (25LPW15)</item>
+        <item>25LPW16 (25LPW16)</item>
+        <item>25LPW17 (25LPW17)</item>
+        <item>25LPW18 (25LPW18)</item>
+        <item>25LPW19 (25LPW19)</item>
+        <item>25LPW20 (25LPW20)</item>
+        <item>25LPW21 (25LPW21)</item>
+        <item>25LPW22 (25LPW22)</item>
+        <item>25LPW23 (25LPW23)</item>
+        <item>32 DLED (32DLED)</item>
+        <item>32 ELED (32ELED)</item>
+        <item>32 VLED (32VLED)</item>
+        <item>39 DLED (39DLED)</item>
+        <item>39 VLED (39VLED)</item>
+        <item>3D Monitor (3DMONITOR)</item>
+        <item>40 DLED (40DLED)</item>
+        <item>40 ELED (40ELED)</item>
+        <item>42 DLED (42DLED)</item>
+        <item>42 VLED (42VLED)</item>
+        <item>43400 UHD 2D DLED UNB MB120 TV (43400UHD2DDLEDUNBMB120TV)</item>
+        <item>50 VLED (50VLED)</item>
+        <item>65190 IWB (65190IWB)</item>
+        <item>65” IWB (Vera) (65IWBVERA)</item>
+        <item>Agreements, Memberships, Licenses and Support (AGRMT)</item>
+        <item>Aguila (AGUILA)</item>
+        <item>Alev (ALEV)</item>
+        <item>Alize (ALIZE)</item>
+        <item>ALONG-DL10 (ALONGDL10)</item>
+        <item>Amber (AMBER)</item>
+        <item>Andromeda (ANDROMEDA)</item>
+        <item>Angora (ANGORA)</item>
+        <item>Antarktika (ANTARKTIKA)</item>
+        <item>Antman (ANTMAN)</item>
+        <item>Anvia-TC4470 (ANVTC4470)</item>
+        <item>Apollo Music Box 4581 (APOMB4581)</item>
+        <item>Appledore (APPLEDORE)</item>
+        <item>Appsgate (APPSGATE)</item>
+        <item>Aracı (ARACI)</item>
+        <item>Archangel (ARCHANGEL)</item>
+        <item>Architecture (ARCH)</item>
+        <item>Arı (ARI)</item>
+        <item>Ark (ARK)</item>
+        <item>Arnold2 (ARNOLD2)</item>
+        <item>Artwin (ARTWIN)</item>
+        <item>Aspendos (ASPENDOS)</item>
+        <item>Ateşli (ATESLI)</item>
+        <item>Atlantic (Oceanic) (ATLANTIC)</item>
+        <item>Atrium (ATRIUM)</item>
+        <item>Aurora (AURORA)</item>
+        <item>Automated Android Test System (AATS)</item>
+        <item>Ayı (AYI)</item>
+        <item>Ayna (AYNA)</item>
+        <item>Ağrı (AGRI)</item>
+        <item>Aşı (ASI)</item>
+        <item>B2B Monitor Customer Support  (B2BMONCSS)</item>
+        <item>B2B MP Quality Assurance (MPQAB2B)</item>
+        <item>B2B SHARP (B2BSHARP)</item>
+        <item>B2B Toshiba (B2BTOSHIBA)</item>
+        <item>B2C Toshiba (B2CTOSHIBA)</item>
+        <item>BATUHAN (BATU)</item>
+        <item>Bayi TV (BAYITV)</item>
+        <item>Beenius (BEENIUS)</item>
+        <item>BeeSmart (BEESMART)</item>
+        <item>BeeSmart-IP7630  (BSMTIP7630)</item>
+        <item>Begonya (BEGONYA)</item>
+        <item>Bishop (BISHOP)</item>
+        <item>Blade (BLADE)</item>
+        <item>Bodur (BODUR)</item>
+        <item>Bora (BORA)</item>
+        <item>Bornova (BORNOVA)</item>
+        <item>Breathe (BREATHE)</item>
+        <item>Buzdağ (BUZDAG)</item>
+        <item>Buzul (BUZUL)</item>
+        <item>C7100 (C7100)</item>
+        <item>C7180 (C7180)</item>
+        <item>C7185 (C7185)</item>
+        <item>C7505 (C7505)</item>
+        <item>C7570 (C7570)</item>
+        <item>C7580 (C7580)</item>
+        <item>C7600 (C7600)</item>
+        <item>C7785 (C7785)</item>
+        <item>C837 (C837)</item>
+        <item>C9200 (C9200)</item>
+        <item>C9210 (C9210)</item>
+        <item>C9250 (C9250)</item>
+        <item>Cabot IT (CABOTIT)</item>
+        <item>Cabot Test Internal Tasks (CABOTTEST)</item>
+        <item>Cameron (CAMERON)</item>
+        <item>Canli (CANLI)</item>
+        <item>Carmen (CARMEN)</item>
+        <item>Chiron (CHIRON)</item>
+        <item>Cilveli (CILVELI)</item>
+        <item>Clara (CLARA)</item>
+        <item>Class Collaboration (DSCLASSCOL)</item>
+        <item>Codera (CODERA)</item>
+        <item>Consumable Purchasing (SWCONSPURCH)</item>
+        <item>Cost Reduction Tasks (COSTREDUCTION)</item>
+        <item>Crunch (CRUNCH)</item>
+        <item>Crunch KitKat (CRUNKITKAT)</item>
+        <item>Cyberman (CYBERMAN)</item>
+        <item>D141UG03 Haswell (D141UG03)</item>
+        <item>D141UG04 Celeron (D141UG04)</item>
+        <item>D156UG03 WO/GPU (D156UG03WG)</item>
+        <item>D156UG04 W/GPU (D156UG04)</item>
+        <item>Damla (DAMLA)</item>
+        <item>DC Customer Support (DCSS)</item>
+        <item>Digital ARGE DV RF Test Laboratory (DADVRFTL)</item>
+        <item>Digital ARGE Design Verification Tests (DADVT)</item>
+        <item>Digital Artwork Approval (DIGITALARTWORK)</item>
+        <item>Digital Products Quality Control (DPQC)</item>
+        <item>Digital QA DC Test (DQADCTST)</item>
+        <item>Digital SW Internal Tasks (DIGSW)</item>
+        <item>Digital SW Training (DSTRAINING)</item>
+        <item>Digital UMB Proje Test/Onay (DUMBTSTAPP)</item>
+        <item>Digital-SW-Requests (DIGSWREQ)</item>
+        <item>Dikey (DIKEY)</item>
+        <item>Dilbert (DILBERT)</item>
+        <item>Diver (DIVER)</item>
+        <item>Documentation Internal Tasks (RDDOCINT)</item>
+        <item>Domino (DOMINO)</item>
+        <item>Donatello (DONATELLO)</item>
+        <item>DS 32" Intel Atom OPS Monitor (DS32INTATM)</item>
+        <item>DS 32" IR Overlay (DS32IROVR)</item>
+        <item>DS 32" LIDL (DS32LIDL)</item>
+        <item>DS 40" IR Overlay (DS40IROVR)</item>
+        <item>DS 40" Overlay Touch (DS40OVRTCH)</item>
+        <item>DS 50" IR Overlay (DS50IROVR)</item>
+        <item>DS 55" PID (DS55PID)</item>
+        <item>DS 65" Aslan (DS65ASLAN)</item>
+        <item>DS 65" HITACHI (DS65HIT)</item>
+        <item>DS 65" IR Overlay (DS65IROVR)</item>
+        <item>DS 65" LIDL (DS65LIDL)</item>
+        <item>DS 65" Overlay Touch (DS65OVRTCH)</item>
+        <item>DS 75" FHD iFPD (DS75FHIFPD)</item>
+        <item>DS 84" FHD Yavuz  (DS84YAVUZ)</item>
+        <item>DS 84" UHD IFPD (DS84UHDIFP)</item>
+        <item>DS Android Monitor (DSANDMON)</item>
+        <item>DS Android OPS (DSANDOPS)</item>
+        <item>DS QM77 vPro OPS (DSQM77VPRO)</item>
+        <item>DS Windows Monitor (DSWINMON)</item>
+        <item>DS Windows OPS (DSWINOPS)</item>
+        <item>Duble (DUBLE)</item>
+        <item>DUMMY (DUMMY)</item>
+        <item>DVT Internal (DVT)</item>
+        <item>DVT-TestPlan (DVTSTP)</item>
+        <item>Dörtlü (DORTLU)</item>
+        <item>Düdük (DUDUK)</item>
+        <item>Düz (DUZ)</item>
+        <item>Egon (EGON)</item>
+        <item>Eiffel (EIFFEL)</item>
+        <item>Ejderha (EJDERHA)</item>
+        <item>Electronics Product Task Management (EPTM)</item>
+        <item>Electronics STB Customer Support (STBCSS)</item>
+        <item>Electronics TV Applications Engineering (EAPP)</item>
+        <item>Electronics TV Customer Support (ECSS)</item>
+        <item>Elmas (ELMAS)</item>
+        <item>EMC-Safety-Reliability Test Labs (RESTST)</item>
+        <item>Emerald (EMERALD)</item>
+        <item>Erciyes (ERCIYES)</item>
+        <item>Etna (ETNA)</item>
+        <item>Everest (EVEREST)</item>
+        <item>Evolution (EVOLUTION)</item>
+        <item>Falcon (FALCON)</item>
+        <item>FemToCell (FEMTOCELL)</item>
+        <item>Fosil (FOSIL)</item>
+        <item>FRACAS (FRACAS)</item>
+        <item>Fransız (FRANSIZ)</item>
+        <item>Gamer (GAMER)</item>
+        <item>Garip (GARIP)</item>
+        <item>Gemini (GEMINI)</item>
+        <item>Genki (GENKI)</item>
+        <item>GoldenEye (GOLDENEYE)</item>
+        <item>Gordian (GORDIAN)</item>
+        <item>Gül (GUL)</item>
+        <item>Güney (GUNEY)</item>
+        <item>Güçlü (GUCLU)</item>
+        <item>H2B2VS (H2B2VS)</item>
+        <item>Hamam (HAMAM)</item>
+        <item>Hare (HARE)</item>
+        <item>Harmony (HARMONY)</item>
+        <item>Havalı (HAVALI)</item>
+        <item>HCN-DL08 (HCNDL08)</item>
+        <item>HCN-DL10 (HCNDL10)</item>
+        <item>HCN-DL10 Karaoke (HCNDL10KARAOKE)</item>
+        <item>HCN-DL18 (HCNDL18)</item>
+        <item>Highway (HIGHWAY)</item>
+        <item>HiGlobal-S954X (HIGLBS9540)</item>
+        <item>HiGlobal-S955X (HIGLBS955X)</item>
+        <item>HiGlobal-S96XX (HIGLBS96XX)</item>
+        <item>Himalaya (HIMALAYA)</item>
+        <item>Hindi (HINDI)</item>
+        <item>HIPERMED (HIPERMED)</item>
+        <item>Horoz (HOROZ)</item>
+        <item>HW STB Internal Tasks (HWSTB)</item>
+        <item>HW Technician Internal Tasks (HWTINT)</item>
+        <item>Hyperon (HYPERON)</item>
+        <item>Ilgaz (ILGAZ)</item>
+        <item>Inception (INCEPTION)</item>
+        <item>İnci (INCI)</item>
+        <item>Infinity (INFINITY)</item>
+        <item>Infrastructure (INFRA)</item>
+        <item>Innovo (INNOVO)</item>
+        <item>IP1000 (IP1000)</item>
+        <item>IP1010 (IP1010)</item>
+        <item>IP1030 (IP1030)</item>
+        <item>IP1031 (IP1031)</item>
+        <item>IP1100 (IP1100)</item>
+        <item>IP1200 (IP1200)</item>
+        <item>IP1210 (IP1210)</item>
+        <item>IP1300 (IP1300)</item>
+        <item>IP1400 (IP1400)</item>
+        <item>IP1410 (IP1410)</item>
+        <item>IP1500 (IP1500)</item>
+        <item>IP4000 (IP4000)</item>
+        <item>IP4010 (IP4010)</item>
+        <item>IP4800 (IP4800)</item>
+        <item>IP7100 (IP7100)</item>
+        <item>IP7200 (IP7200)</item>
+        <item>IP7230 (IP7230)</item>
+        <item>IP7252 (IP7252)</item>
+        <item>IP7350 (IP7350)</item>
+        <item>IP7600 (IP7600)</item>
+        <item>IP7610 (IP7610)</item>
+        <item>IP7615 (IP7615)</item>
+        <item>IP7648 (IP7648)</item>
+        <item>IP7700 (IP7700)</item>
+        <item>Ironman (IRONMAN)</item>
+        <item>Ivory (IVORY)</item>
+        <item>IWB-Tablet Interaction SW (IWBTBLINSW)</item>
+        <item>İğne (IGNE)</item>
+        <item>Jupiter (JUPITER)</item>
+        <item>Kartopu (KARTOPU)</item>
+        <item>Kasap (KASAP)</item>
+        <item>Kaygan (KAYGAN)</item>
+        <item>Kaykay (KAYKAY)</item>
+        <item>Kırağı (KIRAGI)</item>
+        <item>Kırkayar (KIRKAYAR)</item>
+        <item>Kozmik (KOZMIK)</item>
+        <item>Krater (KRATER)</item>
+        <item>Kutup (KUTUP)</item>
+        <item>Kuzey (KUZEY)</item>
+        <item>Küp (KUP)</item>
+        <item>LED Aydınlatma Lab. Öneri ve Şikayet (LEDSAC)</item>
+        <item>LED Customer Support (LCSS)</item>
+        <item>LED Test Laboratory (LEDTST)</item>
+        <item>Legend (LEGEND)</item>
+        <item>Leonardo (LEONARDO)</item>
+        <item>Leylak (LEYLAK)</item>
+        <item>Liberate (LIBERATE)</item>
+        <item>Magma (MAGMA)</item>
+        <item>MainLoop (MAINLOOP)</item>
+        <item>Malahide (MALAHIDE)</item>
+        <item>Mars (MARS)</item>
+        <item>Masque (MASQUE)</item>
+        <item>Maydanoz (MAYDANOZ)</item>
+        <item>MB AsRock AMD (MBASRCKAMD)</item>
+        <item>MB ECS AMD (MBECSAMD)</item>
+        <item>MB ECS Intel 4KM (MBEINTL4KM)</item>
+        <item>Median (MEDIAN)</item>
+        <item>MediaWind (MEDIAWIND)</item>
+        <item>Meltem (MELTEM)</item>
+        <item>Menekse (MENEKSE)</item>
+        <item>Mercan (MERCAN)</item>
+        <item>Merkür (MERKUR)</item>
+        <item>Mevlana (MEVLANA)</item>
+        <item>Michelangelo (MANGELO)</item>
+        <item>Mobil Asistan (MOBAST)</item>
+        <item>Mobile Phone Utilities (MPU)</item>
+        <item>Mobile Test Suite (MOBTSTSUIT)</item>
+        <item>Module Cards (MODCARDS)</item>
+        <item>Moon (MOON)</item>
+        <item>Moonstar (MOONSTAR)</item>
+        <item>MStar-T9200 (MSTART9200)</item>
+        <item>Mulberry (MULBERRY)</item>
+        <item>Mumya (MUMYA)</item>
+        <item>Nazlı (NAZLI)</item>
+        <item>Neckar (NECKAR)</item>
+        <item>Nemli (NEMLI)</item>
+        <item>Nemrut (NEMRUT)</item>
+        <item>Neptün (NEPTUN)</item>
+        <item>Niagara (NIAGARA)</item>
+        <item>Northstar (NORTHSTAR)</item>
+        <item>Oniks (ONIKS)</item>
+        <item>Onur (ONUR)</item>
+        <item>OPS PC (OPSPC)</item>
+        <item>Optic (OPTIC)</item>
+        <item>Optics Internal Tasks (RDOPTINT)</item>
+        <item>Optimus (OPTIMUS)</item>
+        <item>Oreo (OREO)</item>
+        <item>Orkide (ORKIDE)</item>
+        <item>Oslo (OSLO)</item>
+        <item>Papatya (PAPATYA)</item>
+        <item>Phantom (PHANTOM)</item>
+        <item>Phoenix (PHOENIX)</item>
+        <item>Pisa (PISA)</item>
+        <item>Portal TV Server (PORTALTV)</item>
+        <item>Poyraz (POYRAZ)</item>
+        <item>Prestige (PRESTIGE)</item>
+        <item>Priz (PRIZ)</item>
+        <item>Prodigy (PRODIGY)</item>
+        <item>Prometheus (PROMETHEUS)</item>
+        <item>Pryde (PRYDE)</item>
+        <item>PW1A5_FCH (PW1A5FCH)</item>
+        <item>PW1A_FCH (PW1AFCH)</item>
+        <item>PW2A_INF (PW2AINF)</item>
+        <item>PW3A_INF (PW3AINF)</item>
+        <item>PW3A_PI (PW3API)</item>
+        <item>RD Components (RDCOMP)</item>
+        <item>RD Documentation (RDDOC)</item>
+        <item>RD Systems Support (RDSS)</item>
+        <item>RD Tests (RDT)</item>
+        <item>Raphael (RAPHAEL)</item>
+        <item>RD-PM-TV Internal Tasks (TVPMINT)</item>
+        <item>ReferenceSTB (REFERSTB)</item>
+        <item>RES Internal Tasks (RDRES)</item>
+        <item>Rewind (REWIND)</item>
+        <item>Ronesans (RONESANS)</item>
+        <item>Runner (RUNNER)</item>
+        <item>S4100 (S4100)</item>
+        <item>S4800 (S4800)</item>
+        <item>S4805 (S4805)</item>
+        <item>S4810 (S4810)</item>
+        <item>S4820 (S4820)</item>
+        <item>S7050 (S7050)</item>
+        <item>S7100 (S7100)</item>
+        <item>S7110 (S7110)</item>
+        <item>S7150 (S7150)</item>
+        <item>S7180 (S7180)</item>
+        <item>S7185 (S7185)</item>
+        <item>S7251 (S7251)</item>
+        <item>S7252 (S7252)</item>
+        <item>S7255 (S7255)</item>
+        <item>S7300 (S7300)</item>
+        <item>S7500 (S7500)</item>
+        <item>S7510 (S7510)</item>
+        <item>S7520 (S7520)</item>
+        <item>S7550 (S7550)</item>
+        <item>S7560 (S7560)</item>
+        <item>S7562 (S7562)</item>
+        <item>S7585 (S7585)</item>
+        <item>S7600 (S7600)</item>
+        <item>S7700 (S7700)</item>
+        <item>S7710 (S7710)</item>
+        <item>S7720 (S7720)</item>
+        <item>S7750 (S7750)</item>
+        <item>S7810 (S7810)</item>
+        <item>S7820 (S7820)</item>
+        <item>S7830 (S7830)</item>
+        <item>S7850 (S7850)</item>
+        <item>S8200 (S8200)</item>
+        <item>S8270 (S8270)</item>
+        <item>S8280 (S8280)</item>
+        <item>S8500 (S8500)</item>
+        <item>S8510 (S8510)</item>
+        <item>S9000 (S9000)</item>
+        <item>S9150 (S9150)</item>
+        <item>S9200 (S9200)</item>
+        <item>S9205 (S9205)</item>
+        <item>S9540 (S9540)</item>
+        <item>S9541 (S9541)</item>
+        <item>S9640 (S9640)</item>
+        <item>Sabun (SABUN)</item>
+        <item>Safir (SAFIR)</item>
+        <item>Samba (SAMBA)</item>
+        <item>Samyeli (SAMYELI)</item>
+        <item>Saturn (SATURN)</item>
+        <item>Seaview (SEAVIEW)</item>
+        <item>Sel (SEL)</item>
+        <item>Sentor (SENTOR)</item>
+        <item>Sentosa (SENTOSA)</item>
+        <item>Sevenhill (SEVENHILL)</item>
+        <item>Shaman (SHAMAN)</item>
+        <item>Shamrock (SHAMROCK)</item>
+        <item>Sibirya (SIBIRYA)</item>
+        <item>Sıfır (SIFIR)</item>
+        <item>SilverSurfer (SSURFER)</item>
+        <item>SIP1000 (SIP1000)</item>
+        <item>Sırma (SIRMA)</item>
+        <item>Slipstream (SLIPSTREAM)</item>
+        <item>Smart Home/Smart Grid (SMTHOMEGRD)</item>
+        <item>Smart Systems Test Development (SSTD)</item>
+        <item>SmartCenter (SMARTCENTER)</item>
+        <item>Smartphone Customer Support (SMPCSP)</item>
+        <item>Smartphone/Tablet Digital UMB (SPTDJUMB)</item>
+        <item>Smarty (SMARTY)</item>
+        <item>Snowbird (SNOWBIRD)</item>
+        <item>Sofica Multimedia Test Automation Solution (SoMA) (SOMA)</item>
+        <item>Sonlu (SONLU)</item>
+        <item>Sonsuz (SONSUZ)</item>
+        <item>Sopa (SOPA)</item>
+        <item>SP 4.5" VSP145M Melis (SP45MELIS)</item>
+        <item>SP 5" Arya (SP5ARYA)</item>
+        <item>SP 5" Assos (SP5ASSOS)</item>
+        <item>SP 5" Assos Plus (SP5ASSOSPL)</item>
+        <item>SP 5" Dyno (SP5DYNO)</item>
+        <item>SP 5" Dyno Light (SP5DYNOLI)</item>
+        <item>SP 5" Leo (SP5LEO)</item>
+        <item>SP 5" Liva (SP5LIVA)</item>
+        <item>SP 5" Pearl (Cat.6) (SP5PEARLC6)</item>
+        <item>SP 5" RGT Dyno (SP5RGTDYNO)</item>
+        <item>SP 5" Vito (Corleone) (SP5VITO)</item>
+        <item>SP 5.5" Juno (SP55JUNO)</item>
+        <item>SP 5.5" Pars (SP55PARS)</item>
+        <item>SP 5.7" Dora (SP57DORA)</item>
+        <item>Stardust (STARDUST)</item>
+        <item>Starlord (STARLORD)</item>
+        <item>Starry (STARRY)</item>
+        <item>STB-Legacy-Maintenance (SWSTBMAIN)</item>
+        <item>Storm (STORM)</item>
+        <item>Sunset (SUNSET)</item>
+        <item>Sunstone (SUNSTONE)</item>
+        <item>Suphan (SUPHAN)</item>
+        <item>Surfer (SURFER)</item>
+        <item>SW Prospects (SWPROS)</item>
+        <item>SW Research (RDSWRESEARCH)</item>
+        <item>SW-Internal-Requests (SWINTREQ)</item>
+        <item>SW-STB-Requests (SWSTBREQ)</item>
+        <item>SW-TV-Requests (SWTVREQ)</item>
+        <item>Süslü (SUSLU)</item>
+        <item>T4450 (T4450)</item>
+        <item>T4500 (T4500)</item>
+        <item>T4800 (T4800)</item>
+        <item>T7100 (T7100)</item>
+        <item>T7300 (T7300)</item>
+        <item>T7520 (T7520)</item>
+        <item>T7600 (T7600)</item>
+        <item>T7650 (T7650)</item>
+        <item>T7655 (T7655)</item>
+        <item>T7656 (T7656)</item>
+        <item>T7660 (T7660)</item>
+        <item>T7665 (T7665)</item>
+        <item>T7670 (T7670)</item>
+        <item>T7675 (T7675)</item>
+        <item>T7710 (T7710)</item>
+        <item>T8010 (T8010)</item>
+        <item>T8030 (T8030)</item>
+        <item>T8050 (T8050)</item>
+        <item>T8300 (T8300)</item>
+        <item>T835 (T835)</item>
+        <item>T836 (T836)</item>
+        <item>T837 (T837)</item>
+        <item>T8600 (T8600)</item>
+        <item>T8610 (T8610)</item>
+        <item>T9000 (T9000)</item>
+        <item>T9100 (T9100)</item>
+        <item>T9150 (T9150)</item>
+        <item>T9200 (T9200)</item>
+        <item>T9210 (T9210)</item>
+        <item>T9250 (T9250)</item>
+        <item>T9280 (T9280)</item>
+        <item>T9300 (T9300)</item>
+        <item>T9430 (T9430)</item>
+        <item>T9450 (T9450)</item>
+        <item>T9500 (T9500)</item>
+        <item>T9520 (T9520)</item>
+        <item>T9550 (T9550)</item>
+        <item>T9600 (T9600)</item>
+        <item>T9610 (T9610)</item>
+        <item>T9710 (T9710)</item>
+        <item>T9820 (T9820)</item>
+        <item>Tablet Customer Support (TABCSP)</item>
+        <item>Talon (TALON)</item>
+        <item>Tango (TANGO)</item>
+        <item>Tayfun (TAYFUN)</item>
+        <item>TBLT 10.1" Didim (TB101DIDIM)</item>
+        <item>TBLT 10.1" Thor-D (TB101THORD)</item>
+        <item>TBLT 10.1" Venus (VENUS101)</item>
+        <item>TBLT 10.1" Venus Intel WiFi 2 (TB101VWF2)</item>
+        <item>TBLT 10.1" Çeşme (TB101CESME)</item>
+        <item>TBLT 10.1” Farabi EGM (T101FARABI)</item>
+        <item>TBLT 10.1” Farabi FATIH (T101FARFAT)</item>
+        <item>TBLT 10.1” FATIH V3 (T101FATV3)</item>
+        <item>TBLT 10.1” Piri Reis (T101PRREIS)</item>
+        <item>TBLT 7" Mercan (MERCAN7)</item>
+        <item>TBLT 7.85" Thor-Q (TB785THORQ)</item>
+        <item>TBLT 7.85” Mercan (TB785MER)</item>
+        <item>TBLT 7” Thor (TBLTTHOR)</item>
+        <item>TC4450 (TC4450)</item>
+        <item>TC4460 (TC4460)</item>
+        <item>TC4470 (TC4470)</item>
+        <item>TC4480 (TC4480)</item>
+        <item>TC9540 (TC9540)</item>
+        <item>TCS7251S (TCS7251S)</item>
+        <item>TCS7252 (TCS7252)</item>
+        <item>TCS7252S (TCS7252S)</item>
+        <item>Tek (TEK)</item>
+        <item>Telos (TELOS)</item>
+        <item>Termo (TERMO)</item>
+        <item>Test Cards (TESTCARDS)</item>
+        <item>Test Development Internal Tasks (TDINT)</item>
+        <item>Thorium (THORIUM)</item>
+        <item>Tipi (TIPI)</item>
+        <item>Tivoli (TIVOLI)</item>
+        <item>Tools (TOOLS)</item>
+        <item>Toprak (TOPRAK)</item>
+        <item>Tornado (TORNADO)</item>
+        <item>Toros (TOROS)</item>
+        <item>Toros (485E) (TOROS485E)</item>
+        <item>Training (TRAINING)</item>
+        <item>TS08 (TS08)</item>
+        <item>TS7500 (TS7500)</item>
+        <item>TS7562 (TS7562)</item>
+        <item>TS7800 (TS7800)</item>
+        <item>TS7840 (TS7840)</item>
+        <item>Turbo (TURBO)</item>
+        <item>TV MP Quality Assurance (MPQATV)</item>
+        <item>TV-12V-2A-APD (TV12V2AAPD)</item>
+        <item>TV-12V-3A-APD (TV12V3AAPD)</item>
+        <item>TV-12V-4A-APD (TV12V4AAPD)</item>
+        <item>TV-12V-4A-Huntkey (TV12V4AHUN)</item>
+        <item>TV-Legacy-Maintenance (SWTVMAIN)</item>
+        <item>Ultron (ULTRON)</item>
+        <item>Uludağ (ULUDAG)</item>
+        <item>Unite (UNITE)</item>
+        <item>Uranus (URANUS)</item>
+        <item>Uydu (UYDU)</item>
+        <item>Vector (VECTOR)</item>
+        <item>Venus (VENUS)</item>
+        <item>VERA Pardus 2014 (VRAPRDUS14)</item>
+        <item>VesTA (VESTA)</item>
+        <item>Vestel DS (VESTELDS)</item>
+        <item>Vestel DS 2 (VESTELDS2)</item>
+        <item>Vestel DS Android (VDSANDROID)</item>
+        <item>Vestel Electronics SCM (VESCM)</item>
+        <item>Vestel TA (VTA)</item>
+        <item>Vibe (VIBE)</item>
+        <item>Video Internal Tasks (VIDEOINT)</item>
+        <item>Vitro (VITRO)</item>
+        <item>Vivaldi (VIVALDI)</item>
+        <item>Volkan (VOLKAN)</item>
+        <item>Voyager (VOYAGER)</item>
+        <item>VSign (VSIGN)</item>
+        <item>Weaver (WEAVER)</item>
+        <item>WG VesTA (WGVESTA)</item>
+        <item>WhiteGoods Internal Tasks (WGINT)</item>
+        <item>Yakut (YAKUT)</item>
+        <item>Yatay (YATAY)</item>
+        <item>Yağmur (YAGMUR)</item>
+        <item>Yılan (YILAN)</item>
+        <item>Yıldız (YILDIZ)</item>
+        <item>Zap2 (ZAP2)</item>
+        <item>Zap3 (ZAP3)</item>
+        <item>Zap5 (ZAP5)</item>
+        <item>ZapHD (ZAPHD)</item>
+        <item>Zenci (ZENCI)</item>
+        <item>Zenterio-C7610 (ZENC7610)</item>
+        <item>Zenterio-T9300 (ZENT9300)</item>
+        <item>Zuul (ZUUL)</item>
+        <item>ZWM10 (ZWM10)</item>
+        <item>Zümrüt (ZUMRUT)</item>
+        <item>Çamlıca (CAMLICA)</item>
+        <item>Çağ (CAG)</item>
+        <item>Öpücük (OPUCUK)</item>
+        <item>Üstat (USTAT)</item>
+    </string-array>
+
+
+
+
+</resources>

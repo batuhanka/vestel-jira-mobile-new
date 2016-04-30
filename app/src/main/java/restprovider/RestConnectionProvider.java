@@ -375,6 +375,9 @@ public class RestConnectionProvider {
             JSONArray jsonArray = new JSONArray(sb.toString());
             for(int i=0; i<jsonArray.length(); i++){
                 JSONObject object = new JSONObject(jsonArray.get(i).toString());
+                String projectName  = new String(object.getString("name").getBytes("ISO-8859-1"), "UTF-8");
+                String projectKey   = new String(object.getString("key").getBytes("ISO-8859-1"), "UTF-8");
+                Log.e("PROJECT","<item>"+projectName+" ("+projectKey+")</item>");
                 projects.add(object.getString("name"));
             }
 
@@ -385,17 +388,18 @@ public class RestConnectionProvider {
         return projects;
     }
 
+    //TODO: Re-implement this method
     public  ArrayList<String> getUsers(){
 
         ArrayList<String> users     = new ArrayList<>();
         String adminJSessionID      = getAdminJSessionID();
-        char[] ch = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+        //char[] ch = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
 
 
-        for (char letter : ch) {
+        //for (char letter : ch) {
             try {
                 //String getAllUsers = JIRA_REST_BASE_URL + "/group?groupname=jira-users&expand=users";
-                String getAllUsers = JIRA_REST_BASE_URL + "/user/search?username=" + Character.toString(letter);
+                String getAllUsers = JIRA_REST_BASE_URL + "/group?groupname=jira-users&expand=users";
                 URL url = new URL(getAllUsers);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestProperty("Cookie", "JSESSIONID=" + adminJSessionID);
@@ -410,17 +414,21 @@ public class RestConnectionProvider {
                     sb.append(line).append("\n");
                 }
 
-                JSONArray usersJsonArray = new JSONArray(sb.toString());
-
+                JSONObject usersJsonObject  = new JSONObject(sb.toString());
+                JSONArray usersJsonArray    = usersJsonObject.getJSONObject("users").getJSONArray("items");
                 for (int i = 0; i < usersJsonArray.length(); i++) {
-                    JSONObject object = new JSONObject(usersJsonArray.get(i).toString());
-                    users.add(new String(object.getString("displayName").getBytes("ISO-8859-1"), "UTF-8"));
+                    JSONObject object   = new JSONObject(usersJsonArray.get(i).toString());
+                    String displayName  = new String(object.getString("displayName").getBytes("ISO-8859-1"), "UTF-8");
+                    String userName     = new String(object.getString("key").getBytes("ISO-8859-1"), "UTF-8");
+                    //TODO: USERNAME WILL BE EXPORT TO STRINGS ARRAY
+                    Log.e("USERNAME","<item>"+displayName+" ("+userName+")"+"</items>");
+                    //users.add(new String(object.getString("displayName").getBytes("ISO-8859-1"), "UTF-8"));
                 }
 
             } catch (Exception ex) {
                 Log.e("BATU", ex.getMessage());
             }
-        }
+       // }
 
 
         return users;
@@ -534,7 +542,10 @@ public class RestConnectionProvider {
                                 String[] real   = sub[1].trim().split("<a");
                                 action          = real[0].trim();
                             }else{
-                                issueKey = xpp.getText();
+                                if(xpp.getText().matches("Activity Stream"))
+                                    break;
+                                else
+                                    issueKey = xpp.getText();
                             }
                         }
 

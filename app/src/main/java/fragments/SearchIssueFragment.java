@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import navigation.NavigationActivity;
 import project.ozyegin.vestel.com.vesteljiramobile.R;
@@ -39,9 +40,18 @@ public class SearchIssueFragment extends Fragment {
 		final View rootView 		= inflater.inflate(R.layout.fragment_searched, container, false);
 		final Context context		= rootView.getContext();
 
-		new UserOptionTask(rootView, context).execute();
-		new ProjectOptionTask(rootView, context).execute();
+		//new UserOptionTask(rootView, context).execute();
+		//new ProjectOptionTask(rootView, context).execute();
 		((NavigationActivity) getActivity()).setActionBarTitle("Search For Issues");
+
+		ArrayAdapter projectAdapter = new ArrayAdapter<>(context,
+				android.R.layout.simple_dropdown_item_1line,
+				getResources().getStringArray(R.array.project_names));
+
+		AutoCompleteTextView projectACView = (AutoCompleteTextView) rootView.findViewById(R.id.projectAutoComplete);
+		projectACView.setAdapter(projectAdapter);
+		projectAdapter.notifyDataSetChanged();
+
 
 		final AutoCompleteTextView startDateACView = (AutoCompleteTextView) rootView.findViewById(R.id.startDatePickerText);
 		startDateACView.setOnFocusChangeListener(new View.OnFocusChangeListener() {

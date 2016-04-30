@@ -34,7 +34,6 @@ import java.net.NetworkInterface;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import navigation.NavigationActivity;
 import project.ozyegin.vestel.com.vesteljiramobile.R;
 

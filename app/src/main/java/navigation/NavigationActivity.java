@@ -37,7 +37,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     public static FloatingActionButton fab;
     FragmentManager fragmentManager = getSupportFragmentManager();
 
-   @Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
@@ -45,8 +45,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-        fab        = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setImageDrawable(getResources().getDrawable(R.drawable.refresh));
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,26 +54,25 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
             }
         });
 
-
-        DrawerLayout drawer             = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle    = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView   = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        ImageView userAvatar            = (ImageView) navigationView.findViewById(R.id.userAvatar);
-        TextView userFullNameView       = (TextView) navigationView.findViewById(R.id.userFullName);
-        String userFullNameText         = provider.getUserFullName();
+        ImageView userAvatar = (ImageView) navigationView.findViewById(R.id.userAvatar);
+        TextView userFullNameView = (TextView) navigationView.findViewById(R.id.userFullName);
+        String userFullNameText = provider.getUserFullName();
 
         Bitmap userAvatarBitmap = provider.getUserAvatar(MainActivity.getmUsername());
-        Bitmap resizedAvatar    = provider.getResizedBitmap(userAvatarBitmap, 180, 180);
+        Bitmap resizedAvatar = provider.getResizedBitmap(userAvatarBitmap, 180, 180);
         userAvatar.setImageBitmap(resizedAvatar);
         userFullNameView.setText(userFullNameText);
 
-       FragmentManager fragmentManager = getSupportFragmentManager();
-       fragmentManager.beginTransaction().replace(R.id.contentNav, new ActivityStreamFragment()).addToBackStack("ActivityStreamFragment").commit();
-       fragmentManager.executePendingTransactions();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.contentNav, new ActivityStreamFragment()).addToBackStack("ActivityStreamFragment").commit();
+        fragmentManager.executePendingTransactions();
 
     }
 
@@ -98,7 +96,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.create_issue_link) {
-            Toast.makeText(this,"CREATE ISSUE",Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "CREATE ISSUE", Toast.LENGTH_LONG).show();
             return true;
         }
 
@@ -113,7 +111,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
     @Override
     public void onBackPressed() {
-        if(fragmentManager.getBackStackEntryCount() == 1){
+        if (fragmentManager.getBackStackEntryCount() == 1) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.close_message_title);
             builder.setMessage(R.string.close_message);
