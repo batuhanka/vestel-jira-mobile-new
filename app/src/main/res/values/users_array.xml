@@ -2,9 +2,56 @@
 <resources>
 
     <string-array name="user_names">
-        <item></item>
-
-
+        <item>Abdülaziz Aydoğmuş (abdulaziza)</item>
+        <item>Abdulhadi Kırkıcı (abdulhadik)</item>
+        <item>Abdülkadir Yıldız (abdulkadiry)</item>
+        <item>Abdullah Onur (abdullaho)</item>
+        <item>Abdullah Şen (abdullahse)</item>
+        <item>Abdullah Sevim (abdullahsevi)</item>
+        <item>Abdullah Tav (abdullahta)</item>
+        <item>Abdurrahman Ergun (abdurrahmane)</item>
+        <item>Adem Özmen (ademoz)</item>
+        <item>Adile Ertaş (adilee)</item>
+        <item>Adminstrator admin (admin)</item>
+        <item>Adnan İnce (adnani)</item>
+        <item>Adnan Parlak (adnanp)</item>
+        <item>Ahmet Alegöz (ahmetale)</item>
+        <item>Ahmet Alişan (ahmetali)</item>
+        <item>Ahmet Buğra Erkul (bugraer)</item>
+        <item>Ahmet Ceylan (ahmetce)</item>
+        <item>Ahmet Duran Demiral (ahmetde)</item>
+        <item>Ahmet Emir Tuzcu (emirt)</item>
+        <item>Ahmet Esat Genç (ahmetge)</item>
+        <item>Ahmet Gözüberk (ahmetgoz)</item>
+        <item>Ahmet Haluk Açarçiçek (ahmetaca)</item>
+        <item>Ahmet İşletir (ahmeti)</item>
+        <item>Ahmet Kocadinç (ahmetkoca)</item>
+        <item>Ahmet Melih Taşkapılı (ahmetta)</item>
+        <item>Ahmet Özel (ahmetozel)</item>
+        <item>Ahmet Sadık Aksoy (ahmetakso)</item>
+        <item>Ahmet Şahankaya (ahmetsaha)</item>
+        <item>Ahmet Selim Ada (selimad)</item>
+        <item>Ahmet Tansu Musaoğlu (ahmetmus)</item>
+        <item>Ahmet Tolga Sarıyıldız (tolgasar)</item>
+        <item>Ahmet Yalçın (ahmety)</item>
+        <item>Ahmet Yüksel (ahmetyuk)</item>
+        <item>Ahmet Yıldırım (ahmetyildi)</item>
+        <item>Akif Bozkurt (akifb)</item>
+        <item>Akif Kaya (akifka)</item>
+        <item>Akıllı Sistemler Üretim Teknik Destek (sspta)</item>
+        <item>Akın Acar (akinac)</item>
+        <item>Akın Işın Temiz (akini)</item>
+        <item>Akın Zöhre (akinz)</item>
+        <item>Alaaddin Varol (alaaddinv)</item>
+        <item>Aleksandar Todorovic (aleksandar.todorovic)</item>
+        <item>Alev Tezel (alevt)</item>
+        <item>Alex-YJ Lin (alex.yj.lin)</item>
+        <item>Ali Ağcabay (aliag)</item>
+        <item>Ali Akgün (aliakg)</item>
+        <item>Ali Anıkaydın (alian)</item>
+        <item>Ali Aytekin (aliay)</item>
+        <item>Ali Baş (aliba)</item>
+        <item>Alican Kır (alicank)</item>
     </string-array>
 
 

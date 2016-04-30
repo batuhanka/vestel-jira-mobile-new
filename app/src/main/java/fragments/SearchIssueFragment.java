@@ -52,6 +52,17 @@ public class SearchIssueFragment extends Fragment {
 		projectACView.setAdapter(projectAdapter);
 		projectAdapter.notifyDataSetChanged();
 
+		ArrayAdapter userAdapter = new ArrayAdapter<>(context,
+				android.R.layout.simple_dropdown_item_1line,
+				getResources().getStringArray(R.array.user_names));
+
+		AutoCompleteTextView assigneeACView = (AutoCompleteTextView) rootView.findViewById(R.id.assigneeAutoComplete);
+		AutoCompleteTextView reporterACView = (AutoCompleteTextView) rootView.findViewById(R.id.reporterAutoComplete);
+
+		assigneeACView.setAdapter(userAdapter);
+		reporterACView.setAdapter(userAdapter);
+		userAdapter.notifyDataSetChanged();
+
 
 		final AutoCompleteTextView startDateACView = (AutoCompleteTextView) rootView.findViewById(R.id.startDatePickerText);
 		startDateACView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
