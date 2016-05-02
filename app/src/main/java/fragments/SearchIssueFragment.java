@@ -5,12 +5,14 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,8 +42,6 @@ public class SearchIssueFragment extends Fragment {
 		final View rootView 		= inflater.inflate(R.layout.fragment_searched, container, false);
 		final Context context		= rootView.getContext();
 
-		//new UserOptionTask(rootView, context).execute();
-		//new ProjectOptionTask(rootView, context).execute();
 		((NavigationActivity) getActivity()).setActionBarTitle("Search For Issues");
 
 		ArrayAdapter projectAdapter = new ArrayAdapter<>(context,
@@ -62,6 +62,45 @@ public class SearchIssueFragment extends Fragment {
 		assigneeACView.setAdapter(userAdapter);
 		reporterACView.setAdapter(userAdapter);
 		userAdapter.notifyDataSetChanged();
+
+		final AutoCompleteTextView priorityACView = (AutoCompleteTextView) rootView.findViewById(R.id.priorityAutoComplete);
+		priorityACView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				if (hasFocus) {
+					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+					builder.setItems(R.array.priority_values, new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							String[] priorities = getResources().getStringArray(R.array.priority_values);
+							priorityACView.setText(priorities[which]);
+							rootView.requestFocus();
+						}
+					});
+					builder.create();
+					builder.show();
+				}
+			}
+		});
+
+
+		final AutoCompleteTextView issueTypeACView = (AutoCompleteTextView) rootView.findViewById(R.id.issueTypeAutoComplete);
+		issueTypeACView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				if (hasFocus) {
+					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+					builder.setItems(R.array.issue_type_values, new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							String[] issueTypes = getResources().getStringArray(R.array.issue_type_values);
+							issueTypeACView.setText(issueTypes[which]);
+							rootView.requestFocus();
+						}
+					});
+					builder.create();
+					builder.show();
+				}
+			}
+		});
 
 
 		final AutoCompleteTextView startDateACView = (AutoCompleteTextView) rootView.findViewById(R.id.startDatePickerText);
@@ -159,15 +198,19 @@ public class SearchIssueFragment extends Fragment {
 			String startDate	= startDateView.getText().toString();
 			String endDate		= endDateView.getText().toString();
 
-			if(!project.isEmpty())
-				SEARCH_JQL += "project"+EQUAL+project+AND;
+			if(!project.isEmpty()) {
+				String projectKey = project.substring(project.indexOf("(") + 1, project.indexOf(")"));
+				SEARCH_JQL += "project" + EQUAL + projectKey + AND;
+			}
+			if(!assignee.isEmpty()) {
+				String username = assignee.substring(assignee.indexOf("(") + 1, assignee.indexOf(")"));
+				SEARCH_JQL += "assignee" + EQUAL + username + AND;
+			}
 
-			if(!assignee.isEmpty())
-				SEARCH_JQL += "assignee"+EQUAL+assignee+AND;
-
-			if(!reporter.isEmpty())
-				SEARCH_JQL += "reporter"+EQUAL+reporter+AND;
-
+			if(!reporter.isEmpty()) {
+				String username = reporter.substring(reporter.indexOf("(") + 1, reporter.indexOf(")"));
+				SEARCH_JQL += "reporter" + EQUAL + username + AND;
+			}
 			if(!issueType.isEmpty())
 				SEARCH_JQL += "issuetype"+EQUAL+issueType+AND;
 
@@ -221,65 +264,4 @@ public class SearchIssueFragment extends Fragment {
 			//blah
 		}
 	}
-
-	// AsyncTask
-	class ProjectOptionTask extends AsyncTask<Void, String, ArrayList<String>> {
-
-		private View mRootView;
-		private Context mContext;
-		ProjectOptionTask(View rootView, Context context){
-			mRootView	= rootView;
-			mContext	= context;
-		}
-		@Override
-		protected ArrayList<String> doInBackground(Void... params) {
-			return  provider.getProjects();
-		}
-
-		@Override
-		protected void onPostExecute(ArrayList<String> resultList) {
-			super.onPostExecute(resultList);
-			ArrayAdapter projectAdapter = new ArrayAdapter<>(mContext,
-					android.R.layout.simple_dropdown_item_1line,
-					resultList);
-
-			AutoCompleteTextView projectACView = (AutoCompleteTextView) mRootView.findViewById(R.id.projectAutoComplete);
-			projectACView.setAdapter(projectAdapter);
-			projectAdapter.notifyDataSetChanged();
-		}
-	}
-
-
-	// AsyncTask
-	class UserOptionTask extends AsyncTask<Void, String, ArrayList<String>> {
-
-		private View mRootView;
-		private Context mContext;
-		UserOptionTask(View rootView, Context context){
-			mRootView	= rootView;
-			mContext	= context;
-		}
-		@Override
-		protected ArrayList<String> doInBackground(Void... params) {
-			return  provider.getUsers();
-		}
-
-		@Override
-		protected void onPostExecute(ArrayList<String> resultList) {
-			super.onPostExecute(resultList);
-			ArrayAdapter userAdapter = new ArrayAdapter<>(mContext,
-					android.R.layout.simple_dropdown_item_1line,
-					resultList);
-
-			AutoCompleteTextView assigneeACView = (AutoCompleteTextView) mRootView.findViewById(R.id.assigneeAutoComplete);
-			AutoCompleteTextView reporterACView = (AutoCompleteTextView) mRootView.findViewById(R.id.reporterAutoComplete);
-
-			assigneeACView.setAdapter(userAdapter);
-			reporterACView.setAdapter(userAdapter);
-			userAdapter.notifyDataSetChanged();
-		}
-	}
-
-
-
 }

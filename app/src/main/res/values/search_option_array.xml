@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="priority_values">
+        <item>Showstopper</item>
+        <item>High</item>
+        <item>Medium</item>
+        <item>Low</item>
+    </string-array>
+
+    <string-array name="issue_type_values">
+        <item>Acoustic/Audio Test</item>
+        <item>Bug</item>
+        <item>Certification</item>
+        <item>Component Test</item>
+        <item>Defect</item>
+        <item>Design Review</item>
+        <item>DV Test</item>
+        <item>EMC Test</item>
+        <item>EMC WG Test</item>
+        <item>Epic</item>
+        <item>Factory issue</item>
+        <item>FRACAS</item>
+        <item>IB</item>
+        <item>Improvement</item>
+        <item>LED Test</item>
+        <item>Marketing Request</item>
+        <item>Marketing Sub-task</item>
+        <item>Mechanical Test</item>
+        <item>New Feature</item>
+        <item>Overhead</item>
+        <item>Phase</item>
+        <item>Prospect</item>
+        <item>Purchase Order</item>
+        <item>RD Test</item>
+        <item>Reliability Test</item>
+        <item>Request</item>
+        <item>RES Test</item>
+        <item>Risk</item>
+        <item>Safety Test</item>
+        <item>Story</item>
+        <item>Sub-task</item>
+        <item>Task</item>
+        <item>Technical task</item>
+        <item>Test Request</item>
+        <item>Ticket Template(WBSGantt)</item>
+        <item>Video Test</item>
+    </string-array>
+
+</resources>

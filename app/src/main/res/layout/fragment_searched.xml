@@ -23,42 +23,56 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:id="@+id/projectAutoComplete"
+        android:imeOptions="actionDone"
+        android:singleLine="true"
         android:hint="@string/project_ac_hint" />
 
     <AutoCompleteTextView
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:id="@+id/assigneeAutoComplete"
+        android:imeOptions="actionDone"
+        android:singleLine="true"
         android:hint="@string/assignee_ac_hint" />
 
     <AutoCompleteTextView
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:id="@+id/reporterAutoComplete"
+        android:imeOptions="actionDone"
+        android:singleLine="true"
         android:hint="@string/reporter_ac_hint" />
 
     <AutoCompleteTextView
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:id="@+id/issueTypeAutoComplete"
+        android:imeOptions="actionDone"
+        android:singleLine="true"
         android:hint="@string/issuetype_ac_hint" />
 
     <AutoCompleteTextView
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:id="@+id/priorityAutoComplete"
+        android:imeOptions="actionDone"
+        android:singleLine="true"
         android:hint="@string/priority_ac_hint" />
 
     <AutoCompleteTextView
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:id="@+id/descriptionText"
+        android:imeOptions="actionDone"
+        android:singleLine="true"
         android:hint="@string/description_ac_hint" />
 
     <AutoCompleteTextView
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:id="@+id/summaryText"
+        android:imeOptions="actionDone"
+        android:singleLine="true"
         android:hint="@string/summary_ac_hint" />
 
     <LinearLayout

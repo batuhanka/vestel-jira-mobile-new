@@ -143,7 +143,12 @@ public class RestConnectionProvider {
                 String key          = jsonArray.getJSONObject(i).get("key").toString();
                 String rawSummary   = jsonArray.getJSONObject(i).getJSONObject("fields").getString("summary");
                 String summary      = new String(rawSummary.getBytes("ISO-8859-1"), "UTF-8");
-                String priority     = jsonArray.getJSONObject(i).getJSONObject("fields").getJSONObject("priority").get("name").toString();
+                String priority     = "Medium";
+                try {
+                    priority = jsonArray.getJSONObject(i).getJSONObject("fields").getJSONObject("priority").get("name").toString();
+                }catch (Exception ex){
+
+                }
                 String status       = jsonArray.getJSONObject(i).getJSONObject("fields").getJSONObject("status").get("name").toString();
                 String issueType    = jsonArray.getJSONObject(i).getJSONObject("fields").getJSONObject("issuetype").get("name").toString();
                 String typeIconURL  = jsonArray.getJSONObject(i).getJSONObject("fields").getJSONObject("issuetype").get("iconUrl").toString();
