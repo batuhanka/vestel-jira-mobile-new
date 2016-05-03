@@ -21,6 +21,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -213,8 +214,8 @@ public class SearchIssueFragment extends Fragment {
 			String issueType 	= issueTypeView.getText().toString();
 			String priority 	= priorityView.getText().toString();
 			String status 		= statusView.getText().toString();
-			String description 	= descriptionView.getText().toString();
-			String summary 		= summaryView.getText().toString();
+			String description 	= new String(descriptionView.getText().toString().getBytes("ISO-8859-1"), "UTF-8");
+			String summary 		= new String(summaryView.getText().toString().getBytes("ISO-8859-1"), "UTF-8");
 			String startDate 	= startDateView.getText().toString();
 			String endDate 		= endDateView.getText().toString();
 
@@ -260,8 +261,6 @@ public class SearchIssueFragment extends Fragment {
 			int pos 		= temp.lastIndexOf(AND);
 			String result	= temp.substring(0, pos);
 
-
-
 			FragmentManager fragmentManager = getFragmentManager();
 			Fragment searchResultsFragment  = new SearchResultsFragment();
 			Bundle bundle = new Bundle();
@@ -271,10 +270,7 @@ public class SearchIssueFragment extends Fragment {
 			fragmentManager.beginTransaction().replace(R.id.contentNav, searchResultsFragment).addToBackStack("SearchResultsFragment").commit();
 			fragmentManager.executePendingTransactions();
 
-
 		}catch (Exception ex){	Log.e("BATU", "Search Option Empty");	}
-
-
 
 	}
 

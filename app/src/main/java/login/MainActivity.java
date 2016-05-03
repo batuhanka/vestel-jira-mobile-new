@@ -41,9 +41,7 @@ import project.ozyegin.vestel.com.vesteljiramobile.R;
 public class MainActivity extends AppCompatActivity {
 
     public static String mUsername;
-    public static String mPassword;
     public static String JSESSION_ID;
-
 
     public EditText mUsernameView;
     public EditText mPasswordView;
@@ -98,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         String username = mUsernameView.getText().toString();
         String password = mPasswordView.getText().toString();
         setmUsername(username);
-        setmPassword(password);
+        //setmPassword(password);
         mAuthTask = new UserLoginTask(username, password, this);
         mAuthTask.execute((Void) null);
     }
@@ -256,14 +254,6 @@ public class MainActivity extends AppCompatActivity {
 
     public static void setmUsername(String mUsername) {
         MainActivity.mUsername = mUsername;
-    }
-
-    public static String getmPassword() {
-        return mPassword;
-    }
-
-    public static void setmPassword(String mPassword) {
-        MainActivity.mPassword = mPassword;
     }
 
     public static String getJsessionId() {

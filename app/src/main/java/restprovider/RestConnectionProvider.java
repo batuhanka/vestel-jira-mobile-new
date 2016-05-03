@@ -4,19 +4,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.StrictMode;
-import android.util.Base64;
 import android.util.Log;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.CookieStore;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.protocol.ClientContext;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.BasicCookieStore;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.protocol.BasicHttpContext;
-import org.apache.http.protocol.HttpContext;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
@@ -40,7 +29,6 @@ import login.MainActivity;
 public class RestConnectionProvider {
 
     private String mUsername            = MainActivity.getmUsername();
-    private String mPassword            = MainActivity.getmPassword();
     private String mJsessionID          = MainActivity.getJsessionId();
     private String JIRA_REST_BASE_URL   = "http://10.108.95.25/jira/rest/api/2";
 
@@ -146,9 +134,8 @@ public class RestConnectionProvider {
                 String priority     = "Medium";
                 try {
                     priority = jsonArray.getJSONObject(i).getJSONObject("fields").getJSONObject("priority").get("name").toString();
-                }catch (Exception ex){
+                }catch (Exception ex){  Log.e("BATU", ex.getMessage()); }
 
-                }
                 String status       = jsonArray.getJSONObject(i).getJSONObject("fields").getJSONObject("status").get("name").toString();
                 String issueType    = jsonArray.getJSONObject(i).getJSONObject("fields").getJSONObject("issuetype").get("name").toString();
                 String typeIconURL  = jsonArray.getJSONObject(i).getJSONObject("fields").getJSONObject("issuetype").get("iconUrl").toString();
@@ -356,143 +343,6 @@ public class RestConnectionProvider {
         return userFullName;
     }
 
-    public  ArrayList<String> getProjects(){
-
-        ArrayList<String> projects  = new ArrayList<>();
-        String getAllProjects       = JIRA_REST_BASE_URL+"/project";
-
-        try{
-
-            URL url                         = new URL(getAllProjects);
-            HttpURLConnection connection    = (HttpURLConnection) url.openConnection();
-            connection.setRequestProperty("Cookie", "JSESSIONID=" + mJsessionID);
-            connection.setDoInput(true);
-            connection.connect();
-            InputStream input       = connection.getInputStream();
-            BufferedReader reader   = new BufferedReader(new InputStreamReader(input, "iso-8859-1"), 8);
-            StringBuilder sb        = new StringBuilder();
-
-            String line;
-            while ((line = reader.readLine()) != null){
-                sb.append(line).append("\n");
-            }
-
-            JSONArray jsonArray = new JSONArray(sb.toString());
-            for(int i=0; i<jsonArray.length(); i++){
-                JSONObject object = new JSONObject(jsonArray.get(i).toString());
-                String projectName  = new String(object.getString("name").getBytes("ISO-8859-1"), "UTF-8");
-                String projectKey   = new String(object.getString("key").getBytes("ISO-8859-1"), "UTF-8");
-                Log.e("PROJECT","<item>"+projectName+" ("+projectKey+")</item>");
-                projects.add(object.getString("name"));
-            }
-
-        }catch (Exception ex){
-            Log.e("BATU",ex.getMessage());
-        }
-
-        return projects;
-    }
-
-    //TODO: Re-implement this method
-    public  ArrayList<String> getUsers(){
-
-        ArrayList<String> users     = new ArrayList<>();
-        String adminJSessionID      = getAdminJSessionID();
-        //char[] ch = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
-
-
-        //for (char letter : ch) {
-            try {
-                //String getAllUsers = JIRA_REST_BASE_URL + "/group?groupname=jira-users&expand=users";
-                String getAllUsers = JIRA_REST_BASE_URL + "/group?groupname=jira-users&expand=users";
-                URL url = new URL(getAllUsers);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestProperty("Cookie", "JSESSIONID=" + adminJSessionID);
-                connection.setDoInput(true);
-                connection.connect();
-                InputStream input = connection.getInputStream();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(input, "iso-8859-1"), 8);
-                StringBuilder sb = new StringBuilder();
-
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    sb.append(line).append("\n");
-                }
-
-                JSONObject usersJsonObject  = new JSONObject(sb.toString());
-                JSONArray usersJsonArray    = usersJsonObject.getJSONObject("users").getJSONArray("items");
-                for (int i = 0; i < usersJsonArray.length(); i++) {
-                    JSONObject object   = new JSONObject(usersJsonArray.get(i).toString());
-                    String displayName  = new String(object.getString("displayName").getBytes("ISO-8859-1"), "UTF-8");
-                    String userName     = new String(object.getString("key").getBytes("ISO-8859-1"), "UTF-8");
-                    //TODO: USERNAME WILL BE EXPORT TO STRINGS ARRAY
-                    Log.e("USERNAME","<item>"+displayName+" ("+userName+")"+"</items>");
-                    //users.add(new String(object.getString("displayName").getBytes("ISO-8859-1"), "UTF-8"));
-                }
-
-            } catch (Exception ex) {
-                Log.e("BATU", ex.getMessage());
-            }
-       // }
-
-
-        return users;
-    }
-
-    public String getAdminJSessionID(){
-
-        String ADMIN_JSESSION_ID = "";
-        String json = "";
-        InputStream is;
-
-        try{
-            HttpClient client 			= new DefaultHttpClient();
-            CookieStore cookieStore 	= new BasicCookieStore();
-            HttpContext httpContext 	= new BasicHttpContext();
-            HttpPost post 				= new HttpPost("http://10.108.95.25/jira/rest/auth/1/session");
-            httpContext.setAttribute(ClientContext.COOKIE_STORE, cookieStore);
-            post.setHeader("Content-type", "application/json");
-
-            JSONObject obj = new JSONObject();
-            obj.put("username", "admin2");
-            obj.put("password", "tehanu");
-
-            post.setEntity(new StringEntity(obj.toString(), "UTF-8"));
-            HttpResponse response    = client.execute(post, httpContext);
-            is                      = response.getEntity().getContent();
-
-            try {
-                BufferedReader reader   = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
-                StringBuilder sb        = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    sb.append(line).append("\n");
-                }
-                is.close();
-                json = sb.toString();
-            } catch (Exception e) {
-                Log.e("Buffer Error", "Error converting result " + e.toString());
-            }
-
-            JSONObject jsonObject = new JSONObject(json);
-            if(jsonObject.get("session") != null){
-
-                JSONObject sessionJSON  = new JSONObject(jsonObject.get("session").toString());
-                ADMIN_JSESSION_ID       = sessionJSON.get("value").toString();
-
-            }
-            else{
-                Log.e("BATU", "Admin Login Failed");
-            }
-
-        }catch(Exception ignored){
-            Log.e("BATU", "Please check your VPN connections");
-            Log.e("BATU", ignored.toString());
-        }
-
-        return ADMIN_JSESSION_ID;
-    }
-
     public ArrayList<HashMap<String,String>> getActivityStreams(){
 
         ArrayList<HashMap<String,String>> result = new ArrayList<>();
@@ -501,9 +351,7 @@ public class RestConnectionProvider {
             String activityStreams = "http://10.108.95.25/jira/activity";
             URL url = new URL(activityStreams);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            String userAndPassword = mUsername + ":" + mPassword;
-            final String basicAuth = "Basic " + Base64.encodeToString(userAndPassword.getBytes(), Base64.NO_WRAP);
-            connection.setRequestProperty("Authorization", basicAuth);
+            connection.setRequestProperty("Cookie", "JSESSIONID="+mJsessionID);
             connection.setDoInput(true);
             connection.connect();
             InputStream input = connection.getInputStream();
