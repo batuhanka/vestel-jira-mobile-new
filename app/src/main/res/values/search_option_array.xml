@@ -8,6 +8,35 @@
         <item>Low</item>
     </string-array>
 
+    <string-array name="status_values">
+        <item>Approved</item>
+        <item>Cancelled</item>
+        <item>Closed</item>
+        <item>Done</item>
+        <item>Estimated</item>
+        <item>In Progress</item>
+        <item>Internal Testing</item>
+        <item>Official Testing</item>
+        <item>Open</item>
+        <item>Pending</item>
+        <item>Postponed</item>
+        <item>Product Pilot</item>
+        <item>Product Pilot Report</item>
+        <item>Product QA</item>
+        <item>Product Trial</item>
+        <item>Product Trial Report</item>
+        <item>Rejected</item>
+        <item>Reopened</item>
+        <item>Requested</item>
+        <item>Resolved</item>
+        <item>Review</item>
+        <item>Sample Approval</item>
+        <item>Sample Status</item>
+        <item>Submitted</item>
+        <item>Test</item>
+        <item>To Do</item>
+    </string-array>
+
     <string-array name="issue_type_values">
         <item>Acoustic/Audio Test</item>
         <item>Bug</item>

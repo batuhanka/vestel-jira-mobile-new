@@ -6,7 +6,6 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -23,18 +22,13 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import navigation.NavigationActivity;
 import project.ozyegin.vestel.com.vesteljiramobile.R;
-import restprovider.RestConnectionProvider;
 
 @SuppressWarnings("deprecation")
 public class SearchIssueFragment extends Fragment {
-
-	RestConnectionProvider provider = new RestConnectionProvider();
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
@@ -83,6 +77,26 @@ public class SearchIssueFragment extends Fragment {
 		});
 
 
+		final AutoCompleteTextView statusACView = (AutoCompleteTextView) rootView.findViewById(R.id.statusAutoComplete);
+		statusACView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				if (hasFocus) {
+					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+					builder.setItems(R.array.status_values, new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							String[] statuses = getResources().getStringArray(R.array.status_values);
+							statusACView.setText(statuses[which]);
+							rootView.requestFocus();
+						}
+					});
+					builder.create();
+					builder.show();
+				}
+			}
+		});
+
+
 		final AutoCompleteTextView issueTypeACView = (AutoCompleteTextView) rootView.findViewById(R.id.issueTypeAutoComplete);
 		issueTypeACView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 			@Override
@@ -115,7 +129,7 @@ public class SearchIssueFragment extends Fragment {
 							Calendar c = Calendar.getInstance();
 							c.set(year, month, day);
 							@SuppressLint("SimpleDateFormat")
-							SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+							SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
 							startDateACView.setText(simpleDateFormat.format(c.getTime()), false);
 							rootView.requestFocus();
 						}
@@ -137,7 +151,7 @@ public class SearchIssueFragment extends Fragment {
 							Calendar c = Calendar.getInstance();
 							c.set(year, month, day);
 							@SuppressLint("SimpleDateFormat")
-							SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+							SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
 							endDateACView.setText(simpleDateFormat.format(c.getTime()), false);
 							rootView.requestFocus();
 						}
@@ -172,63 +186,82 @@ public class SearchIssueFragment extends Fragment {
 
 	public void collectSearchOptions(View rootView){
 
+		//TODO: Re-implement contains methods for UTF-8
+
 		String SEARCH_JQL		= "http://10.108.95.25/jira/rest/api/2/search?jql=";
 		String AND				= "%20AND%20";
 		String EQUAL			= "%20%3D%20";
 		String CONTAINS			= "%20~%20";
+		String AFTER			= "%20>%3D%20";
+		String BEFORE			= "%20<%3D%20";
 
 		AutoCompleteTextView projectView 	= (AutoCompleteTextView) rootView.findViewById(R.id.projectAutoComplete);
 		AutoCompleteTextView assigneeView 	= (AutoCompleteTextView) rootView.findViewById(R.id.assigneeAutoComplete);
 		AutoCompleteTextView reporterView	= (AutoCompleteTextView) rootView.findViewById(R.id.reporterAutoComplete);
 		AutoCompleteTextView issueTypeView 	= (AutoCompleteTextView) rootView.findViewById(R.id.issueTypeAutoComplete);
 		AutoCompleteTextView priorityView 	= (AutoCompleteTextView) rootView.findViewById(R.id.priorityAutoComplete);
+		AutoCompleteTextView statusView 	= (AutoCompleteTextView) rootView.findViewById(R.id.statusAutoComplete);
 		AutoCompleteTextView descriptionView= (AutoCompleteTextView) rootView.findViewById(R.id.descriptionText);
 		AutoCompleteTextView summaryView 	= (AutoCompleteTextView) rootView.findViewById(R.id.summaryText);
 		AutoCompleteTextView startDateView 	= (AutoCompleteTextView) rootView.findViewById(R.id.startDatePickerText);
 		AutoCompleteTextView endDateView 	= (AutoCompleteTextView) rootView.findViewById(R.id.endDatePickerText);
 
-		try{
-			String project		= projectView.getText().toString();
-			String assignee		= assigneeView.getText().toString();
-			String reporter		= reporterView.getText().toString();
-			String issueType	= issueTypeView.getText().toString();
-			String priority		= priorityView.getText().toString();
-			String description	= descriptionView.getText().toString();
-			String summary		= summaryView.getText().toString();
-			String startDate	= startDateView.getText().toString();
-			String endDate		= endDateView.getText().toString();
+		try {
+			String project 		= projectView.getText().toString();
+			String assignee 	= assigneeView.getText().toString();
+			String reporter 	= reporterView.getText().toString();
+			String issueType 	= issueTypeView.getText().toString();
+			String priority 	= priorityView.getText().toString();
+			String status 		= statusView.getText().toString();
+			String description 	= descriptionView.getText().toString();
+			String summary 		= summaryView.getText().toString();
+			String startDate 	= startDateView.getText().toString();
+			String endDate 		= endDateView.getText().toString();
 
-			if(!project.isEmpty()) {
+			if (!project.isEmpty()) {
 				String projectKey = project.substring(project.indexOf("(") + 1, project.indexOf(")"));
 				SEARCH_JQL += "project" + EQUAL + projectKey + AND;
 			}
-			if(!assignee.isEmpty()) {
+			if (!assignee.isEmpty()) {
 				String username = assignee.substring(assignee.indexOf("(") + 1, assignee.indexOf(")"));
 				SEARCH_JQL += "assignee" + EQUAL + username + AND;
 			}
 
-			if(!reporter.isEmpty()) {
+			if (!reporter.isEmpty()) {
 				String username = reporter.substring(reporter.indexOf("(") + 1, reporter.indexOf(")"));
 				SEARCH_JQL += "reporter" + EQUAL + username + AND;
 			}
-			if(!issueType.isEmpty())
-				SEARCH_JQL += "issuetype"+EQUAL+issueType+AND;
+			if (!issueType.isEmpty()) {
+				SEARCH_JQL += "issuetype" + EQUAL + issueType + AND;
+			}
+			if (!priority.isEmpty()){
+				SEARCH_JQL += "priority" + EQUAL + priority + AND;
+			}
+			if (!status.isEmpty()){
+				SEARCH_JQL += "status" + EQUAL + status + AND;
+			}
+			if(!description.isEmpty()) {
+				SEARCH_JQL += "description" + CONTAINS + description + AND;
+			}
+			if(!summary.isEmpty()) {
+				SEARCH_JQL += "summary" + CONTAINS + summary + AND;
+			}
+			if(!startDate.isEmpty()){
+				startDate = startDate.replace("/","%2F");
+				SEARCH_JQL += "created" + AFTER + "formatDate('"+startDate+"')"+ AND;
+			}
 
-			if(!priority.isEmpty())
-				SEARCH_JQL += "priority"+EQUAL+priority+AND;
-
-			if(!description.isEmpty())
-				SEARCH_JQL += "description"+CONTAINS+description+AND;
-
-			if(!summary.isEmpty())
-				SEARCH_JQL += "summary"+CONTAINS+summary+AND;
+			if(!endDate.isEmpty()){
+				endDate = endDate.replace("/","%2F");
+				SEARCH_JQL += "created" + BEFORE + "formatDate('"+endDate+"')"+ AND;
+			}
 
 			String temp 	= SEARCH_JQL;
 			int pos 		= temp.lastIndexOf(AND);
 			String result	= temp.substring(0, pos);
 
 
-			//TODO: resolve buggy information
+
 			FragmentManager fragmentManager = getFragmentManager();
 			Fragment searchResultsFragment  = new SearchResultsFragment();
 			Bundle bundle = new Bundle();

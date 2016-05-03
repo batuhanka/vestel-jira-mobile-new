@@ -35,6 +35,7 @@
     <string name="reporter_ac_hint">Reporter</string>
     <string name="issuetype_ac_hint">Issue Type</string>
     <string name="priority_ac_hint">Priority</string>
+    <string name="status_ac_hint">Status</string>
     <string name="description_ac_hint">Description</string>
     <string name="summary_ac_hint">Summary</string>
     <string name="start_date_ac_hint">Start Date</string>

@@ -62,6 +62,14 @@
     <AutoCompleteTextView
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:id="@+id/statusAutoComplete"
+        android:imeOptions="actionDone"
+        android:singleLine="true"
+        android:hint="@string/status_ac_hint" />
+
+    <AutoCompleteTextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:id="@+id/descriptionText"
         android:imeOptions="actionDone"
         android:singleLine="true"
