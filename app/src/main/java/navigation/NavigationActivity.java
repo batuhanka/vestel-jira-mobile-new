@@ -45,6 +45,9 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+            //TODO: Implement create issue method
+//        provider.createIssue();
+
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setImageDrawable(getResources().getDrawable(R.drawable.refresh));
         fab.setOnClickListener(new View.OnClickListener() {

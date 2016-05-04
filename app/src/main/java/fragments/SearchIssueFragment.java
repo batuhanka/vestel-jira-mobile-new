@@ -219,6 +219,8 @@ public class SearchIssueFragment extends Fragment {
 			String startDate 	= startDateView.getText().toString();
 			String endDate 		= endDateView.getText().toString();
 
+			//TODO: Resolve space bugs for search jql url for options
+
 			if (!project.isEmpty()) {
 				String projectKey = project.substring(project.indexOf("(") + 1, project.indexOf(")"));
 				SEARCH_JQL += "project" + EQUAL + projectKey + AND;

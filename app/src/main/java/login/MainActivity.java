@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -47,9 +48,11 @@ public class MainActivity extends AppCompatActivity {
     public EditText mPasswordView;
     public Button mSignInButton;
     private UserLoginTask mAuthTask = null;
+    private String JIRA_BASE_URL    = "http://10.108.95.25/jira";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -96,7 +99,6 @@ public class MainActivity extends AppCompatActivity {
         String username = mUsernameView.getText().toString();
         String password = mPasswordView.getText().toString();
         setmUsername(username);
-        //setmPassword(password);
         mAuthTask = new UserLoginTask(username, password, this);
         mAuthTask.execute((Void) null);
     }
@@ -165,9 +167,10 @@ public class MainActivity extends AppCompatActivity {
                 HttpClient client = new DefaultHttpClient();
                 CookieStore cookieStore = new BasicCookieStore();
                 HttpContext httpContext = new BasicHttpContext();
-                HttpPost post = new HttpPost("http://10.108.95.25/jira/rest/auth/1/session");
+                HttpPost post = new HttpPost(JIRA_BASE_URL+"/rest/auth/1/session");
                 httpContext.setAttribute(ClientContext.COOKIE_STORE, cookieStore);
                 post.setHeader("Content-type", "application/json");
+
 
                 JSONObject obj = new JSONObject();
                 obj.put("username", username);

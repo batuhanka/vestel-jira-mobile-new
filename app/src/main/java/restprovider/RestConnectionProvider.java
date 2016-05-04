@@ -6,6 +6,15 @@ import android.graphics.Matrix;
 import android.os.StrictMode;
 import android.util.Log;
 
+import org.apache.http.client.CookieStore;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.protocol.ClientContext;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.BasicCookieStore;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.HttpContext;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
@@ -30,11 +39,44 @@ public class RestConnectionProvider {
 
     private String mUsername            = MainActivity.getmUsername();
     private String mJsessionID          = MainActivity.getJsessionId();
-    private String JIRA_REST_BASE_URL   = "http://10.108.95.25/jira/rest/api/2";
+    private String JIRA_BASE_URL        = "http://10.108.95.25/jira";
 
     public RestConnectionProvider(){
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+    }
+
+    //TODO: Complete implementation
+    public void createIssue(){
+
+
+        String requestURL = JIRA_BASE_URL + "/rest/api/2/issue";
+        try {
+            HttpClient client = new DefaultHttpClient();
+            CookieStore cookieStore = new BasicCookieStore();
+            HttpContext httpContext = new BasicHttpContext();
+            HttpPost post = new HttpPost(requestURL);
+            httpContext.setAttribute(ClientContext.COOKIE_STORE, cookieStore);
+            post.setHeader("Content-type", "application/json");
+            post.setHeader("Cookie", "JSESSIONID=" + mJsessionID);
+
+            JSONObject myString = new JSONObject();
+            JSONObject obj = new JSONObject();
+
+            myString.put("project", new JSONObject().put("key", "BATU"));
+            myString.put("summary", "New issue test");
+            myString.put("issuetype", new JSONObject().put("name", "Task"));
+            obj.put("fields", myString);
+
+            post.setEntity(new StringEntity(obj.toString(), "UTF-8"));
+            client.execute(post, httpContext);
+
+
+        } catch (Exception ex) {
+            Log.e("BATU", ex.getMessage());
+        }
+
+
     }
 
     public JSONObject createRestRequest(String requestURL){
@@ -87,7 +129,7 @@ public class RestConnectionProvider {
 
         try {
 
-            String assignedToMeStr  = JIRA_REST_BASE_URL+"/search?jql=assignee="+mUsername+"+and+resolution=unresolved";
+            String assignedToMeStr  = JIRA_BASE_URL+"/rest/api/2/search?jql=assignee="+mUsername+"+and+resolution=unresolved";
             JSONObject jsonObject   = createRestRequest(assignedToMeStr);
             JSONArray jsonArray     = jsonObject.getJSONArray("issues");
 
@@ -161,7 +203,7 @@ public class RestConnectionProvider {
     public  HashMap<String, String> getFavouriteFilters(){
 
         HashMap<String, String> filters = new HashMap<>();
-        String requestURL               = JIRA_REST_BASE_URL+"/filter/favourite?expand";
+        String requestURL               = JIRA_BASE_URL+"/rest/api/2/filter/favourite?expand";
 
         try{
 
@@ -201,7 +243,7 @@ public class RestConnectionProvider {
 
         try {
 
-            String reportedToMeStr  = JIRA_REST_BASE_URL+"/search?jql=reporter="+mUsername+"+and+resolution=unresolved";
+            String reportedToMeStr  = JIRA_BASE_URL+"/rest/api/2/search?jql=reporter="+mUsername+"+and+resolution=unresolved";
             JSONObject jsonObject   = createRestRequest(reportedToMeStr);
             JSONArray jsonArray     = jsonObject.getJSONArray("issues");
 
@@ -238,7 +280,7 @@ public class RestConnectionProvider {
 
         try {
 
-            String issueURL = JIRA_REST_BASE_URL + "/issue/" + issueKey;
+            String issueURL = JIRA_BASE_URL+"/rest/api/2/issue/"+issueKey;
             JSONObject jsonObject = createRestRequest(issueURL);
 
             String key          = jsonObject.get("key").toString();
@@ -247,7 +289,10 @@ public class RestConnectionProvider {
             String status       = jsonObject.getJSONObject("fields").getJSONObject("status").get("name").toString();
             String issueType    = jsonObject.getJSONObject("fields").getJSONObject("issuetype").get("name").toString();
             String typeIconURL  = jsonObject.getJSONObject("fields").getJSONObject("issuetype").get("iconUrl").toString();
-            String assignee     = new String(jsonObject.getJSONObject("fields").getJSONObject("assignee").get("displayName").toString().getBytes("ISO-8859-1"), "UTF-8");
+            String assignee     = "Unassigned";
+            try {
+                new String(jsonObject.getJSONObject("fields").getJSONObject("assignee").get("displayName").toString().getBytes("ISO-8859-1"), "UTF-8");
+            }catch (Exception ex){  Log.e("BATU", ex.getMessage()); }
             String assigneeURL  = jsonObject.getJSONObject("fields").getJSONObject("assignee").getJSONObject("avatarUrls").get("48x48").toString();
             String reporter     = new String(jsonObject.getJSONObject("fields").getJSONObject("reporter").get("displayName").toString().getBytes("ISO-8859-1"), "UTF-8");
             String reporterURL  = jsonObject.getJSONObject("fields").getJSONObject("reporter").getJSONObject("avatarUrls").get("48x48").toString();
@@ -257,7 +302,7 @@ public class RestConnectionProvider {
             String resolution   = "Unresolved";
             try {
                 resolution = jsonObject.getJSONObject("fields").getJSONObject("resolution").getString("name");
-            }catch (Exception ex){  Log.e("BATU","Resolution JSON Object is empty");  }
+            }catch (Exception ex){  Log.e("BATU",ex.getMessage());  }
 
             List<CommentModel> comments = new ArrayList<>();
 
@@ -304,7 +349,7 @@ public class RestConnectionProvider {
 
         try {
 
-            String userInfo             = JIRA_REST_BASE_URL+"/user?username="+username;
+            String userInfo             = JIRA_BASE_URL+"/rest/api/2/user?username="+username;
             JSONObject jsonObject       = createRestRequest(userInfo);
             JSONObject avatarUrlsJSON   = new JSONObject(jsonObject.get("avatarUrls").toString());
             String src                  = avatarUrlsJSON.get("48x48").toString();
@@ -332,7 +377,7 @@ public class RestConnectionProvider {
 
         try {
 
-            String userInfo         = JIRA_REST_BASE_URL+"/user?username="+mUsername;
+            String userInfo         = JIRA_BASE_URL+"/rest/api/2/user?username="+mUsername;
             JSONObject jsonObject   = createRestRequest(userInfo);
             userFullName            = new String(jsonObject.getString("displayName").getBytes("ISO-8859-1"), "UTF-8");
 
@@ -348,10 +393,10 @@ public class RestConnectionProvider {
         ArrayList<HashMap<String,String>> result = new ArrayList<>();
 
         try {
-            String activityStreams = "http://10.108.95.25/jira/activity";
+            String activityStreams = JIRA_BASE_URL+"/activity";
             URL url = new URL(activityStreams);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestProperty("Cookie", "JSESSIONID="+mJsessionID);
+            connection.setRequestProperty("Cookie", "JSESSIONID=" + mJsessionID);
             connection.setDoInput(true);
             connection.connect();
             InputStream input = connection.getInputStream();
