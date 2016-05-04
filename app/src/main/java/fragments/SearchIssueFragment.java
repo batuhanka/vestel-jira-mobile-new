@@ -235,13 +235,15 @@ public class SearchIssueFragment extends Fragment {
 				SEARCH_JQL += "reporter" + EQUAL + username + AND;
 			}
 			if (!issueType.isEmpty()) {
-				SEARCH_JQL += "issuetype" + EQUAL + issueType + AND;
+				issueType = issueType.replace(" ","%20");
+				SEARCH_JQL += "issuetype" + EQUAL + "'"+issueType+"'" + AND;
 			}
 			if (!priority.isEmpty()){
 				SEARCH_JQL += "priority" + EQUAL + priority + AND;
 			}
 			if (!status.isEmpty()){
-				SEARCH_JQL += "status" + EQUAL + status + AND;
+				status = status.replace(" ","%20");
+				SEARCH_JQL += "status" + EQUAL + "'"+status+"'" + AND;
 			}
 			if(!description.isEmpty()) {
 				SEARCH_JQL += "description" + CONTAINS + description + AND;
