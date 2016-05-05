@@ -291,9 +291,12 @@ public class RestConnectionProvider {
             String typeIconURL  = jsonObject.getJSONObject("fields").getJSONObject("issuetype").get("iconUrl").toString();
             String assignee     = "Unassigned";
             try {
-                new String(jsonObject.getJSONObject("fields").getJSONObject("assignee").get("displayName").toString().getBytes("ISO-8859-1"), "UTF-8");
+                assignee = new String(jsonObject.getJSONObject("fields").getJSONObject("assignee").get("displayName").toString().getBytes("ISO-8859-1"), "UTF-8");
             }catch (Exception ex){  Log.e("BATU", ex.getMessage()); }
-            String assigneeURL  = jsonObject.getJSONObject("fields").getJSONObject("assignee").getJSONObject("avatarUrls").get("48x48").toString();
+            String assigneeURL  = "Empty";
+            try {
+                jsonObject.getJSONObject("fields").getJSONObject("assignee").getJSONObject("avatarUrls").get("48x48").toString();
+            }catch (Exception ex){  Log.e("BATU", ex.getMessage()); }
             String reporter     = new String(jsonObject.getJSONObject("fields").getJSONObject("reporter").get("displayName").toString().getBytes("ISO-8859-1"), "UTF-8");
             String reporterURL  = jsonObject.getJSONObject("fields").getJSONObject("reporter").getJSONObject("avatarUrls").get("48x48").toString();
             String projectName  = jsonObject.getJSONObject("fields").getJSONObject("project").get("name").toString();
@@ -309,10 +312,10 @@ public class RestConnectionProvider {
             JSONArray commentJSONArray = jsonObject.getJSONObject("fields").getJSONObject("comment").getJSONArray("comments");
             for(int i=0; i<commentJSONArray.length(); i++){
                 JSONObject commentJSON  = commentJSONArray.getJSONObject(i);
-                String commentAuthor           = new String(commentJSON.getJSONObject("updateAuthor").getString("displayName").getBytes("ISO-8859-1"), "UTF-8");
-                String commentAuthorURL        = commentJSON.getJSONObject("updateAuthor").getJSONObject("avatarUrls").get("48x48").toString();
-                String commentBody             = new String(commentJSON.getString("body").getBytes("ISO-8859-1"), "UTF-8");
-                String commentCreated          = commentJSON.getString("created");
+                String commentAuthor    = new String(commentJSON.getJSONObject("updateAuthor").getString("displayName").getBytes("ISO-8859-1"), "UTF-8");
+                String commentAuthorURL = commentJSON.getJSONObject("updateAuthor").getJSONObject("avatarUrls").get("48x48").toString();
+                String commentBody      = new String(commentJSON.getString("body").getBytes("ISO-8859-1"), "UTF-8");
+                String commentCreated   = commentJSON.getString("created");
                 CommentModel commentItem = new CommentModel(commentAuthor, commentAuthorURL, commentBody, commentCreated);
                 comments.add(commentItem);
             }

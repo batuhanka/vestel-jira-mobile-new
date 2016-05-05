@@ -21,7 +21,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -187,8 +186,6 @@ public class SearchIssueFragment extends Fragment {
 
 	public void collectSearchOptions(View rootView){
 
-		//TODO: Re-implement contains methods for UTF-8
-
 		String SEARCH_JQL		= "http://10.108.95.25/jira/rest/api/2/search?jql=";
 		String AND				= "%20AND%20";
 		String EQUAL			= "%20%3D%20";
@@ -218,8 +215,6 @@ public class SearchIssueFragment extends Fragment {
 			String summary 		= new String(summaryView.getText().toString().getBytes("ISO-8859-1"), "UTF-8");
 			String startDate 	= startDateView.getText().toString();
 			String endDate 		= endDateView.getText().toString();
-
-			//TODO: Resolve space bugs for search jql url for options
 
 			if (!project.isEmpty()) {
 				String projectKey = project.substring(project.indexOf("(") + 1, project.indexOf(")"));

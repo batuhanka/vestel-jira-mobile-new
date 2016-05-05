@@ -107,10 +107,10 @@ public class ViewIssueFragment extends Fragment {
 
 
         ImageView issueAssigneeAvatar = (ImageView) rootView.findViewById(R.id.issueAssigneeAvatar);
-        try {
+        if(!issueItem.getAssigneeURL().matches("Empty")) {
             Bitmap assigneeBitmap = imageLoader.getBitmap(issueItem.getAssigneeURL());
             issueAssigneeAvatar.setImageBitmap(assigneeBitmap);
-        } catch (Exception ex) {
+        } else {
             issueAssigneeAvatar.setImageDrawable(getResources().getDrawable(R.drawable.no_avatar));
         }
 
