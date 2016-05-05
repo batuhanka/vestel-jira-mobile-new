@@ -49,7 +49,6 @@ public class RestConnectionProvider {
     //TODO: Complete implementation
     public void createIssue(){
 
-
         String requestURL = JIRA_BASE_URL + "/rest/api/2/issue";
         try {
             HttpClient client = new DefaultHttpClient();
@@ -75,8 +74,30 @@ public class RestConnectionProvider {
         } catch (Exception ex) {
             Log.e("BATU", ex.getMessage());
         }
+    }
+
+    public void addCommentIssue(String issueKey, String commentText){
+
+        String requestURL = JIRA_BASE_URL + "/rest/api/2/issue/"+issueKey+"/comment";
+        try {
+            HttpClient client       = new DefaultHttpClient();
+            CookieStore cookieStore = new BasicCookieStore();
+            HttpContext httpContext = new BasicHttpContext();
+            HttpPost post = new HttpPost(requestURL);
+            httpContext.setAttribute(ClientContext.COOKIE_STORE, cookieStore);
+            post.setHeader("Content-type", "application/json");
+            post.setHeader("Cookie", "JSESSIONID=" + mJsessionID);
+
+           JSONObject obj = new JSONObject();
+           obj.put("body", commentText);
+
+            post.setEntity(new StringEntity(obj.toString(), "UTF-8"));
+            client.execute(post, httpContext);
 
 
+        } catch (Exception ex) {
+            Log.e("BATU", ex.getMessage());
+        }
     }
 
     public JSONObject createRestRequest(String requestURL){
@@ -285,7 +306,10 @@ public class RestConnectionProvider {
 
             String key          = jsonObject.get("key").toString();
             String summary      = new String(jsonObject.getJSONObject("fields").getString("summary").getBytes("ISO-8859-1"), "UTF-8");
-            String priority     = jsonObject.getJSONObject("fields").getJSONObject("priority").get("name").toString();
+            String priority     = "Medium";
+            try{
+                priority = jsonObject.getJSONObject("fields").getJSONObject("priority").get("name").toString();
+            }catch (Exception ex){  Log.e("BATU", ex.getMessage()); }
             String status       = jsonObject.getJSONObject("fields").getJSONObject("status").get("name").toString();
             String issueType    = jsonObject.getJSONObject("fields").getJSONObject("issuetype").get("name").toString();
             String typeIconURL  = jsonObject.getJSONObject("fields").getJSONObject("issuetype").get("iconUrl").toString();
@@ -295,13 +319,16 @@ public class RestConnectionProvider {
             }catch (Exception ex){  Log.e("BATU", ex.getMessage()); }
             String assigneeURL  = "Empty";
             try {
-                jsonObject.getJSONObject("fields").getJSONObject("assignee").getJSONObject("avatarUrls").get("48x48").toString();
+                assigneeURL = jsonObject.getJSONObject("fields").getJSONObject("assignee").getJSONObject("avatarUrls").get("48x48").toString();
             }catch (Exception ex){  Log.e("BATU", ex.getMessage()); }
             String reporter     = new String(jsonObject.getJSONObject("fields").getJSONObject("reporter").get("displayName").toString().getBytes("ISO-8859-1"), "UTF-8");
             String reporterURL  = jsonObject.getJSONObject("fields").getJSONObject("reporter").getJSONObject("avatarUrls").get("48x48").toString();
             String projectName  = jsonObject.getJSONObject("fields").getJSONObject("project").get("name").toString();
             String projectURL   = jsonObject.getJSONObject("fields").getJSONObject("project").getJSONObject("avatarUrls").get("48x48").toString();
-            String description  = new String(jsonObject.getJSONObject("fields").getString("description").getBytes("ISO-8859-1"), "UTF-8");
+            String description  = "";
+            try {
+                description = new String(jsonObject.getJSONObject("fields").getString("description").getBytes("ISO-8859-1"), "UTF-8");
+            }catch (Exception ex){  Log.e("BATU",ex.getMessage());  }
             String resolution   = "Unresolved";
             try {
                 resolution = jsonObject.getJSONObject("fields").getJSONObject("resolution").getString("name");

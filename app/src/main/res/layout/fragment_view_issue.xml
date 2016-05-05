@@ -370,12 +370,38 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#000000" />
 
-
             <ListView
                 android:id="@+id/commentsList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
             </ListView>
+
+            <EditText
+                android:id="@+id/newCommentArea"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lines="5"
+                android:hint="@string/add_comment_hint"
+                android:gravity="top|left"
+                android:inputType="textMultiLine"
+                android:singleLine="true"
+                android:scrollHorizontally="false"
+                android:background="@drawable/add_comment_style"
+                android:paddingTop="10dp"
+                android:padding="5dp" />
+
+            <Button
+                android:id="@+id/addCommentButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:textColor="#fff"
+                android:layout_marginTop="5dp"
+                android:padding="10dp"
+                android:background="@drawable/side_nav_bar"
+                android:text="@string/add_comment"/>
+
+
         </LinearLayout>
 
     </LinearLayout>

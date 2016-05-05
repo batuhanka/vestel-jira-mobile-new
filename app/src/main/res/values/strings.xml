@@ -44,5 +44,7 @@
     <string name="favourite_filters_label">My Favourite Filters</string>
     <string name="close_message">Are you sure ?</string>
     <string name="close_message_title">Close Vestel JIRA Mobile</string>
+    <string name="add_comment_hint">Add Your Comment...</string>
+    <string name="add_comment">Add Comment</string>
 
 </resources>

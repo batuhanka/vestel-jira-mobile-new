@@ -48,6 +48,10 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         //TODO: Implement create issue method
         //provider.createIssue();
 
+        //TODO: Implement add comment method
+        //provider.addCommentIssue("BATU-3");
+
+
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setImageDrawable(getResources().getDrawable(R.drawable.refresh));
         fab.setOnClickListener(new View.OnClickListener() {
