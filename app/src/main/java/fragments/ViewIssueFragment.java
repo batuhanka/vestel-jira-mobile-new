@@ -4,18 +4,27 @@ import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.List;
 
 import adapter.CommentAdapter;
+import adapter.CommentModel;
 import adapter.ImageLoader;
 import adapter.ViewIssueModel;
 import navigation.NavigationActivity;
@@ -30,13 +39,13 @@ public class ViewIssueFragment extends Fragment {
 
     @SuppressLint("NewApi")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             mIssueKey = bundle.getString("ISSUE_KEY");
         }
-        ViewIssueModel issueItem = provider.getSingleIssueDetails(mIssueKey);
+        final ViewIssueModel issueItem = provider.getSingleIssueDetails(mIssueKey);
 
         final View rootView = inflater.inflate(R.layout.fragment_view_issue, container, false);
         ((NavigationActivity) getActivity()).setActionBarTitle("Issue Details");
@@ -135,9 +144,11 @@ public class ViewIssueFragment extends Fragment {
         TextView issueDescriptionView = (TextView) rootView.findViewById(R.id.issueDescriptionValue);
         issueDescriptionView.setText(issueItem.getDescription());
 
-        ListView commentsListView = (ListView) rootView.findViewById(R.id.commentsList);
-        CommentAdapter adapter = new CommentAdapter(inflater, issueItem.getComments());
-        commentsListView.setAdapter(adapter);
+        final ListView commentsListView = (ListView) rootView.findViewById(R.id.commentsList);
+        if(issueItem.getComments().size() > 0) {
+            CommentAdapter adapter = new CommentAdapter(inflater, issueItem.getComments());
+            commentsListView.setAdapter(adapter);
+        }
         commentsListView.setOnTouchListener(new View.OnTouchListener() {
             // Setting on Touch Listener for handling the touch inside ScrollView
             @Override
@@ -147,8 +158,28 @@ public class ViewIssueFragment extends Fragment {
                 return false;
             }
         });
-        setListViewHeightBasedOnChildren(commentsListView);
 
+        final EditText commentBody    = (EditText) rootView.findViewById(R.id.commentArea);
+        Button addCommentButton = (Button) rootView.findViewById(R.id.addCommentButton);
+        addCommentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String commentText = commentBody.getText().toString();
+                if(!commentText.isEmpty() && commentText.trim().length() != 0) {
+                    provider.addCommentIssue(issueItem.getIssueKey(), commentText);
+                    ViewIssueModel model = provider.getSingleIssueDetails(issueItem.getIssueKey());
+                    commentsListView.setAdapter(new CommentAdapter(inflater, model.getComments()));
+                    setListViewHeightBasedOnChildren(commentsListView);
+                    Snackbar.make(rootView, "Your comment added.", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+                }else {
+                    Snackbar.make(rootView, "Please write comment first!", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+                    commentBody.getText().clear();
+                }
+            }
+        });
+
+
+        setListViewHeightBasedOnChildren(commentsListView);
         FloatingActionButton fab = NavigationActivity.fab;
         fab.setVisibility(View.INVISIBLE);
 
@@ -175,11 +206,9 @@ public class ViewIssueFragment extends Fragment {
 
             view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
             totalHeight += view.getMeasuredHeight();
-            Log.e("BATU", "HEIGT : " + totalHeight);
         }
         ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        Log.e("BATU", "PARAMS HEIGT : " + params.height);
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() + 1));
         listView.setLayoutParams(params);
     }
 

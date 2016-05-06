@@ -96,7 +96,6 @@ public class SearchIssueFragment extends Fragment {
 			}
 		});
 
-
 		final AutoCompleteTextView issueTypeACView = (AutoCompleteTextView) rootView.findViewById(R.id.issueTypeAutoComplete);
 		issueTypeACView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 			@Override

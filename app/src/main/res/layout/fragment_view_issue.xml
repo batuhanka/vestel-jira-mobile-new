@@ -377,7 +377,7 @@
             </ListView>
 
             <EditText
-                android:id="@+id/newCommentArea"
+                android:id="@+id/commentArea"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lines="5"
@@ -388,7 +388,8 @@
                 android:scrollHorizontally="false"
                 android:background="@drawable/add_comment_style"
                 android:paddingTop="10dp"
-                android:padding="5dp" />
+                android:padding="5dp"
+                android:layout_marginTop="50dp" />
 
             <Button
                 android:id="@+id/addCommentButton"
