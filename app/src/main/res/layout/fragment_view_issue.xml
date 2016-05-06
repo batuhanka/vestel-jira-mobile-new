@@ -389,7 +389,7 @@
                 android:background="@drawable/add_comment_style"
                 android:paddingTop="10dp"
                 android:padding="5dp"
-                android:layout_marginTop="50dp" />
+                android:layout_marginTop="40dp" />
 
             <Button
                 android:id="@+id/addCommentButton"
