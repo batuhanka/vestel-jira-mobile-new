@@ -1,11 +1,14 @@
 package restprovider;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.StrictMode;
 import android.util.Log;
 
+import org.apache.http.HttpResponse;
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -33,6 +36,7 @@ import adapter.CommentModel;
 import adapter.IssueModel;
 import adapter.ViewIssueModel;
 import login.MainActivity;
+import navigation.NavigationActivity;
 
 @SuppressWarnings("deprecation")
 public class RestConnectionProvider {
@@ -47,8 +51,9 @@ public class RestConnectionProvider {
     }
 
     //TODO: Complete implementation
-    public void createIssue(){
+    public String createIssue() {
 
+        String result = "";
         String requestURL = JIRA_BASE_URL + "/rest/api/2/issue";
         try {
             HttpClient client = new DefaultHttpClient();
@@ -68,12 +73,40 @@ public class RestConnectionProvider {
             obj.put("fields", myString);
 
             post.setEntity(new StringEntity(obj.toString(), "UTF-8"));
-            client.execute(post, httpContext);
+            HttpResponse response = client.execute(post, httpContext);
+            InputStream is = response.getEntity().getContent();
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line).append("\n");
+            }
+            is.close();
+            JSONObject jsonObject = new JSONObject(sb.toString());
+            try {
+                String errors = jsonObject.getString("errors");
+                if (!errors.isEmpty()) {
+                    result = "INVALID";
+                }
+            } catch (Exception ex) {
+                Log.e("BATU", ex.getMessage());
+            }
+            try {
+                String key = jsonObject.getString("key");
+                if (!key.isEmpty())
+                    result = key;
+            } catch (Exception ex) {
+                Log.e("BATU", ex.getMessage());
+            }
 
 
         } catch (Exception ex) {
             Log.e("BATU", ex.getMessage());
         }
+
+        return result;
+
     }
 
     public void addCommentIssue(String issueKey, String commentText){
