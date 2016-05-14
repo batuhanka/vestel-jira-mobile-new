@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import navigation.NavigationActivity;
@@ -40,7 +42,7 @@ public class CreateIssueFragment extends Fragment {
 				android.R.layout.simple_dropdown_item_1line,
 				getResources().getStringArray(R.array.project_names));
 
-		AutoCompleteTextView projectACView= (AutoCompleteTextView) rootView.findViewById(R.id.projectCI);
+		final AutoCompleteTextView projectACView= (AutoCompleteTextView) rootView.findViewById(R.id.projectCI);
 		projectACView.setAdapter(projectAdapter);
 		projectAdapter.notifyDataSetChanged();
 
@@ -79,15 +81,27 @@ public class CreateIssueFragment extends Fragment {
 			public void onFocusChange(View v, boolean hasFocus) {
 				if (hasFocus) {
 					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-					builder.setItems(R.array.issue_type_values, new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int which) {
-							String[] issueTypes = getResources().getStringArray(R.array.issue_type_values);
-							issueTypeACView.setText(issueTypes[which]);
-							rootView.requestFocus();
-						}
-					});
-					builder.create();
-					builder.show();
+					String project		= "";
+					String projectKey 	= "";
+					try{
+						project = projectACView.getText().toString();
+						projectKey = project.substring(project.indexOf("(") + 1, project.indexOf(")"));
+					}catch (Exception ex){	Log.e("BATU", ex.getMessage());	}
+					if (projectKey.isEmpty()) {
+						Toast.makeText(rootView.getContext(), "Project can not be empty", Toast.LENGTH_SHORT).show();
+						projectACView.requestFocus();
+					} else {
+						ArrayList<String> results = provider.findAvailableIssueTypes(projectKey);
+						final CharSequence[] issueTypes = results.toArray(new CharSequence[results.size()]);
+						builder.setItems(issueTypes, new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int which) {
+								issueTypeACView.setText(issueTypes[which]);
+								rootView.requestFocus();
+							}
+						});
+						builder.create();
+						builder.show();
+					}
 				}
 			}
 		});

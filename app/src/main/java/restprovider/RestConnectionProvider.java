@@ -558,4 +558,22 @@ public class RestConnectionProvider {
             return result;
     }
 
+    public ArrayList<String> findAvailableIssueTypes(String projectKey) {
+
+        ArrayList<String> results = new ArrayList<>();
+        try {
+
+            String projectInfo      = JIRA_BASE_URL+"/rest/api/2/project/"+projectKey;
+            JSONObject jsonObject   = createRestRequest(projectInfo);
+            JSONArray jsonArray     = jsonObject.getJSONArray("issueTypes");
+            for(int i=0; i<jsonArray.length(); i++){
+                results.add(jsonArray.getJSONObject(i).getString("name"));
+            }
+
+        } catch (Exception ex) {
+            Log.e("BATU",ex.getMessage());
+        }
+        Log.e("BATU", results.toString());
+        return results;
+    }
 }
