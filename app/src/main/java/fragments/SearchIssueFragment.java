@@ -21,6 +21,8 @@ import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 
+import com.github.clans.fab.FloatingActionMenu;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -169,6 +171,9 @@ public class SearchIssueFragment extends Fragment {
 				endDateACView.setText("");
 			}
 		});
+
+		FloatingActionMenu actionMenu = NavigationActivity.menu;
+		actionMenu.setVisibility(View.INVISIBLE);
 
 		FloatingActionButton fab = NavigationActivity.fab;
 		fab.setImageDrawable(getResources().getDrawable(R.drawable.search_issue));

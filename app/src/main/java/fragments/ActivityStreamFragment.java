@@ -16,6 +16,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.clans.fab.FloatingActionMenu;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -40,6 +42,9 @@ public class ActivityStreamFragment extends Fragment {
 		//final Context context = rootView.getContext();
 		new ActivityStreamTask(rootView, rootView.getContext()).execute();
 		((NavigationActivity) getActivity()).setActionBarTitle("Recent Activities in JIRA");
+
+		FloatingActionMenu actionMenu = NavigationActivity.menu;
+		actionMenu.setVisibility(View.INVISIBLE);
 
 		FloatingActionButton fab = NavigationActivity.fab;
 		fab.setImageDrawable(getResources().getDrawable(R.drawable.refresh));

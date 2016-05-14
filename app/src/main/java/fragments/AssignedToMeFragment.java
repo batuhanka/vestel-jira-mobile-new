@@ -20,6 +20,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.github.clans.fab.FloatingActionMenu;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,6 +43,9 @@ public class AssignedToMeFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_assigned, container, false);
         new AssignedIssuesTask(rootView, rootView.getContext()).execute();
         ((NavigationActivity) getActivity()).setActionBarTitle("Assigned Issues To Me");
+
+        FloatingActionMenu actionMenu = NavigationActivity.menu;
+        actionMenu.setVisibility(View.INVISIBLE);
 
         FloatingActionButton fab = NavigationActivity.fab;
         fab.setImageDrawable(getResources().getDrawable(R.drawable.create));

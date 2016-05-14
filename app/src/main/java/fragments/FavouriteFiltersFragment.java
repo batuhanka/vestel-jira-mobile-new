@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.github.clans.fab.FloatingActionMenu;
+
 import java.util.HashMap;
 
 import adapter.FilterAdapter;
@@ -37,11 +39,11 @@ public class FavouriteFiltersFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 LinearLayout layout = (LinearLayout) view;
-                TextView textView   = (TextView) layout.findViewById(R.id.filterName);
-                String filterName   = textView.getText().toString();
-                String filterUrl    = filters.get(filterName);
+                TextView textView = (TextView) layout.findViewById(R.id.filterName);
+                String filterName = textView.getText().toString();
+                String filterUrl = filters.get(filterName);
                 FragmentManager fragmentManager = getFragmentManager();
-                Fragment searchResultsFragment  = new SearchResultsFragment();
+                Fragment searchResultsFragment = new SearchResultsFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("SEARCH_URL", filterUrl);
                 bundle.putString("FILTER_NAME", filterName);
@@ -52,6 +54,9 @@ public class FavouriteFiltersFragment extends Fragment {
         });
 
         ((NavigationActivity) getActivity()).setActionBarTitle("My Favourite Filters");
+
+        FloatingActionMenu actionMenu = NavigationActivity.menu;
+        actionMenu.setVisibility(View.INVISIBLE);
 
         FloatingActionButton fab = NavigationActivity.fab;
         fab.setVisibility(View.INVISIBLE);

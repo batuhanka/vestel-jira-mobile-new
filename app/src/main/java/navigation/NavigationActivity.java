@@ -20,6 +20,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.github.clans.fab.FloatingActionMenu;
+
 import fragments.ActivityStreamFragment;
 import fragments.AssignedToMeFragment;
 import fragments.CreateIssueFragment;
@@ -35,6 +37,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
     RestConnectionProvider provider = new RestConnectionProvider();
     public static FloatingActionButton fab;
+    public static FloatingActionMenu menu;
     FragmentManager fragmentManager = getSupportFragmentManager();
 
     @Override
@@ -45,8 +48,12 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        menu = (FloatingActionMenu) findViewById(R.id.floatingActionMenu);
+        menu.setVisibility(View.INVISIBLE);
+
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setImageDrawable(getResources().getDrawable(R.drawable.refresh));
+        fab.setVisibility(View.VISIBLE);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

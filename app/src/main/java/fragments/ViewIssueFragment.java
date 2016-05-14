@@ -17,6 +17,8 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.github.clans.fab.FloatingActionMenu;
+
 import adapter.CommentAdapter;
 import adapter.ImageLoader;
 import adapter.ViewIssueModel;
@@ -158,23 +160,26 @@ public class ViewIssueFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String commentText = commentBody.getText().toString();
-                if(!commentText.isEmpty() && commentText.trim().length() != 0) {
+                if (!commentText.isEmpty() && commentText.trim().length() != 0) {
                     provider.addCommentIssue(issueItem.getIssueKey(), commentText);
                     ViewIssueModel model = provider.getSingleIssueDetails(issueItem.getIssueKey());
                     commentsListView.setAdapter(new CommentAdapter(inflater, model.getComments()));
                     setListViewHeightBasedOnChildren(commentsListView);
                     Snackbar.make(rootView, "Your comment added.", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
-                }else {
+                } else {
                     Snackbar.make(rootView, "Please write comment first!", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
                     commentBody.getText().clear();
                 }
             }
         });
 
+        FloatingActionMenu actionMenu = NavigationActivity.menu;
+        actionMenu.setVisibility(View.VISIBLE);
 
-        setListViewHeightBasedOnChildren(commentsListView);
         FloatingActionButton fab = NavigationActivity.fab;
         fab.setVisibility(View.INVISIBLE);
+
+        setListViewHeightBasedOnChildren(commentsListView);
 
         return rootView;
     }

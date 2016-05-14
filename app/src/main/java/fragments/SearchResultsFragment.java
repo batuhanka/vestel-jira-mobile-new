@@ -19,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.github.clans.fab.FloatingActionMenu;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -47,6 +49,9 @@ public class SearchResultsFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.fragment_search_results, container, false);
         new SearchResultsTask(rootView, rootView.getContext()).execute();
         ((NavigationActivity) getActivity()).setActionBarTitle(mFilterName);
+
+        FloatingActionMenu actionMenu = NavigationActivity.menu;
+        actionMenu.setVisibility(View.INVISIBLE);
 
         FloatingActionButton fab = NavigationActivity.fab;
         fab.setVisibility(View.INVISIBLE);

@@ -17,6 +17,8 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.github.clans.fab.FloatingActionMenu;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -105,6 +107,8 @@ public class CreateIssueFragment extends Fragment {
 			}
 		});
 
+		FloatingActionMenu actionMenu = NavigationActivity.menu;
+		actionMenu.setVisibility(View.INVISIBLE);
 
 		FloatingActionButton fab = NavigationActivity.fab;
 		fab.setImageDrawable(getResources().getDrawable(R.drawable.plus));
