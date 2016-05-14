@@ -21,6 +21,7 @@
     <string name="login_text">Login</string>
     <string name="app_logo_description">Application Logo</string>
     <string name="recent_activities_label">Recent Activities</string>
+    <string name="create_issue_label">Create New Issue</string>
     <string name="assigned_to_me_label">Assigned To Me</string>
     <string name="reported_by_me_label">Reported By Me</string>
     <string name="search_for_issues_label">Search For Issues</string>
@@ -44,6 +45,7 @@
     <string name="favourite_filters_label">My Favourite Filters</string>
     <string name="close_message">Are you sure ?</string>
     <string name="close_message_title">Close Vestel JIRA Mobile</string>
+    <string name="description_hint">Description</string>
     <string name="add_comment_hint">Add Your Comment...</string>
     <string name="add_comment">Add Comment</string>
 

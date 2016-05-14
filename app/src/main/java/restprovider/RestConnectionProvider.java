@@ -51,7 +51,7 @@ public class RestConnectionProvider {
     }
 
     //TODO: Complete implementation
-    public String createIssue() {
+    public String createIssue(HashMap<String,String> details) {
 
         String result = "";
         String requestURL = JIRA_BASE_URL + "/rest/api/2/issue";
@@ -67,14 +67,20 @@ public class RestConnectionProvider {
             JSONObject myString = new JSONObject();
             JSONObject obj = new JSONObject();
 
-            myString.put("project", new JSONObject().put("key", "BATU"));
-            myString.put("summary", "New issue test");
-            myString.put("issuetype", new JSONObject().put("name", "Task"));
+            myString.put("project", new JSONObject().put("key", details.get("PROJECT")));
+            myString.put("issuetype", new JSONObject().put("name", details.get("ISSUE_TYPE")));
+            myString.put("summary", details.get("SUMMARY"));
+            myString.put("priority", new JSONObject().put("name", details.get("PRIORITY")));
+            //TODO: assignee cannot be set
+            //myString.put("assignee", new JSONObject().put("key", details.get("ASSIGNEE")));
+            myString.put("description", details.get("DESCRIPTION"));
+
             obj.put("fields", myString);
 
             post.setEntity(new StringEntity(obj.toString(), "UTF-8"));
             HttpResponse response = client.execute(post, httpContext);
             InputStream is = response.getEntity().getContent();
+
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
             StringBuilder sb = new StringBuilder();
@@ -84,6 +90,7 @@ public class RestConnectionProvider {
             }
             is.close();
             JSONObject jsonObject = new JSONObject(sb.toString());
+            Log.e("BATU", "RETURN JSON : "+jsonObject);
             try {
                 String errors = jsonObject.getString("errors");
                 if (!errors.isEmpty()) {

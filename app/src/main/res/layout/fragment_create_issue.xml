@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/createIssueLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="25dp"
+    android:paddingTop="10dp"
+    android:paddingRight="25dp"
+    android:paddingBottom="10dp"
+    android:weightSum="1">
+
+    <AutoCompleteTextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/projectCI"
+        android:imeOptions="actionDone"
+        android:singleLine="true"
+        android:hint="@string/project_ac_hint" />
+
+    <AutoCompleteTextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/issuetypeCI"
+        android:imeOptions="actionDone"
+        android:singleLine="true"
+        android:hint="@string/issuetype_ac_hint"
+        android:layout_marginBottom="30dp"/>
+
+
+    <AutoCompleteTextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/summaryIC"
+        android:imeOptions="actionDone"
+        android:singleLine="true"
+        android:hint="@string/summary_ac_hint" />
+
+    <AutoCompleteTextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/priorityIC"
+        android:imeOptions="actionDone"
+        android:singleLine="true"
+        android:hint="@string/priority_ac_hint" />
+
+    <AutoCompleteTextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/assigneeIC"
+        android:imeOptions="actionDone"
+        android:singleLine="true"
+        android:hint="@string/assignee_ac_hint" />
+
+    <EditText
+        android:id="@+id/descriptionIC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lines="5"
+        android:hint="@string/description_hint"
+        android:gravity="top|left"
+        android:inputType="textMultiLine"
+        android:singleLine="true"
+        android:scrollHorizontally="false"
+        android:background="@drawable/add_comment_style"
+        android:paddingTop="10dp"
+        android:padding="5dp"
+        android:layout_weight="0.30" />
+
+</LinearLayout>

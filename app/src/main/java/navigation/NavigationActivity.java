@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import fragments.ActivityStreamFragment;
 import fragments.AssignedToMeFragment;
+import fragments.CreateIssueFragment;
 import fragments.FavouriteFiltersFragment;
 import fragments.ReportedToMeFragment;
 import fragments.SearchIssueFragment;
@@ -101,7 +102,8 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.create_issue_link) {
-            Toast.makeText(this, "CREATE ISSUE", Toast.LENGTH_LONG).show();
+            fragmentManager.beginTransaction().replace(R.id.contentNav, new CreateIssueFragment()).addToBackStack("CreateIssueFragment").commit();
+            fragmentManager.executePendingTransactions();
             return true;
         }
 
@@ -147,6 +149,9 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
         if (id == R.id.nav_recent_activities) {
             fragmentManager.beginTransaction().replace(R.id.contentNav, new ActivityStreamFragment()).addToBackStack("ActivityStreamsFragment").commit();
+            fragmentManager.executePendingTransactions();
+        } else if (id == R.id.nav_create_issue) {
+            fragmentManager.beginTransaction().replace(R.id.contentNav, new CreateIssueFragment()).addToBackStack("CreateIssueFragment").commit();
             fragmentManager.executePendingTransactions();
         } else if (id == R.id.nav_assigned_issues) {
             fragmentManager.beginTransaction().replace(R.id.contentNav, new AssignedToMeFragment()).addToBackStack("AssignedFragment").commit();
