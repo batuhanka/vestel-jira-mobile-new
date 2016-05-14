@@ -71,8 +71,7 @@ public class RestConnectionProvider {
             myString.put("issuetype", new JSONObject().put("name", details.get("ISSUE_TYPE")));
             myString.put("summary", details.get("SUMMARY"));
             myString.put("priority", new JSONObject().put("name", details.get("PRIORITY")));
-            //TODO: assignee cannot be set
-            //myString.put("assignee", new JSONObject().put("key", details.get("ASSIGNEE")));
+            myString.put("assignee", new JSONObject().put("name", details.get("ASSIGNEE")));
             myString.put("description", details.get("DESCRIPTION"));
 
             obj.put("fields", myString);
