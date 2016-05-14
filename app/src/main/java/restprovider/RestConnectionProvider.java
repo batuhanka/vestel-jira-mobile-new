@@ -1,5 +1,6 @@
 package restprovider;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -26,9 +27,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import adapter.CommentModel;
 import adapter.IssueModel;
@@ -200,13 +205,15 @@ public class RestConnectionProvider {
                 String status       = jsonArray.getJSONObject(i).getJSONObject("fields").getJSONObject("status").get("name").toString();
                 String issueType    = jsonArray.getJSONObject(i).getJSONObject("fields").getJSONObject("issuetype").get("name").toString();
                 String typeIconURL  = jsonArray.getJSONObject(i).getJSONObject("fields").getJSONObject("issuetype").get("iconUrl").toString();
+                String createdRaw   = jsonArray.getJSONObject(i).getJSONObject("fields").getString("created");
+                String createdDate  = normalizeDate(createdRaw);
 
                 if (issues.keySet().contains(priority)) {
-                    IssueModel issueModel = new IssueModel(key, summary, status.toUpperCase(), issueType, typeIconURL);
+                    IssueModel issueModel = new IssueModel(key, summary, status.toUpperCase(), issueType, typeIconURL, createdDate);
                     issues.get(priority).add(issueModel);
                 } else {
                     List<IssueModel> tempList = new ArrayList<>();
-                    IssueModel issueModel = new IssueModel(key, summary, status.toUpperCase(), issueType, typeIconURL);
+                    IssueModel issueModel = new IssueModel(key, summary, status.toUpperCase(), issueType, typeIconURL, createdDate);
                     tempList.add(issueModel);
                     issues.put(priority, tempList);
                 }
@@ -217,6 +224,24 @@ public class RestConnectionProvider {
         }
 
         return issues;
+    }
+
+    private String normalizeDate(String createdRaw) {
+        String result   = "";
+        String[] temp   = createdRaw.split("T");
+        String dateText = temp[0];
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            Date resultDate = dateFormat.parse(dateText);
+            Calendar cal    = Calendar.getInstance();
+            cal.setTime(resultDate);
+            String month    = cal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
+            result = month+"-"+cal.get(Calendar.YEAR);
+
+        }catch (Exception ex){ Log.e("BATU", ex.getMessage()); }
+        return result;
     }
 
     public  HashMap<String, List<IssueModel>> getSearchResults(String searchUrl){
@@ -240,13 +265,15 @@ public class RestConnectionProvider {
                 String status       = jsonArray.getJSONObject(i).getJSONObject("fields").getJSONObject("status").get("name").toString();
                 String issueType    = jsonArray.getJSONObject(i).getJSONObject("fields").getJSONObject("issuetype").get("name").toString();
                 String typeIconURL  = jsonArray.getJSONObject(i).getJSONObject("fields").getJSONObject("issuetype").get("iconUrl").toString();
+                String createdRaw   = jsonArray.getJSONObject(i).getJSONObject("fields").getString("created");
+                String createdDate  = normalizeDate(createdRaw);
 
                 if (issues.keySet().contains(priority)) {
-                    IssueModel issueModel = new IssueModel(key, summary, status.toUpperCase(), issueType, typeIconURL);
+                    IssueModel issueModel = new IssueModel(key, summary, status.toUpperCase(), issueType, typeIconURL, createdDate);
                     issues.get(priority).add(issueModel);
                 } else {
                     List<IssueModel> tempList = new ArrayList<>();
-                    IssueModel issueModel = new IssueModel(key, summary, status.toUpperCase(), issueType, typeIconURL);
+                    IssueModel issueModel = new IssueModel(key, summary, status.toUpperCase(), issueType, typeIconURL, createdDate);
                     tempList.add(issueModel);
                     issues.put(priority, tempList);
                 }
@@ -314,13 +341,16 @@ public class RestConnectionProvider {
                 String status       = jsonArray.getJSONObject(i).getJSONObject("fields").getJSONObject("status").get("name").toString();
                 String issueType    = jsonArray.getJSONObject(i).getJSONObject("fields").getJSONObject("issuetype").get("name").toString();
                 String typeIconURL  = jsonArray.getJSONObject(i).getJSONObject("fields").getJSONObject("issuetype").get("iconUrl").toString();
+                String createdRaw   = jsonArray.getJSONObject(i).getJSONObject("fields").getString("created");
+                String createdDate  = normalizeDate(createdRaw);
+
 
                 if (issues.keySet().contains(priority)) {
-                    IssueModel issueModel = new IssueModel(key, summary, status.toUpperCase(), issueType, typeIconURL);
+                    IssueModel issueModel = new IssueModel(key, summary, status.toUpperCase(), issueType, typeIconURL, createdDate);
                     issues.get(priority).add(issueModel);
                 } else {
                     List<IssueModel> tempList = new ArrayList<>();
-                    IssueModel issueModel = new IssueModel(key, summary, status.toUpperCase(), issueType, typeIconURL);
+                    IssueModel issueModel = new IssueModel(key, summary, status.toUpperCase(), issueType, typeIconURL, createdDate);
                     tempList.add(issueModel);
                     issues.put(priority, tempList);
                 }

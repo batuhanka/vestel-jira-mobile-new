@@ -7,13 +7,15 @@ public class IssueModel {
     private String issueStatus;
     private String issueType;
     private String typeIconURL;
+    private String createdDate;
 
-    public IssueModel(String issueKey, String issueSummary, String issueStatus, String issueType, String typeIconURL){
+    public IssueModel(String issueKey, String issueSummary, String issueStatus, String issueType, String typeIconURL, String createdDate){
         this.issueKey       = issueKey;
         this.issueSummary   = issueSummary;
         this.issueStatus    = issueStatus;
         this.issueType      = issueType;
         this.typeIconURL    = typeIconURL;
+        this.createdDate    = createdDate;
     }
 
     public String getIssueKey() {
@@ -34,5 +36,9 @@ public class IssueModel {
 
     public String getTypeIconURL() {
         return typeIconURL;
+    }
+
+    public String getCreatedDate() {
+        return createdDate;
     }
 }
