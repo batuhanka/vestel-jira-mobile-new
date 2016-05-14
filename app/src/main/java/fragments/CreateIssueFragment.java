@@ -8,13 +8,13 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.HashMap;
 
@@ -26,6 +26,7 @@ import restprovider.RestConnectionProvider;
 public class CreateIssueFragment extends Fragment {
 
 	RestConnectionProvider provider = new RestConnectionProvider();
+
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
@@ -99,7 +100,6 @@ public class CreateIssueFragment extends Fragment {
 			@Override
 			public void onClick(View view) {
 				collectCreateOptions(rootView);
-				Snackbar.make(view, "Issue created successfully...", Snackbar.LENGTH_LONG).setAction("Action", null).show();
 			}
 		});
 
@@ -108,7 +108,7 @@ public class CreateIssueFragment extends Fragment {
 
 	public void collectCreateOptions(View rootView){
 
-		AutoCompleteTextView projectView 	= (AutoCompleteTextView) rootView.findViewById(R.id.projectCI);
+		final AutoCompleteTextView projectView 	= (AutoCompleteTextView) rootView.findViewById(R.id.projectCI);
 		AutoCompleteTextView issueTypeView 	= (AutoCompleteTextView) rootView.findViewById(R.id.issuetypeCI);
 		AutoCompleteTextView summaryView 	= (AutoCompleteTextView) rootView.findViewById(R.id.summaryIC);
 		AutoCompleteTextView priorityView 	= (AutoCompleteTextView) rootView.findViewById(R.id.priorityIC);
@@ -126,25 +126,30 @@ public class CreateIssueFragment extends Fragment {
 			String username 	= assignee.substring(assignee.indexOf("(") + 1, assignee.indexOf(")"));
 			String description 	= new String(descriptionView.getText().toString().getBytes("ISO-8859-1"), "UTF-8");
 
-			details.put("PROJECT", projectKey);
 			details.put("ISSUE_TYPE", issueType);
 			details.put("SUMMARY", summary);
 			details.put("PRIORITY", priority);
 			details.put("ASSIGNEE", username);
 			details.put("DESCRIPTION", description);
+			details.put("PROJECT", projectKey);
 
-			Log.e("BATU", "MAP : " + details);
-			String issueKey	= provider.createIssue(details);
+			HashMap<String, String> results	= provider.createIssue(details);
+			if(results.get("ISSUE_KEY").matches("INVALID")){
+				Toast.makeText(rootView.getContext(), results.get("ERRORS"), Toast.LENGTH_LONG).show();
+			}else{
+				if(!results.get("ERRORS").matches("NO ERROR")){
+					FragmentManager fragmentManager = getFragmentManager();
+					Fragment viewIssueFragment = new ViewIssueFragment();
+					Bundle bundle = new Bundle();
+					bundle.putString("ISSUE_KEY", results.get("ISSUE_KEY"));
+					viewIssueFragment.setArguments(bundle);
+					Snackbar.make(rootView, "Issue created successfully...", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+					fragmentManager.beginTransaction().replace(R.id.contentNav, viewIssueFragment).addToBackStack("ViewIssueFragment").commit();
+					fragmentManager.executePendingTransactions();
+				}
+			}
 
-			FragmentManager fragmentManager = getFragmentManager();
-			Fragment viewIssueFragment  	= new ViewIssueFragment();
-			Bundle bundle 					= new Bundle();
-			bundle.putString("ISSUE_KEY", issueKey);
-			viewIssueFragment.setArguments(bundle);
-			fragmentManager.beginTransaction().replace(R.id.contentNav, viewIssueFragment).addToBackStack("ViewIssueFragment").commit();
-			fragmentManager.executePendingTransactions();
-
-		}catch (Exception ex){	Log.e("BATU", "Create Issue Option Empty");	}
+		}catch (Exception ex){	Toast.makeText(rootView.getContext(), "You must fill all fields!", Toast.LENGTH_LONG).show();	}
 
 	}
 

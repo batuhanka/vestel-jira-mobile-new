@@ -50,9 +50,9 @@ public class RestConnectionProvider {
         StrictMode.setThreadPolicy(policy);
     }
 
-    public String createIssue(HashMap<String,String> details) {
+    public HashMap<String, String> createIssue(HashMap<String,String> details) {
 
-        String result = "";
+        HashMap<String, String> results = new HashMap<>();
         String requestURL = JIRA_BASE_URL + "/rest/api/2/issue";
         try {
             HttpClient client = new DefaultHttpClient();
@@ -91,16 +91,19 @@ public class RestConnectionProvider {
             Log.e("BATU", "RETURN JSON : "+jsonObject);
             try {
                 String errors = jsonObject.getString("errors");
+                results.put("ERRORS", errors);
                 if (!errors.isEmpty()) {
-                    result = "INVALID";
+                    results.put("ISSUE_KEY", "INVALID");
                 }
             } catch (Exception ex) {
                 Log.e("BATU", ex.getMessage());
             }
             try {
                 String key = jsonObject.getString("key");
-                if (!key.isEmpty())
-                    result = key;
+                if (!key.isEmpty()){
+                    results.put("ISSUE_KEY", key);
+                    results.put("ERRORS", "NO ERROR");
+                }
             } catch (Exception ex) {
                 Log.e("BATU", ex.getMessage());
             }
@@ -110,7 +113,7 @@ public class RestConnectionProvider {
             Log.e("BATU", ex.getMessage());
         }
 
-        return result;
+        return results;
 
     }
 
