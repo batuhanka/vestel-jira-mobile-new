@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import adapter.MyArrayAdapter;
 import navigation.NavigationActivity;
 import project.ozyegin.vestel.com.vesteljiramobile.R;
 
@@ -38,7 +39,7 @@ public class SearchIssueFragment extends Fragment {
 
 		((NavigationActivity) getActivity()).setActionBarTitle("Search For Issues");
 
-		ArrayAdapter projectAdapter = new ArrayAdapter<>(context,
+		MyArrayAdapter projectAdapter = new MyArrayAdapter<>(context,
 				android.R.layout.simple_dropdown_item_1line,
 				getResources().getStringArray(R.array.project_names));
 
@@ -46,7 +47,7 @@ public class SearchIssueFragment extends Fragment {
 		projectACView.setAdapter(projectAdapter);
 		projectAdapter.notifyDataSetChanged();
 
-		ArrayAdapter userAdapter = new ArrayAdapter<>(context,
+		MyArrayAdapter userAdapter = new MyArrayAdapter<>(context,
 				android.R.layout.simple_dropdown_item_1line,
 				getResources().getStringArray(R.array.user_names));
 

@@ -81,10 +81,9 @@ public class CreateIssueFragment extends Fragment {
 			public void onFocusChange(View v, boolean hasFocus) {
 				if (hasFocus) {
 					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-					String project		= "";
 					String projectKey 	= "";
 					try{
-						project = projectACView.getText().toString();
+						String project = projectACView.getText().toString();
 						projectKey = project.substring(project.indexOf("(") + 1, project.indexOf(")"));
 					}catch (Exception ex){	Log.e("BATU", ex.getMessage());	}
 					if (projectKey.isEmpty()) {

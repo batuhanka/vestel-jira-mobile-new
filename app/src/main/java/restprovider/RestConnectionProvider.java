@@ -1,7 +1,5 @@
 package restprovider;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -36,7 +34,6 @@ import adapter.CommentModel;
 import adapter.IssueModel;
 import adapter.ViewIssueModel;
 import login.MainActivity;
-import navigation.NavigationActivity;
 
 @SuppressWarnings("deprecation")
 public class RestConnectionProvider {
@@ -566,9 +563,9 @@ public class RestConnectionProvider {
             String projectInfo      = JIRA_BASE_URL+"/rest/api/2/project/"+projectKey;
             JSONObject jsonObject   = createRestRequest(projectInfo);
             JSONArray jsonArray     = jsonObject.getJSONArray("issueTypes");
-            for(int i=0; i<jsonArray.length(); i++){
+            for(int i=0; i<jsonArray.length(); i++)
                 results.add(jsonArray.getJSONObject(i).getString("name"));
-            }
+
 
         } catch (Exception ex) {
             Log.e("BATU",ex.getMessage());
