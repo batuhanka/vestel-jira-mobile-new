@@ -50,7 +50,6 @@ public class RestConnectionProvider {
         StrictMode.setThreadPolicy(policy);
     }
 
-    //TODO: Complete implementation
     public String createIssue(HashMap<String,String> details) {
 
         String result = "";
