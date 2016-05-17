@@ -65,38 +65,37 @@
         fab:menu_backgroundColor="@android:color/transparent"
         fab:menu_fab_label="Change Status">
 
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/inprogressItem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/progress"
-            fab:fab_size="normal"
-            app:fab_colorNormal="@color/colorAccent"
-            app:fab_colorPressed="@color/colorPrimaryDark"
-            app:fab_colorRipple="#99FFFF"
-            fab:fab_label="In Progress"/>
+        <!--<com.github.clans.fab.FloatingActionButton-->
+        <!--android:id="@+id/inprogressItem"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:src="@drawable/progress"-->
+        <!--fab:fab_size="normal"-->
+        <!--app:fab_colorNormal="@color/colorAccent"-->
+        <!--app:fab_colorPressed="@color/colorPrimaryDark"-->
+        <!--fab:fab_label="In Progress"/>-->
 
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/resolveItem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/resolve"
-            fab:fab_size="normal"
-            app:fab_colorNormal="@color/colorAccent"
-            app:fab_colorPressed="@color/colorPrimaryDark"
-            app:fab_colorRipple="#99FFFF"
-            fab:fab_label="Resolve"/>
+        <!--<com.github.clans.fab.FloatingActionButton-->
+            <!--android:id="@+id/resolveItem"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/resolve"-->
+            <!--fab:fab_size="normal"-->
+            <!--app:fab_colorNormal="@color/colorAccent"-->
+            <!--app:fab_colorPressed="@color/colorPrimaryDark"-->
+            <!--app:fab_colorRipple="#99FFFF"-->
+            <!--fab:fab_label="Resolve"/>-->
 
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/closeItem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/close"
-            fab:fab_size="normal"
-            app:fab_colorNormal="@color/colorAccent"
-            app:fab_colorPressed="@color/colorPrimaryDark"
-            app:fab_colorRipple="#99FFFF"
-            fab:fab_label="Close"/>
+        <!--<com.github.clans.fab.FloatingActionButton-->
+            <!--android:id="@+id/closeItem"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/close"-->
+            <!--fab:fab_size="normal"-->
+            <!--app:fab_colorNormal="@color/colorAccent"-->
+            <!--app:fab_colorPressed="@color/colorPrimaryDark"-->
+            <!--app:fab_colorRipple="#99FFFF"-->
+            <!--fab:fab_label="Close"/>-->
 
     </com.github.clans.fab.FloatingActionMenu>
 

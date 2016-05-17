@@ -187,7 +187,7 @@ public class RestConnectionProvider {
         return Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
     }
 
-    public  HashMap<String, List<IssueModel>> getAssignedIssues(){
+    public  HashMap<String, List<IssueModel>> getAssignedIssues(String sortType){
 
         HashMap<String, List<IssueModel>> issues = new HashMap<>();
 
@@ -208,15 +208,45 @@ public class RestConnectionProvider {
                 String createdRaw   = jsonArray.getJSONObject(i).getJSONObject("fields").getString("created");
                 String createdDate  = normalizeDate(createdRaw);
 
-                if (issues.keySet().contains(priority)) {
-                    IssueModel issueModel = new IssueModel(key, summary, status.toUpperCase(), issueType, typeIconURL, createdDate);
-                    issues.get(priority).add(issueModel);
-                } else {
-                    List<IssueModel> tempList = new ArrayList<>();
-                    IssueModel issueModel = new IssueModel(key, summary, status.toUpperCase(), issueType, typeIconURL, createdDate);
-                    tempList.add(issueModel);
-                    issues.put(priority, tempList);
+                switch (sortType){
+                    case "PRIORITY":
+                        if (issues.keySet().contains(priority)) {
+                            IssueModel issueModel = new IssueModel(key, summary, status.toUpperCase(), issueType, typeIconURL, createdDate);
+                            issues.get(priority).add(issueModel);
+                        } else {
+                            List<IssueModel> tempList = new ArrayList<>();
+                            IssueModel issueModel = new IssueModel(key, summary, status.toUpperCase(), issueType, typeIconURL, createdDate);
+                            tempList.add(issueModel);
+                            issues.put(priority, tempList);
+                        }
+                        break;
+
+                    case "DATE":
+                        if (issues.keySet().contains(createdDate)) {
+                            IssueModel issueModel = new IssueModel(key, summary, status.toUpperCase(), issueType, typeIconURL, createdDate);
+                            issues.get(createdDate).add(issueModel);
+                        } else {
+                            List<IssueModel> tempList = new ArrayList<>();
+                            IssueModel issueModel = new IssueModel(key, summary, status.toUpperCase(), issueType, typeIconURL, createdDate);
+                            tempList.add(issueModel);
+                            issues.put(createdDate, tempList);
+                        }
+                        break;
+
+                    case "STATUS":
+                        if (issues.keySet().contains(status)) {
+                            IssueModel issueModel = new IssueModel(key, summary, status.toUpperCase(), issueType, typeIconURL, createdDate);
+                            issues.get(status).add(issueModel);
+                        } else {
+                            List<IssueModel> tempList = new ArrayList<>();
+                            IssueModel issueModel = new IssueModel(key, summary, status.toUpperCase(), issueType, typeIconURL, createdDate);
+                            tempList.add(issueModel);
+                            issues.put(status, tempList);
+                        }
+                        break;
                 }
+
+
             }
 
         } catch (Exception ex) {
@@ -323,7 +353,7 @@ public class RestConnectionProvider {
         return filters;
     }
 
-    public  HashMap<String, List<IssueModel>> getReportedIssues(){
+    public  HashMap<String, List<IssueModel>> getReportedIssues(String sortType){
 
         HashMap<String, List<IssueModel>> issues = new HashMap<>();
 
@@ -345,14 +375,42 @@ public class RestConnectionProvider {
                 String createdDate  = normalizeDate(createdRaw);
 
 
-                if (issues.keySet().contains(priority)) {
-                    IssueModel issueModel = new IssueModel(key, summary, status.toUpperCase(), issueType, typeIconURL, createdDate);
-                    issues.get(priority).add(issueModel);
-                } else {
-                    List<IssueModel> tempList = new ArrayList<>();
-                    IssueModel issueModel = new IssueModel(key, summary, status.toUpperCase(), issueType, typeIconURL, createdDate);
-                    tempList.add(issueModel);
-                    issues.put(priority, tempList);
+                switch (sortType){
+                    case "PRIORITY":
+                        if (issues.keySet().contains(priority)) {
+                            IssueModel issueModel = new IssueModel(key, summary, status.toUpperCase(), issueType, typeIconURL, createdDate);
+                            issues.get(priority).add(issueModel);
+                        } else {
+                            List<IssueModel> tempList = new ArrayList<>();
+                            IssueModel issueModel = new IssueModel(key, summary, status.toUpperCase(), issueType, typeIconURL, createdDate);
+                            tempList.add(issueModel);
+                            issues.put(priority, tempList);
+                        }
+                        break;
+
+                    case "DATE":
+                        if (issues.keySet().contains(createdDate)) {
+                            IssueModel issueModel = new IssueModel(key, summary, status.toUpperCase(), issueType, typeIconURL, createdDate);
+                            issues.get(createdDate).add(issueModel);
+                        } else {
+                            List<IssueModel> tempList = new ArrayList<>();
+                            IssueModel issueModel = new IssueModel(key, summary, status.toUpperCase(), issueType, typeIconURL, createdDate);
+                            tempList.add(issueModel);
+                            issues.put(createdDate, tempList);
+                        }
+                        break;
+
+                    case "STATUS":
+                        if (issues.keySet().contains(status)) {
+                            IssueModel issueModel = new IssueModel(key, summary, status.toUpperCase(), issueType, typeIconURL, createdDate);
+                            issues.get(status).add(issueModel);
+                        } else {
+                            List<IssueModel> tempList = new ArrayList<>();
+                            IssueModel issueModel = new IssueModel(key, summary, status.toUpperCase(), issueType, typeIconURL, createdDate);
+                            tempList.add(issueModel);
+                            issues.put(status, tempList);
+                        }
+                        break;
                 }
             }
 

@@ -2,6 +2,7 @@ package fragments;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentManager;
 import android.content.Context;
@@ -9,7 +10,6 @@ import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import com.github.clans.fab.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,32 +40,89 @@ public class AssignedToMeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_assigned, container, false);
-        new AssignedIssuesTask(rootView, rootView.getContext()).execute();
+        final View rootView = inflater.inflate(R.layout.fragment_assigned, container, false);
+        new AssignedIssuesTask(rootView, rootView.getContext()).execute("PRIORITY");
         ((NavigationActivity) getActivity()).setActionBarTitle("Assigned Issues To Me");
 
-        FloatingActionMenu actionMenu = NavigationActivity.menu;
-        actionMenu.setVisibility(View.INVISIBLE);
+        final FloatingActionMenu actionMenu = NavigationActivity.menu;
+        actionMenu.setMenuButtonLabelText("Sort Issues");
+        actionMenu.getMenuIconView().setImageDrawable(getResources().getDrawable(R.drawable.sort));
+        actionMenu.setVisibility(View.VISIBLE);
+
+        actionMenu.setOnMenuToggleListener(new FloatingActionMenu.OnMenuToggleListener() {
+            @Override
+            public void onMenuToggle(boolean opened) {
+                int drawableId;
+                if (opened) {
+                    drawableId = R.drawable.plus;
+                } else {
+                    drawableId = R.drawable.sort;
+                }
+                Drawable drawable = getResources().getDrawable(drawableId);
+                actionMenu.getMenuIconView().setImageDrawable(drawable);
+            }
+        });
+
+        FloatingActionButton priorityButton = new FloatingActionButton(rootView.getContext());
+        priorityButton.setLayoutParams(actionMenu.getLayoutParams());
+        priorityButton.setImageDrawable(getResources().getDrawable(R.drawable.priority_sort));
+        priorityButton.setLabelText("Priority");
+        priorityButton.setColorNormal(R.color.colorAccent);
+        priorityButton.setColorPressed(R.color.colorPrimaryDark);
+        actionMenu.addMenuButton(priorityButton);
+
+
+        FloatingActionButton dateButton = new FloatingActionButton(rootView.getContext());
+        dateButton.setLayoutParams(actionMenu.getLayoutParams());
+        dateButton.setImageDrawable(getResources().getDrawable(R.drawable.date_sort));
+        dateButton.setLabelText("Date");
+        dateButton.setColorNormal(R.color.colorAccent);
+        dateButton.setColorPressed(R.color.colorPrimaryDark);
+        actionMenu.addMenuButton(dateButton);
+
+        FloatingActionButton statusButton = new FloatingActionButton(rootView.getContext());
+        statusButton.setLayoutParams(actionMenu.getLayoutParams());
+        statusButton.setImageDrawable(getResources().getDrawable(R.drawable.status_sort));
+        statusButton.setLabelText("Status");
+        statusButton.setColorNormal(R.color.colorAccent);
+        statusButton.setColorPressed(R.color.colorPrimaryDark);
+        actionMenu.addMenuButton(statusButton);
+
+        priorityButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AssignedIssuesTask(rootView, rootView.getContext()).execute("PRIORITY");
+                actionMenu.close(true);
+            }
+        });
+
+        dateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AssignedIssuesTask(rootView, rootView.getContext()).execute("DATE");
+                actionMenu.close(true);
+            }
+        });
+
+        statusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AssignedIssuesTask(rootView, rootView.getContext()).execute("STATUS");
+                actionMenu.close(true);
+            }
+        });
+
 
         FloatingActionButton fab = NavigationActivity.fab;
         fab.setImageDrawable(getResources().getDrawable(R.drawable.create));
-        fab.setVisibility(View.VISIBLE);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.contentNav, new CreateIssueFragment()).addToBackStack("CreateIssueFragment").commit();
-                fragmentManager.executePendingTransactions();
-                Snackbar.make(view, "Switching to create issue screen...", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
-            }
-        });
+        fab.setVisibility(View.INVISIBLE);
 
         return rootView;
     }
 
 
     // AsyncTask
-    class AssignedIssuesTask extends AsyncTask<Void, String, HashMap<String, List<IssueModel>>> {
+    class AssignedIssuesTask extends AsyncTask<String, String, HashMap<String, List<IssueModel>>> {
 
         private View mRootView;
         private ProgressDialog loadingDialog;
@@ -77,8 +134,9 @@ public class AssignedToMeFragment extends Fragment {
             loadingDialog.setMessage("Loading Issues... Please Wait...");
         }
         @Override
-        protected HashMap<String, List<IssueModel>> doInBackground(Void... params) {
-            return provider.getAssignedIssues();
+        protected HashMap<String, List<IssueModel>> doInBackground(String... params) {
+            String sortType = params[0];
+            return provider.getAssignedIssues(sortType);
         }
 
         @Override
