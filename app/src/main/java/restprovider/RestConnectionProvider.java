@@ -664,16 +664,19 @@ public class RestConnectionProvider {
         return results;
     }
 
-    public List<String> possibleTransitions(String issueKey) {
+    public HashMap<String, String> possibleTransitions(String issueKey) {
 
-        List<String> transitions = new ArrayList<>();
+        HashMap<String, String> transitions = new HashMap<>();
         try {
 
             String transitionsInfo  = JIRA_BASE_URL+"/rest/api/2/issue/"+issueKey+"/transitions";
             JSONObject jsonObject   = createRestRequest(transitionsInfo);
             JSONArray jsonArray     = jsonObject.getJSONArray("transitions");
-            for (int i = 0; i < jsonArray.length(); i++)
-                transitions.add(jsonArray.getJSONObject(i).get("name").toString());
+            for (int i = 0; i < jsonArray.length(); i++) {
+                String transitionName  = jsonArray.getJSONObject(i).get("name").toString();
+                String transitionID    = jsonArray.getJSONObject(i).get("id").toString();
+                transitions.put(transitionID, transitionName);
+            }
 
         } catch (Exception ex) {
             Log.e("BATU",ex.getMessage());

@@ -22,7 +22,9 @@ import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionMenu;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import adapter.CommentAdapter;
 import adapter.ImageLoader;
@@ -209,22 +211,24 @@ public class ViewIssueFragment extends Fragment {
             }
         });
 
-        List<String> transitions = provider.possibleTransitions(issueItem.getIssueKey());
+        HashMap<String, String> transitions = provider.possibleTransitions(issueItem.getIssueKey());
         if (transitions.size() > 0) {
-            for (String string : transitions) {
+            for (Map.Entry entry : transitions.entrySet()) {
                 FloatingActionButton actionButton = new FloatingActionButton(rootView.getContext());
                 actionButton.setLayoutParams(issueActionMenu.getLayoutParams());
                 actionButton.setButtonSize(FloatingActionButton.SIZE_MINI);
                 actionButton.setColorNormal(R.color.colorAccent);
                 actionButton.setColorPressed(R.color.colorPrimary);
-                actionButton.setLabelText(string);
+                actionButton.setLabelText((String) entry.getValue());
+                actionButton.setTag(entry.getKey());
                 issueActionMenu.addMenuButton(actionButton);
                 actionButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         FloatingActionButton floatingActionButton = (FloatingActionButton) v;
-                        String actionText = floatingActionButton.getLabelText();
-                        Toast.makeText(rootView.getContext(), actionText, Toast.LENGTH_SHORT).show();
+                        String actionText   = floatingActionButton.getLabelText();
+                        String actionTag    = floatingActionButton.getTag().toString();
+                        Toast.makeText(rootView.getContext(), actionText+" : "+actionTag, Toast.LENGTH_SHORT).show();
                     }
                 });
             }
