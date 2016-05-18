@@ -663,4 +663,21 @@ public class RestConnectionProvider {
         Log.e("BATU", results.toString());
         return results;
     }
+
+    public List<String> possibleTransitions(String issueKey) {
+
+        List<String> transitions = new ArrayList<>();
+        try {
+
+            String transitionsInfo  = JIRA_BASE_URL+"/rest/api/2/issue/"+issueKey+"/transitions";
+            JSONObject jsonObject   = createRestRequest(transitionsInfo);
+            JSONArray jsonArray     = jsonObject.getJSONArray("transitions");
+            for (int i = 0; i < jsonArray.length(); i++)
+                transitions.add(jsonArray.getJSONObject(i).get("name").toString());
+
+        } catch (Exception ex) {
+            Log.e("BATU",ex.getMessage());
+        }
+        return transitions;
+    }
 }

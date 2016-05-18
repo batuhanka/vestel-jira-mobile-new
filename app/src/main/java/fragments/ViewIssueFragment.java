@@ -7,6 +7,7 @@ import android.os.Bundle;
 import com.github.clans.fab.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,8 +18,11 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionMenu;
+
+import java.util.List;
 
 import adapter.CommentAdapter;
 import adapter.ImageLoader;
@@ -188,6 +192,7 @@ public class ViewIssueFragment extends Fragment {
         fab.setVisibility(View.INVISIBLE);
 
         final FloatingActionMenu issueActionMenu = NavigationActivity.issueActionMenu;
+        issueActionMenu.removeAllMenuButtons();
         issueActionMenu.setVisibility(View.VISIBLE);
 
         issueActionMenu.setOnMenuToggleListener(new FloatingActionMenu.OnMenuToggleListener() {
@@ -204,8 +209,30 @@ public class ViewIssueFragment extends Fragment {
             }
         });
 
-        setListViewHeightBasedOnChildren(commentsListView);
+        List<String> transitions = provider.possibleTransitions(issueItem.getIssueKey());
+        if (transitions.size() > 0) {
+            for (String string : transitions) {
+                FloatingActionButton actionButton = new FloatingActionButton(rootView.getContext());
+                actionButton.setLayoutParams(issueActionMenu.getLayoutParams());
+                actionButton.setButtonSize(FloatingActionButton.SIZE_MINI);
+                actionButton.setColorNormal(R.color.colorAccent);
+                actionButton.setColorPressed(R.color.colorPrimary);
+                actionButton.setLabelText(string);
+                issueActionMenu.addMenuButton(actionButton);
+                actionButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        FloatingActionButton floatingActionButton = (FloatingActionButton) v;
+                        String actionText = floatingActionButton.getLabelText();
+                        Toast.makeText(rootView.getContext(), actionText, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }else{
+            issueActionMenu.hideMenu(true);
+        }
 
+        setListViewHeightBasedOnChildren(commentsListView);
         return rootView;
     }
 
