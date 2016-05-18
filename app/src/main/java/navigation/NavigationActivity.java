@@ -37,7 +37,8 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
     RestConnectionProvider provider = new RestConnectionProvider();
     public static FloatingActionButton fab;
-    public static FloatingActionMenu menu;
+    public static FloatingActionMenu sortMenu;
+    public static FloatingActionMenu issueActionMenu;
     FragmentManager fragmentManager = getSupportFragmentManager();
 
     @Override
@@ -48,9 +49,8 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        menu = (FloatingActionMenu) findViewById(R.id.floatingActionMenu);
-        menu.setVisibility(View.INVISIBLE);
-
+        issueActionMenu = (FloatingActionMenu) findViewById(R.id.issueActionMenu);
+        sortMenu = (FloatingActionMenu) findViewById(R.id.sortActionMenu);
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setImageDrawable(getResources().getDrawable(R.drawable.refresh));
         fab.setVisibility(View.VISIBLE);

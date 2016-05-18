@@ -36,66 +36,92 @@
         app:fab_colorRipple="#99FFFF"/>
 
     <com.github.clans.fab.FloatingActionMenu
-        android:id="@+id/floatingActionMenu"
+        android:id="@+id/issueActionMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        fab:menu_fab_size="normal"
+        fab:menu_animationDelayPerItem="50"
+        fab:menu_backgroundColor="@android:color/transparent"
+        fab:menu_buttonSpacing="0dp"
         fab:menu_colorNormal="@color/colorAccent"
         fab:menu_colorPressed="@color/colorPrimaryDark"
-        fab:menu_colorRipple="#99FFFFFF"
-        fab:menu_animationDelayPerItem="50"
+        fab:menu_fab_label="Change Status"
+        fab:menu_fab_size="normal"
         fab:menu_icon="@drawable/actions"
-        fab:menu_buttonSpacing="0dp"
-        fab:menu_labels_margin="0dp"
-        fab:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
-        fab:menu_labels_hideAnimation="@anim/fab_slide_out_to_right"
-        fab:menu_labels_textColor="#FFFFFF"
-        fab:menu_labels_textSize="14sp"
         fab:menu_labels_colorNormal="#333333"
         fab:menu_labels_colorPressed="#444444"
-        fab:menu_labels_colorRipple="#66FFFF"
-        fab:menu_labels_showShadow="false"
-        fab:menu_labels_singleLine="false"
         fab:menu_labels_ellipsize="none"
+        fab:menu_labels_hideAnimation="@anim/fab_slide_out_to_right"
+        fab:menu_labels_margin="0dp"
         fab:menu_labels_maxLines="-1"
         fab:menu_labels_position="left"
-        fab:menu_openDirection="up"
+        fab:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
+        fab:menu_labels_showShadow="false"
+        fab:menu_labels_singleLine="false"
+        fab:menu_labels_textColor="#FFFFFF"
+        fab:menu_labels_textSize="14sp"
+        fab:menu_openDirection="up"/>
+
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/sortActionMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        fab:menu_animationDelayPerItem="50"
         fab:menu_backgroundColor="@android:color/transparent"
-        fab:menu_fab_label="Change Status">
+        fab:menu_buttonSpacing="0dp"
+        fab:menu_colorNormal="@color/colorAccent"
+        fab:menu_colorPressed="@color/colorPrimaryDark"
+        fab:menu_fab_label="Sort Issues"
+        fab:menu_fab_size="normal"
+        fab:menu_icon="@drawable/sort"
+        fab:menu_labels_colorNormal="#333333"
+        fab:menu_labels_colorPressed="#444444"
+        fab:menu_labels_ellipsize="none"
+        fab:menu_labels_hideAnimation="@anim/fab_slide_out_to_right"
+        fab:menu_labels_margin="0dp"
+        fab:menu_labels_maxLines="-1"
+        fab:menu_labels_position="left"
+        fab:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
+        fab:menu_labels_showShadow="false"
+        fab:menu_labels_singleLine="false"
+        fab:menu_labels_textColor="#FFFFFF"
+        fab:menu_labels_textSize="14sp"
+        fab:menu_openDirection="up">
 
-        <!--<com.github.clans.fab.FloatingActionButton-->
-        <!--android:id="@+id/inprogressItem"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:src="@drawable/progress"-->
-        <!--fab:fab_size="normal"-->
-        <!--app:fab_colorNormal="@color/colorAccent"-->
-        <!--app:fab_colorPressed="@color/colorPrimaryDark"-->
-        <!--fab:fab_label="In Progress"/>-->
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/prioritySort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/priority_sort"
+            app:fab_colorNormal="@color/colorAccent"
+            app:fab_colorPressed="@color/colorPrimaryDark"
+            fab:fab_label="Priority"
+            fab:fab_size="normal" />
 
-        <!--<com.github.clans.fab.FloatingActionButton-->
-            <!--android:id="@+id/resolveItem"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:src="@drawable/resolve"-->
-            <!--fab:fab_size="normal"-->
-            <!--app:fab_colorNormal="@color/colorAccent"-->
-            <!--app:fab_colorPressed="@color/colorPrimaryDark"-->
-            <!--app:fab_colorRipple="#99FFFF"-->
-            <!--fab:fab_label="Resolve"/>-->
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/dateSort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/date_sort"
+            app:fab_colorNormal="@color/colorAccent"
+            app:fab_colorPressed="@color/colorPrimaryDark"
+            app:fab_colorRipple="#99FFFF"
+            fab:fab_label="Date"
+            fab:fab_size="normal" />
 
-        <!--<com.github.clans.fab.FloatingActionButton-->
-            <!--android:id="@+id/closeItem"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:src="@drawable/close"-->
-            <!--fab:fab_size="normal"-->
-            <!--app:fab_colorNormal="@color/colorAccent"-->
-            <!--app:fab_colorPressed="@color/colorPrimaryDark"-->
-            <!--app:fab_colorRipple="#99FFFF"-->
-            <!--fab:fab_label="Close"/>-->
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/statusSort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/status_sort"
+            app:fab_colorNormal="@color/colorAccent"
+            app:fab_colorPressed="@color/colorPrimaryDark"
+            app:fab_colorRipple="#99FFFF"
+            fab:fab_label="Status"
+            fab:fab_size="normal" />
 
     </com.github.clans.fab.FloatingActionMenu>
 

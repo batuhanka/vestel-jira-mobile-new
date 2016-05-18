@@ -44,12 +44,13 @@ public class ReportedToMeFragment extends Fragment {
         new ReportedIssuesTask(rootView, rootView.getContext()).execute("PRIORITY");
         ((NavigationActivity) getActivity()).setActionBarTitle("Reported Issues By Me");
 
-        final FloatingActionMenu actionMenu = NavigationActivity.menu;
-        actionMenu.setMenuButtonLabelText("Sort Issues");
-        actionMenu.getMenuIconView().setImageDrawable(getResources().getDrawable(R.drawable.sort));
-        actionMenu.setVisibility(View.VISIBLE);
+        FloatingActionMenu issueActionMenu = NavigationActivity.issueActionMenu;
+        issueActionMenu.setVisibility(View.INVISIBLE);
 
-        actionMenu.setOnMenuToggleListener(new FloatingActionMenu.OnMenuToggleListener() {
+        final FloatingActionMenu sortMenu = NavigationActivity.sortMenu;
+        sortMenu.setVisibility(View.VISIBLE);
+
+        sortMenu.setOnMenuToggleListener(new FloatingActionMenu.OnMenuToggleListener() {
             @Override
             public void onMenuToggle(boolean opened) {
                 int drawableId;
@@ -59,59 +60,36 @@ public class ReportedToMeFragment extends Fragment {
                     drawableId = R.drawable.sort;
                 }
                 Drawable drawable = getResources().getDrawable(drawableId);
-                actionMenu.getMenuIconView().setImageDrawable(drawable);
+                sortMenu.getMenuIconView().setImageDrawable(drawable);
             }
         });
 
-        FloatingActionButton priorityButton = new FloatingActionButton(rootView.getContext());
-        priorityButton.setLayoutParams(actionMenu.getLayoutParams());
-        priorityButton.setImageDrawable(getResources().getDrawable(R.drawable.priority_sort));
-        priorityButton.setLabelText("Priority");
-        priorityButton.setColorNormal(R.color.colorAccent);
-        priorityButton.setColorPressed(R.color.colorPrimaryDark);
-        actionMenu.addMenuButton(priorityButton);
-
-
-        FloatingActionButton dateButton = new FloatingActionButton(rootView.getContext());
-        dateButton.setLayoutParams(actionMenu.getLayoutParams());
-        dateButton.setImageDrawable(getResources().getDrawable(R.drawable.date_sort));
-        dateButton.setLabelText("Date");
-        dateButton.setColorNormal(R.color.colorAccent);
-        dateButton.setColorPressed(R.color.colorPrimaryDark);
-        actionMenu.addMenuButton(dateButton);
-
-        FloatingActionButton statusButton = new FloatingActionButton(rootView.getContext());
-        statusButton.setLayoutParams(actionMenu.getLayoutParams());
-        statusButton.setImageDrawable(getResources().getDrawable(R.drawable.status_sort));
-        statusButton.setLabelText("Status");
-        statusButton.setColorNormal(R.color.colorAccent);
-        statusButton.setColorPressed(R.color.colorPrimaryDark);
-        actionMenu.addMenuButton(statusButton);
-
-        priorityButton.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton prioritySortButton = (FloatingActionButton) sortMenu.findViewById(R.id.prioritySort);
+        prioritySortButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new ReportedIssuesTask(rootView, rootView.getContext()).execute("PRIORITY");
-                actionMenu.close(true);
+                sortMenu.close(true);
             }
         });
 
-        dateButton.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton dateSortButton = (FloatingActionButton) sortMenu.findViewById(R.id.dateSort);
+        dateSortButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new ReportedIssuesTask(rootView, rootView.getContext()).execute("DATE");
-                actionMenu.close(true);
+                sortMenu.close(true);
             }
         });
 
-        statusButton.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton statusSortButton = (FloatingActionButton) sortMenu.findViewById(R.id.statusSort);
+        statusSortButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new ReportedIssuesTask(rootView, rootView.getContext()).execute("STATUS");
-                actionMenu.close(true);
+                sortMenu.close(true);
             }
         });
-
 
         FloatingActionButton fab = NavigationActivity.fab;
         fab.setImageDrawable(getResources().getDrawable(R.drawable.create));

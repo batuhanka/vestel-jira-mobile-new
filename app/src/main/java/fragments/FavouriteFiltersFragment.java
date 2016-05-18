@@ -55,8 +55,11 @@ public class FavouriteFiltersFragment extends Fragment {
 
         ((NavigationActivity) getActivity()).setActionBarTitle("My Favourite Filters");
 
-        FloatingActionMenu actionMenu = NavigationActivity.menu;
-        actionMenu.setVisibility(View.INVISIBLE);
+        FloatingActionMenu issueActionMenu = NavigationActivity.issueActionMenu;
+        issueActionMenu.setVisibility(View.INVISIBLE);
+
+        FloatingActionMenu sortMenu = NavigationActivity.sortMenu;
+        sortMenu.setVisibility(View.INVISIBLE);
 
         FloatingActionButton fab = NavigationActivity.fab;
         fab.setVisibility(View.INVISIBLE);

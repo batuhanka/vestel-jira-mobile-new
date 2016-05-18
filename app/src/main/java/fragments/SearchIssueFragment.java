@@ -172,8 +172,11 @@ public class SearchIssueFragment extends Fragment {
 			}
 		});
 
-		FloatingActionMenu actionMenu = NavigationActivity.menu;
-		actionMenu.setVisibility(View.INVISIBLE);
+		FloatingActionMenu issueActionMenu = NavigationActivity.issueActionMenu;
+		issueActionMenu.setVisibility(View.INVISIBLE);
+
+		FloatingActionMenu sortMenu = NavigationActivity.sortMenu;
+		sortMenu.setVisibility(View.INVISIBLE);
 
 		FloatingActionButton fab = NavigationActivity.fab;
 		fab.setImageDrawable(getResources().getDrawable(R.drawable.search_issue));

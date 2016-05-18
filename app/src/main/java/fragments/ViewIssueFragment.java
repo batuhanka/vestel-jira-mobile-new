@@ -2,6 +2,7 @@ package fragments;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import com.github.clans.fab.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -173,11 +174,28 @@ public class ViewIssueFragment extends Fragment {
             }
         });
 
-        FloatingActionMenu actionMenu = NavigationActivity.menu;
-        actionMenu.setVisibility(View.VISIBLE);
+        FloatingActionMenu sortMenu = NavigationActivity.sortMenu;
+        sortMenu.setVisibility(View.INVISIBLE);
 
         FloatingActionButton fab = NavigationActivity.fab;
         fab.setVisibility(View.INVISIBLE);
+
+        final FloatingActionMenu issueActionMenu = NavigationActivity.issueActionMenu;
+        issueActionMenu.setVisibility(View.VISIBLE);
+
+        issueActionMenu.setOnMenuToggleListener(new FloatingActionMenu.OnMenuToggleListener() {
+            @Override
+            public void onMenuToggle(boolean opened) {
+                int drawableId;
+                if (opened) {
+                    drawableId = R.drawable.plus;
+                } else {
+                    drawableId = R.drawable.actions;
+                }
+                Drawable drawable = getResources().getDrawable(drawableId);
+                issueActionMenu.getMenuIconView().setImageDrawable(drawable);
+            }
+        });
 
         setListViewHeightBasedOnChildren(commentsListView);
 

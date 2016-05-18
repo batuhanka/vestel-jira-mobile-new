@@ -43,8 +43,11 @@ public class ActivityStreamFragment extends Fragment {
 		new ActivityStreamTask(rootView, rootView.getContext()).execute();
 		((NavigationActivity) getActivity()).setActionBarTitle("Recent Activities in JIRA");
 
-		FloatingActionMenu actionMenu = NavigationActivity.menu;
-		actionMenu.setVisibility(View.INVISIBLE);
+		FloatingActionMenu sortMenu = NavigationActivity.sortMenu;
+		sortMenu.setVisibility(View.INVISIBLE);
+
+		FloatingActionMenu issueActionMenu = NavigationActivity.issueActionMenu;
+		issueActionMenu.setVisibility(View.INVISIBLE);
 
 		FloatingActionButton fab = NavigationActivity.fab;
 		fab.setImageDrawable(getResources().getDrawable(R.drawable.refresh));

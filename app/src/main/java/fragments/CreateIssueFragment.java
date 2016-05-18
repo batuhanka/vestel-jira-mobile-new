@@ -83,11 +83,13 @@ public class CreateIssueFragment extends Fragment {
 			public void onFocusChange(View v, boolean hasFocus) {
 				if (hasFocus) {
 					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-					String projectKey 	= "";
-					try{
+					String projectKey = "";
+					try {
 						String project = projectACView.getText().toString();
 						projectKey = project.substring(project.indexOf("(") + 1, project.indexOf(")"));
-					}catch (Exception ex){	Log.e("BATU", ex.getMessage());	}
+					} catch (Exception ex) {
+						Log.e("BATU", ex.getMessage());
+					}
 					if (projectKey.isEmpty()) {
 						Toast.makeText(rootView.getContext(), "Project can not be empty", Toast.LENGTH_SHORT).show();
 						projectACView.requestFocus();
@@ -107,8 +109,11 @@ public class CreateIssueFragment extends Fragment {
 			}
 		});
 
-		FloatingActionMenu actionMenu = NavigationActivity.menu;
-		actionMenu.setVisibility(View.INVISIBLE);
+		FloatingActionMenu issueActionMenu = NavigationActivity.issueActionMenu;
+		issueActionMenu.setVisibility(View.INVISIBLE);
+
+		FloatingActionMenu sortMenu = NavigationActivity.sortMenu;
+		sortMenu.setVisibility(View.INVISIBLE);
 
 		FloatingActionButton fab = NavigationActivity.fab;
 		fab.setImageDrawable(getResources().getDrawable(R.drawable.plus));
