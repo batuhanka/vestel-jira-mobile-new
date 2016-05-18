@@ -437,6 +437,7 @@ public class RestConnectionProvider {
                 priority = jsonObject.getJSONObject("fields").getJSONObject("priority").get("name").toString();
             }catch (Exception ex){  Log.e("BATU", ex.getMessage()); }
             String status       = jsonObject.getJSONObject("fields").getJSONObject("status").get("name").toString();
+            String statusIcon   = jsonObject.getJSONObject("fields").getJSONObject("status").get("iconUrl").toString();
             String issueType    = jsonObject.getJSONObject("fields").getJSONObject("issuetype").get("name").toString();
             String typeIconURL  = jsonObject.getJSONObject("fields").getJSONObject("issuetype").get("iconUrl").toString();
             String assignee     = "Unassigned";
@@ -481,6 +482,7 @@ public class RestConnectionProvider {
                     issueType,
                     typeIconURL,
                     status,
+                    statusIcon,
                     priority,
                     assignee,
                     assigneeURL,

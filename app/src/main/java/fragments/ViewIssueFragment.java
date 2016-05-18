@@ -97,6 +97,13 @@ public class ViewIssueFragment extends Fragment {
         }
         issueStatusView.setText(issueItem.getIssueStatus());
 
+        ImageView issueStatusLogo = (ImageView) rootView.findViewById(R.id.issueStatusImage);
+        try {
+            Bitmap issueStatusBitmap = imageLoader.getBitmap(issueItem.getStatusIcon());
+            issueStatusLogo.setImageBitmap(issueStatusBitmap);
+        } catch (Exception ex) {
+            issueStatusLogo.setImageDrawable(getResources().getDrawable(R.drawable.recent));
+        }
 
         TextView issuePriorityView = (TextView) rootView.findViewById(R.id.issuePriorityValue);
         issuePriorityView.setText(issueItem.getIssuePriority());

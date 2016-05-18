@@ -131,6 +131,12 @@
                 android:orientation="horizontal"
                 android:padding="10dp">
 
+                <ImageView
+                    android:id="@+id/issueStatusImage"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:paddingRight="5dp"
+                    android:src="@drawable/ic_menu_manage" />
 
                 <TextView
                     android:id="@+id/issueStatusValue"
@@ -138,7 +144,6 @@
                     android:layout_height="wrap_content"
                     android:text="OPEN"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:padding="3dp"
                     android:textColor="#ffffff" />
             </LinearLayout>
         </LinearLayout>

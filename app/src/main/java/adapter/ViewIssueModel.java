@@ -11,6 +11,7 @@ public class ViewIssueModel {
     private String issueType;
     private String typeIconURL;
     private String issueStatus;
+    private String statusIcon;
     private String issuePriority;
     private String assignee;
     private String assigneeURL;
@@ -28,6 +29,7 @@ public class ViewIssueModel {
             String issueType,
             String typeIconURL,
             String issueStatus,
+            String statusIcon,
             String issuePriority,
             String assignee,
             String assigneeURL,
@@ -44,6 +46,7 @@ public class ViewIssueModel {
         this.issueType      = issueType;
         this.typeIconURL    = typeIconURL;
         this.issueStatus    = issueStatus;
+        this.statusIcon     = statusIcon;
         this.issuePriority  = issuePriority;
         this.assignee       = assignee;
         this.assigneeURL    = assigneeURL;
@@ -83,6 +86,8 @@ public class ViewIssueModel {
     public String getIssueStatus() {
         return issueStatus;
     }
+
+    public String getStatusIcon() { return statusIcon;  }
 
     public String getIssuePriority() {
         return issuePriority;
