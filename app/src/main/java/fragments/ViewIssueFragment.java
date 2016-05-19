@@ -7,6 +7,7 @@ import android.os.Bundle;
 import com.github.clans.fab.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -226,9 +227,15 @@ public class ViewIssueFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         FloatingActionButton floatingActionButton = (FloatingActionButton) v;
-                        String actionText   = floatingActionButton.getLabelText();
                         String actionTag    = floatingActionButton.getTag().toString();
-                        Toast.makeText(rootView.getContext(), actionText+" : "+actionTag, Toast.LENGTH_SHORT).show();
+                        provider.updateIssue(issueItem.getIssueKey(), actionTag);
+                        FragmentManager fragmentManager = getFragmentManager();
+                        Fragment viewIssueFragment = new ViewIssueFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("ISSUE_KEY", issueItem.getIssueKey());
+                        viewIssueFragment.setArguments(bundle);
+                        fragmentManager.beginTransaction().replace(R.id.contentNav, viewIssueFragment).addToBackStack("ViewFragment").commit();
+                        fragmentManager.executePendingTransactions();
                     }
                 });
             }

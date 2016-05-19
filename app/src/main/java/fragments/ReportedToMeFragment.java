@@ -285,8 +285,5 @@ public class ReportedToMeFragment extends Fragment {
             return true;
         }
 
-
     }
-
-
 }

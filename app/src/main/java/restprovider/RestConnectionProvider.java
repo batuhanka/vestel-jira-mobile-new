@@ -683,4 +683,33 @@ public class RestConnectionProvider {
         }
         return transitions;
     }
+
+    public void updateIssue(String issueKey, String transitionID) {
+
+        String requestURL = JIRA_BASE_URL + "/rest/api/2/issue/"+issueKey+"/transitions";
+        try {
+            HttpClient client       = new DefaultHttpClient();
+            CookieStore cookieStore = new BasicCookieStore();
+            HttpContext httpContext = new BasicHttpContext();
+            HttpPost post = new HttpPost(requestURL);
+            httpContext.setAttribute(ClientContext.COOKIE_STORE, cookieStore);
+            post.setHeader("Content-type", "application/json");
+            post.setHeader("Cookie", "JSESSIONID=" + mJsessionID);
+
+            JSONObject child    = new JSONObject();
+            JSONObject parent   = new JSONObject();
+
+            child.put("id", transitionID);
+            parent.put("transition", child);
+
+            post.setEntity(new StringEntity(parent.toString(), "UTF-8"));
+            client.execute(post, httpContext);
+
+
+        } catch (Exception ex) {
+            Log.e("BATU", ex.getMessage());
+        }
+
+
+    }
 }
