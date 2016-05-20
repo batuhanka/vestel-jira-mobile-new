@@ -35,6 +35,8 @@ import java.net.NetworkInterface;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import gcm.NotificationActivity;
 import navigation.NavigationActivity;
 import project.ozyegin.vestel.com.vesteljiramobile.R;
 
@@ -220,9 +222,10 @@ public class MainActivity extends AppCompatActivity {
                 } else if (jsonObject.get("session") != null) {
                     JSONObject sessionJSON = new JSONObject(jsonObject.get("session").toString());
                     JSESSION_ID = sessionJSON.get("value").toString();
-                    Intent intent = new Intent(getBaseContext(), NavigationActivity.class);
-                    intent.putExtra("username", username);
-                    intent.putExtra("password", password);
+                    Intent intent = new Intent(getBaseContext(), NotificationActivity.class);
+//                    Intent intent = new Intent(getBaseContext(), NavigationActivity.class);
+//                    intent.putExtra("username", username);
+//                    intent.putExtra("password", password);
                     startActivity(intent);
                     finish();
                 }
