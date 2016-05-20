@@ -222,10 +222,11 @@ public class MainActivity extends AppCompatActivity {
                 } else if (jsonObject.get("session") != null) {
                     JSONObject sessionJSON = new JSONObject(jsonObject.get("session").toString());
                     JSESSION_ID = sessionJSON.get("value").toString();
-                    Intent intent = new Intent(getBaseContext(), NotificationActivity.class);
-//                    Intent intent = new Intent(getBaseContext(), NavigationActivity.class);
-//                    intent.putExtra("username", username);
-//                    intent.putExtra("password", password);
+                    //TODO: Test notification service
+                    //Intent intent = new Intent(getBaseContext(), NotificationActivity.class);
+                    Intent intent = new Intent(getBaseContext(), NavigationActivity.class);
+                    intent.putExtra("username", username);
+                    intent.putExtra("password", password);
                     startActivity(intent);
                     finish();
                 }
