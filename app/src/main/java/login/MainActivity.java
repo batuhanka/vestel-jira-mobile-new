@@ -6,13 +6,14 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import org.apache.http.HttpResponse;
@@ -43,19 +44,30 @@ import project.ozyegin.vestel.com.vesteljiramobile.R;
 public class MainActivity extends AppCompatActivity {
 
     public static String mUsername;
+    public static String mPassword;
     public static String JSESSION_ID;
-
+    public static Boolean mLoginRemember;
     public EditText mUsernameView;
     public EditText mPasswordView;
+    public CheckBox mCheckBoxView;
     public Button mSignInButton;
-    private UserLoginTask mAuthTask = null;
-    private String JIRA_BASE_URL    = "http://10.108.95.25/jira";
+    private UserLoginTask mAuthTask     = null;
+    SharedPreferences sharedPreferences;
+    public static String PREFS_NAME     = "mypre";
+    public static String PREF_USERNAME  = "username";
+    public static String PREF_PASSWORD  = "password";
+    public static String PREF_LOGIN     = "login";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        sharedPreferences       = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        mUsername               = sharedPreferences.getString(PREF_USERNAME, "");
+        mPassword               = sharedPreferences.getString(PREF_PASSWORD, "");
+        mLoginRemember          = sharedPreferences.getBoolean(PREF_LOGIN, false);
 
         List<String> networkList = new ArrayList<>();
         try {
@@ -83,9 +95,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        mSignInButton = (Button) findViewById(R.id.signin_btn);
-        mUsernameView = (EditText) findViewById(R.id.username_field);
-        mPasswordView = (EditText) findViewById(R.id.password_field);
+        mSignInButton = (Button)    findViewById(R.id.signin_btn);
+        mUsernameView = (EditText)  findViewById(R.id.username_field);
+        mPasswordView = (EditText)  findViewById(R.id.password_field);
+        mCheckBoxView = (CheckBox)  findViewById(R.id.rememberCheckBox);
+
+        mUsernameView.setText(mUsername);
+        mPasswordView.setText(mPassword);
+        mCheckBoxView.setChecked(mLoginRemember);
 
         mSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,8 +114,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void attemptLogin() {
 
-        String username = mUsernameView.getText().toString();
-        String password = mPasswordView.getText().toString();
+        String username             = mUsernameView.getText().toString();
+        String password             = mPasswordView.getText().toString();
+
+        if(mCheckBoxView.isChecked()){
+            sharedPreferences.edit()
+                    .putString(PREF_USERNAME, username)
+                    .putString(PREF_PASSWORD, password)
+                    .putBoolean(PREF_LOGIN, true)
+                    .apply();
+        }
         setmUsername(username);
         mAuthTask = new UserLoginTask(username, password, this);
         mAuthTask.execute((Void) null);
@@ -160,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         private void checkAccount(String username, String password) {
+            String JIRA_BASE_URL        = "http://10.108.95.25/jira";
             String json = "";
             InputStream is;
             String errorMessage = "";
