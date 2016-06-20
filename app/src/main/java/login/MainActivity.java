@@ -4,17 +4,24 @@ package login;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.CookieStore;
@@ -37,6 +44,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import gcm.GCMConnectionProvider;
+import gcm.QuickstartPreferences;
+import gcm.RegistrationIntentService;
 import navigation.NavigationActivity;
 import project.ozyegin.vestel.com.vesteljiramobile.R;
 
@@ -46,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
     public static String mUsername;
     public static String mPassword;
     public static String JSESSION_ID;
+    public static String REGISTER_TOKEN;
     public static Boolean mLoginRemember;
     public EditText mUsernameView;
     public EditText mPasswordView;
@@ -57,6 +68,46 @@ public class MainActivity extends AppCompatActivity {
     public static String PREF_USERNAME  = "username";
     public static String PREF_PASSWORD  = "password";
     public static String PREF_LOGIN     = "login";
+    private boolean isReceiverRegistered;
+    private BroadcastReceiver mRegistrationBroadcastReceiver;
+    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver();
+    }
+
+    private void registerReceiver(){
+        if(!isReceiverRegistered) {
+            LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
+                    new IntentFilter(QuickstartPreferences.REGISTRATION_COMPLETE));
+            isReceiverRegistered = true;
+        }
+    }
+
+    private boolean checkPlayServices() {
+        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+        int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (apiAvailability.isUserResolvableError(resultCode)) {
+                apiAvailability.getErrorDialog(this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST)
+                        .show();
+            } else {
+                Log.e("BATU", "This device is not supported.");
+                finish();
+            }
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    protected void onPause() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
+        isReceiverRegistered = false;
+        super.onPause();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +119,21 @@ public class MainActivity extends AppCompatActivity {
         mUsername               = sharedPreferences.getString(PREF_USERNAME, "");
         mPassword               = sharedPreferences.getString(PREF_PASSWORD, "");
         mLoginRemember          = sharedPreferences.getBoolean(PREF_LOGIN, false);
+
+        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                boolean sentToken = sharedPreferences.getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
+            }
+        };
+        registerReceiver();
+        if (checkPlayServices()) {
+            // Start IntentService to register this application with GCM.
+            Intent intent = new Intent(this, RegistrationIntentService.class);
+            startService(intent);
+        }
+
+
 
         List<String> networkList = new ArrayList<>();
         try {
@@ -247,8 +313,11 @@ public class MainActivity extends AppCompatActivity {
                 } else if (jsonObject.get("session") != null) {
                     JSONObject sessionJSON = new JSONObject(jsonObject.get("session").toString());
                     JSESSION_ID = sessionJSON.get("value").toString();
+
                     //TODO: Test notification service
-                    //Intent intent = new Intent(getBaseContext(), NotificationActivity.class);
+                    GCMConnectionProvider gcmProvider = new GCMConnectionProvider();
+                    gcmProvider.sendMessage("WELCOME ENES",getRegisterToken());
+
                     Intent intent = new Intent(getBaseContext(), NavigationActivity.class);
                     intent.putExtra("username", username);
                     intent.putExtra("password", password);
@@ -292,4 +361,11 @@ public class MainActivity extends AppCompatActivity {
         return JSESSION_ID;
     }
 
+    public static String getRegisterToken() {
+        return REGISTER_TOKEN;
+    }
+
+    public static void setRegisterToken(String registerToken) {
+        REGISTER_TOKEN = registerToken;
+    }
 }
