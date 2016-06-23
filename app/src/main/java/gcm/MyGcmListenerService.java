@@ -29,7 +29,6 @@ import android.util.Log;
 import com.google.android.gms.gcm.GcmListenerService;
 
 import login.MainActivity;
-import navigation.NavigationActivity;
 import project.ozyegin.vestel.com.vesteljiramobile.R;
 
 public class MyGcmListenerService extends GcmListenerService {
@@ -47,8 +46,8 @@ public class MyGcmListenerService extends GcmListenerService {
     @Override
     public void onMessageReceived(String from, Bundle data) {
         String message = data.getString("message");
-        Log.d(TAG, "From: " + from);
-        Log.d(TAG, "Message: " + message);
+        Log.e(TAG, "From: " + from);
+        Log.e(TAG, "Message: " + message);
 
         if (from.startsWith("/topics/")) {
             // message received from some topic.
@@ -87,7 +86,7 @@ public class MyGcmListenerService extends GcmListenerService {
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.jira_app_logo)
-                .setContentTitle("GCM Message")
+                .setContentTitle("Vestel JIRA Mobile")
                 .setContentText(message)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)

@@ -34,7 +34,7 @@ import project.ozyegin.vestel.com.vesteljiramobile.R;
 public class RegistrationIntentService extends IntentService {
 
     private static final String TAG = "BATU";
-    private static final String[] TOPICS = {"global"};
+    //private static final String[] TOPICS = {"global"};
 
     public RegistrationIntentService() {
         super(TAG);
@@ -52,16 +52,18 @@ public class RegistrationIntentService extends IntentService {
             // See https://developers.google.com/cloud-messaging/android/start for details on this file.
             // [START get_token]
             InstanceID instanceID = InstanceID.getInstance(this);
+            //Log.e("BATU","INSTANCE ID : "+instanceID.getId());
             String token = instanceID.getToken(getString(R.string.gcm_defaultSenderId),
                     GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
             // [END get_token]
-            Log.e(TAG, "GCM Registration Token: " + token);
+            //Log.e(TAG, "GCM Registration Token: " + token);
 
             // TODO: Implement this method to send any registration to your app's servers.
             sendRegistrationToServer(token);
+            String username = MainActivity.getmUsername();
 
             // Subscribe to topic channels
-            subscribeTopics(token);
+            subscribeTopics(token, username);
 
             // You should store a boolean that indicates whether the generated token has been
             // sent to your server. If the boolean is false, send the token to your server,
@@ -98,11 +100,11 @@ public class RegistrationIntentService extends IntentService {
      * @throws IOException if unable to reach the GCM PubSub service
      */
     // [START subscribe_topics]
-    private void subscribeTopics(String token) throws IOException {
+    private void subscribeTopics(String token, String username) throws IOException {
         GcmPubSub pubSub = GcmPubSub.getInstance(this);
-        for (String topic : TOPICS) {
-            pubSub.subscribe(token, "/topics/" + topic, null);
-        }
+        //for (String topic : TOPICS) {
+        pubSub.subscribe(token, "/topics/"+username, null);
+        //}
     }
     // [END subscribe_topics]
 

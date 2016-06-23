@@ -712,4 +712,20 @@ public class RestConnectionProvider {
 
 
     }
+
+//    public void getDatabaseInfo() {
+//
+//        try {
+//
+//            String url  = "jdbc:mysql://173.194.83.29:3306/JiraMobileDB";
+//            String user = "root";
+//            String pass = "gs35DAY02";
+//            Class.forName("com.mysql.jdbc.Driver");
+//            Connection conn = DriverManager.getConnection(url, user, pass);
+//            Log.e("BATU", "CONNECTION : "+conn.toString());
+//
+//
+//        } catch (Exception ex) {    }
+//
+//    }
 }

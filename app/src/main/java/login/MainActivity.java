@@ -123,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
+                @SuppressWarnings("unused")
                 boolean sentToken = sharedPreferences.getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
             }
         };
@@ -315,8 +316,8 @@ public class MainActivity extends AppCompatActivity {
                     JSESSION_ID = sessionJSON.get("value").toString();
 
                     //TODO: Test notification service
-                    GCMConnectionProvider gcmProvider = new GCMConnectionProvider();
-                    gcmProvider.sendMessage("WELCOME ENES",getRegisterToken());
+                    //GCMConnectionProvider gcmProvider = new GCMConnectionProvider();
+                    //gcmProvider.sendMessage("Batuhan Kandıran created issue RDSS-2560","batuhanka");
 
                     Intent intent = new Intent(getBaseContext(), NavigationActivity.class);
                     intent.putExtra("username", username);
@@ -359,10 +360,6 @@ public class MainActivity extends AppCompatActivity {
 
     public static String getJsessionId() {
         return JSESSION_ID;
-    }
-
-    public static String getRegisterToken() {
-        return REGISTER_TOKEN;
     }
 
     public static void setRegisterToken(String registerToken) {
