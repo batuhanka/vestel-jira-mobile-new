@@ -22,6 +22,7 @@ import com.github.clans.fab.FloatingActionMenu;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import adapter.MyArrayAdapter;
 import navigation.NavigationActivity;
 import project.ozyegin.vestel.com.vesteljiramobile.R;
 import restprovider.RestConnectionProvider;
@@ -40,7 +41,7 @@ public class CreateIssueFragment extends Fragment {
 
 		((NavigationActivity) getActivity()).setActionBarTitle("Create New Issue");
 
-		ArrayAdapter projectAdapter = new ArrayAdapter<>(context,
+		MyArrayAdapter projectAdapter = new MyArrayAdapter<>(context,
 				android.R.layout.simple_dropdown_item_1line,
 				getResources().getStringArray(R.array.project_names));
 
@@ -48,7 +49,7 @@ public class CreateIssueFragment extends Fragment {
 		projectACView.setAdapter(projectAdapter);
 		projectAdapter.notifyDataSetChanged();
 
-		ArrayAdapter userAdapter = new ArrayAdapter<>(context,
+		MyArrayAdapter userAdapter = new MyArrayAdapter<>(context,
 				android.R.layout.simple_dropdown_item_1line,
 				getResources().getStringArray(R.array.user_names));
 
