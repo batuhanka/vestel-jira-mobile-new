@@ -38,6 +38,7 @@ import java.util.Locale;
 import adapter.CommentModel;
 import adapter.IssueModel;
 import adapter.ViewIssueModel;
+import gcm.GCMConnectionProvider;
 import login.MainActivity;
 
 @SuppressWarnings("deprecation")
@@ -46,6 +47,7 @@ public class RestConnectionProvider {
     private String mUsername            = MainActivity.getmUsername();
     private String mJsessionID          = MainActivity.getJsessionId();
     private String JIRA_BASE_URL        = "http://10.108.95.25/jira";
+    GCMConnectionProvider gcmProvider   = new GCMConnectionProvider();
 
     public RestConnectionProvider(){
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -110,6 +112,7 @@ public class RestConnectionProvider {
                 Log.e("BATU", ex.getMessage());
             }
 
+            gcmProvider.sendMessage(getUserFullName()+" created issue "+results.get("ISSUE_KEY"), details.get("ASSIGNEE"));
 
         } catch (Exception ex) {
             Log.e("BATU", ex.getMessage());
@@ -119,7 +122,7 @@ public class RestConnectionProvider {
 
     }
 
-    public void addCommentIssue(String issueKey, String commentText){
+    public void addCommentIssue(String issueKey, String commentText, String assignee){
 
         String requestURL = JIRA_BASE_URL + "/rest/api/2/issue/"+issueKey+"/comment";
         try {
@@ -137,6 +140,7 @@ public class RestConnectionProvider {
             post.setEntity(new StringEntity(obj.toString(), "UTF-8"));
             client.execute(post, httpContext);
 
+            gcmProvider.sendMessage(getUserFullName() + " commented on issue " + issueKey, assignee);
 
         } catch (Exception ex) {
             Log.e("BATU", ex.getMessage());
@@ -441,8 +445,10 @@ public class RestConnectionProvider {
             String issueType    = jsonObject.getJSONObject("fields").getJSONObject("issuetype").get("name").toString();
             String typeIconURL  = jsonObject.getJSONObject("fields").getJSONObject("issuetype").get("iconUrl").toString();
             String assignee     = "Unassigned";
+            String assigneeRaw  = "Unassigned";
             try {
-                assignee = new String(jsonObject.getJSONObject("fields").getJSONObject("assignee").get("displayName").toString().getBytes("ISO-8859-1"), "UTF-8");
+                assignee    = new String(jsonObject.getJSONObject("fields").getJSONObject("assignee").get("displayName").toString().getBytes("ISO-8859-1"), "UTF-8");
+                assigneeRaw = new String(jsonObject.getJSONObject("fields").getJSONObject("assignee").get("name").toString().getBytes("ISO-8859-1"), "UTF-8");
             }catch (Exception ex){  Log.e("BATU", ex.getMessage()); }
             String assigneeURL  = "Empty";
             try {
@@ -485,6 +491,7 @@ public class RestConnectionProvider {
                     statusIcon,
                     priority,
                     assignee,
+                    assigneeRaw,
                     assigneeURL,
                     reporter,
                     reporterURL,
@@ -684,7 +691,7 @@ public class RestConnectionProvider {
         return transitions;
     }
 
-    public void updateIssue(String issueKey, String transitionID) {
+    public void updateIssue(String issueKey, String transitionID, String assignee) {
 
         String requestURL = JIRA_BASE_URL + "/rest/api/2/issue/"+issueKey+"/transitions";
         try {
@@ -705,6 +712,7 @@ public class RestConnectionProvider {
             post.setEntity(new StringEntity(parent.toString(), "UTF-8"));
             client.execute(post, httpContext);
 
+            gcmProvider.sendMessage(getUserFullName() + " updated issue " + issueKey, assignee);
 
         } catch (Exception ex) {
             Log.e("BATU", ex.getMessage());

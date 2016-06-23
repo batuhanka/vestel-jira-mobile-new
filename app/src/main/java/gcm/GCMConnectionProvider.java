@@ -18,11 +18,11 @@ public class GCMConnectionProvider {
     public GCMConnectionProvider(){
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-
     }
 
     public void sendMessage(String message, String username){
 
+        Log.e("BATU","NOTIF : "+message+" : "+username);
         String API_KEY = "AIzaSyCgf8_EMe2O4tx8CFCjq-jogYDJA9GnKM8";
 
         try {
@@ -36,6 +36,7 @@ public class GCMConnectionProvider {
             // What to send in GCM message.
             jGcmData.put("data", jData);
 
+            Log.e("BATU", "DATA : "+jGcmData);
 
             // Create connection to send GCM Message request.
             URL url = new URL("https://gcm-http.googleapis.com/gcm/send");

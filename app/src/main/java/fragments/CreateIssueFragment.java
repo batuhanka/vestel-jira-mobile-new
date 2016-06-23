@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -160,7 +159,7 @@ public class CreateIssueFragment extends Fragment {
 			if(results.get("ISSUE_KEY").matches("INVALID")){
 				Toast.makeText(rootView.getContext(), results.get("ERRORS"), Toast.LENGTH_LONG).show();
 			}else{
-				if(!results.get("ERRORS").matches("NO ERROR")){
+				if(results.get("ERRORS").matches("NO ERROR")){
 					FragmentManager fragmentManager = getFragmentManager();
 					Fragment viewIssueFragment = new ViewIssueFragment();
 					Bundle bundle = new Bundle();

@@ -173,7 +173,7 @@ public class ViewIssueFragment extends Fragment {
             public void onClick(View v) {
                 String commentText = commentBody.getText().toString();
                 if (!commentText.isEmpty() && commentText.trim().length() != 0) {
-                    provider.addCommentIssue(issueItem.getIssueKey(), commentText);
+                    provider.addCommentIssue(issueItem.getIssueKey(), commentText, issueItem.getAssigneeRaw());
                     ViewIssueModel model = provider.getSingleIssueDetails(issueItem.getIssueKey());
                     commentsListView.setAdapter(new CommentAdapter(inflater, model.getComments()));
                     setListViewHeightBasedOnChildren(commentsListView);
@@ -225,7 +225,7 @@ public class ViewIssueFragment extends Fragment {
                     public void onClick(View v) {
                         FloatingActionButton floatingActionButton = (FloatingActionButton) v;
                         String actionTag    = floatingActionButton.getTag().toString();
-                        provider.updateIssue(issueItem.getIssueKey(), actionTag);
+                        provider.updateIssue(issueItem.getIssueKey(), actionTag, issueItem.getAssigneeRaw());
                         FragmentManager fragmentManager = getFragmentManager();
                         Fragment viewIssueFragment = new ViewIssueFragment();
                         Bundle bundle = new Bundle();

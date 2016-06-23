@@ -14,6 +14,7 @@ public class ViewIssueModel {
     private String statusIcon;
     private String issuePriority;
     private String assignee;
+    private String assigneeRaw;
     private String assigneeURL;
     private String reporter;
     private String reporterURL;
@@ -32,6 +33,7 @@ public class ViewIssueModel {
             String statusIcon,
             String issuePriority,
             String assignee,
+            String assigneeRaw,
             String assigneeURL,
             String reporter,
             String reporterURL,
@@ -49,6 +51,7 @@ public class ViewIssueModel {
         this.statusIcon     = statusIcon;
         this.issuePriority  = issuePriority;
         this.assignee       = assignee;
+        this.assigneeRaw    = assigneeRaw;
         this.assigneeURL    = assigneeURL;
         this.reporter       = reporter;
         this.reporterURL    = reporterURL;
@@ -95,6 +98,10 @@ public class ViewIssueModel {
 
     public String getAssignee() {
         return assignee;
+    }
+
+    public String getAssigneeRaw() {
+        return assigneeRaw;
     }
 
     public String getAssigneeURL() {
