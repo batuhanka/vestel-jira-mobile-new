@@ -20,7 +20,7 @@
     <string name="search_header"><u>Search For Issues in JIRA</u></string>
     <string name="username_hint">Username</string>
     <string name="password_hint">Password</string>
-    <string name="login_text">Login</string>
+    <string name="login_text">LOGIN</string>
     <string name="app_logo_description">Application Logo</string>
     <string name="recent_activities_label">Recent Activities</string>
     <string name="create_issue_label">Create New Issue</string>
