@@ -39,6 +39,10 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.NetworkInterface;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import fragments.ActivityStreamFragment;
 import fragments.AssignedToMeFragment;
@@ -62,61 +66,99 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_navigation);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+    }
 
-        issueActionMenu = (FloatingActionMenu) findViewById(R.id.issueActionMenu);
-        sortMenu = (FloatingActionMenu) findViewById(R.id.sortActionMenu);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setImageDrawable(getResources().getDrawable(R.drawable.refresh));
-        fab.setVisibility(View.VISIBLE);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Switching to create issue screen...", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (checkVPN()) {
+            setContentView(R.layout.activity_navigation);
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+            issueActionMenu = (FloatingActionMenu) findViewById(R.id.issueActionMenu);
+            sortMenu = (FloatingActionMenu) findViewById(R.id.sortActionMenu);
+            fab = (FloatingActionButton) findViewById(R.id.fab);
+            fab.setImageDrawable(getResources().getDrawable(R.drawable.refresh));
+            fab.setVisibility(View.VISIBLE);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Snackbar.make(view, "Switching to create issue screen...", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+                }
+            });
+
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+            drawer.setDrawerListener(toggle);
+            toggle.syncState();
+
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            navigationView.setNavigationItemSelectedListener(this);
+
+            Bundle extras = getIntent().getExtras();
+            boolean gcm_click = extras.getBoolean("GCM_CLICKED");
+            if (gcm_click) {
+
+                String username = extras.getString("USERNAME");
+                String password = extras.getString("PASSWORD");
+                String issueKey = extras.getString("ISSUE_KEY");
+                loginToJIRA(username, password);
+                Fragment viewIssueFragment = new ViewIssueFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("ISSUE_KEY", issueKey);
+                viewIssueFragment.setArguments(bundle);
+                fragmentManager.beginTransaction().replace(R.id.contentNav, viewIssueFragment).addToBackStack("ViewFragment").commit();
+                fragmentManager.executePendingTransactions();
+
+            } else {
+                fragmentManager.beginTransaction().replace(R.id.contentNav, new ActivityStreamFragment()).addToBackStack("ActivityStreamFragment").commit();
+                fragmentManager.executePendingTransactions();
             }
-        });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
+            TextView userFullNameView = (TextView) navigationView.findViewById(R.id.userFullName);
+            String userFullNameText = provider.getUserFullName();
+            userFullNameView.setText(userFullNameText);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        ImageView userAvatar = (ImageView) navigationView.findViewById(R.id.userAvatar);
+            ImageView userAvatar = (ImageView) navigationView.findViewById(R.id.userAvatar);
+            Bitmap userAvatarBitmap = provider.getUserAvatar(MainActivity.getmUsername());
+            Bitmap resizedAvatar = provider.getResizedBitmap(userAvatarBitmap, 180, 180);
+            userAvatar.setImageBitmap(resizedAvatar);
 
-        Bitmap userAvatarBitmap = provider.getUserAvatar(MainActivity.getmUsername());
-        Bitmap resizedAvatar = provider.getResizedBitmap(userAvatarBitmap, 180, 180);
-        userAvatar.setImageBitmap(resizedAvatar);
-
-
-        Bundle extras = getIntent().getExtras();
-        boolean gcm_click = extras.getBoolean("GCM_CLICKED");
-        if (gcm_click) {
-            String username = extras.getString("USERNAME");
-            String password = extras.getString("PASSWORD");
-            String issueKey = extras.getString("ISSUE_KEY");
-            loginToJIRA(username, password);
-            Fragment viewIssueFragment = new ViewIssueFragment();
-            Bundle bundle = new Bundle();
-            bundle.putString("ISSUE_KEY", issueKey);
-            viewIssueFragment.setArguments(bundle);
-            fragmentManager.beginTransaction().replace(R.id.contentNav, viewIssueFragment).addToBackStack("ViewFragment").commit();
-            fragmentManager.executePendingTransactions();
         } else {
-            fragmentManager.beginTransaction().replace(R.id.contentNav, new ActivityStreamFragment()).addToBackStack("ActivityStreamFragment").commit();
-            fragmentManager.executePendingTransactions();
+            AlertDialog alertDialog = new AlertDialog.Builder(NavigationActivity.this).create();
+            alertDialog.setTitle("VPN Connection Required");
+            alertDialog.setCancelable(false);
+            alertDialog.setMessage("Please check your VPN Settings");
+            alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent("android.net.vpn.SETTINGS");
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }
+            });
+            alertDialog.show();
+        }
+    }
+
+    private boolean checkVPN() {
+
+        List<String> networkList = new ArrayList<>();
+        try {
+            for (NetworkInterface networkInterface : Collections.list(NetworkInterface.getNetworkInterfaces())) {
+                if (networkInterface.isUp())
+                    networkList.add(networkInterface.getName());
+            }
+        } catch (Exception ex) {
+            Log.e("BATU", "Network List didn't received");
         }
 
-        TextView userFullNameView = (TextView) navigationView.findViewById(R.id.userFullName);
-        String userFullNameText = provider.getUserFullName();
-        userFullNameView.setText(userFullNameText);
-
+        if (networkList.contains("tun0")) {
+            return true;
+        } else {
+            return false;
+        }
 
     }
 
