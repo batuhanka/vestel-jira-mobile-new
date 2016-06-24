@@ -4,11 +4,10 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -25,12 +24,21 @@ import android.widget.TextView;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.CookieStore;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.protocol.ClientContext;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.BasicCookieStore;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.HttpContext;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import fragments.ActivityStreamFragment;
 import fragments.AssignedToMeFragment;
@@ -38,6 +46,7 @@ import fragments.CreateIssueFragment;
 import fragments.FavouriteFiltersFragment;
 import fragments.ReportedToMeFragment;
 import fragments.SearchIssueFragment;
+import fragments.ViewIssueFragment;
 import login.MainActivity;
 import project.ozyegin.vestel.com.vesteljiramobile.R;
 import restprovider.RestConnectionProvider;
@@ -56,6 +65,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -79,18 +89,84 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         ImageView userAvatar = (ImageView) navigationView.findViewById(R.id.userAvatar);
-        TextView userFullNameView = (TextView) navigationView.findViewById(R.id.userFullName);
-        String userFullNameText = provider.getUserFullName();
 
         Bitmap userAvatarBitmap = provider.getUserAvatar(MainActivity.getmUsername());
         Bitmap resizedAvatar = provider.getResizedBitmap(userAvatarBitmap, 180, 180);
         userAvatar.setImageBitmap(resizedAvatar);
+
+
+        Bundle extras = getIntent().getExtras();
+        boolean gcm_click = extras.getBoolean("GCM_CLICKED");
+        if (gcm_click) {
+            String username = extras.getString("USERNAME");
+            String password = extras.getString("PASSWORD");
+            String issueKey = extras.getString("ISSUE_KEY");
+            loginToJIRA(username, password);
+            Fragment viewIssueFragment = new ViewIssueFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("ISSUE_KEY", issueKey);
+            viewIssueFragment.setArguments(bundle);
+            fragmentManager.beginTransaction().replace(R.id.contentNav, viewIssueFragment).addToBackStack("ViewFragment").commit();
+            fragmentManager.executePendingTransactions();
+        } else {
+            fragmentManager.beginTransaction().replace(R.id.contentNav, new ActivityStreamFragment()).addToBackStack("ActivityStreamFragment").commit();
+            fragmentManager.executePendingTransactions();
+        }
+
+        TextView userFullNameView = (TextView) navigationView.findViewById(R.id.userFullName);
+        String userFullNameText = provider.getUserFullName();
         userFullNameView.setText(userFullNameText);
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.contentNav, new ActivityStreamFragment()).addToBackStack("ActivityStreamFragment").commit();
-        fragmentManager.executePendingTransactions();
 
+    }
+
+    private void loginToJIRA(String username, String password) {
+
+        String JIRA_BASE_URL = "http://10.108.95.25/jira";
+        String json = "";
+        InputStream is;
+
+        try {
+            HttpClient client = new DefaultHttpClient();
+            CookieStore cookieStore = new BasicCookieStore();
+            HttpContext httpContext = new BasicHttpContext();
+            HttpPost post = new HttpPost(JIRA_BASE_URL + "/rest/auth/1/session");
+            httpContext.setAttribute(ClientContext.COOKIE_STORE, cookieStore);
+            post.setHeader("Content-type", "application/json");
+
+
+            JSONObject obj = new JSONObject();
+            obj.put("username", username);
+            obj.put("password", password);
+
+            post.setEntity(new StringEntity(obj.toString(), "UTF-8"));
+            HttpResponse response = client.execute(post, httpContext);
+            is = response.getEntity().getContent();
+
+            try {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line).append("\n");
+                }
+                is.close();
+                json = sb.toString();
+            } catch (Exception e) {
+                Log.e("Buffer Error", "Error converting result " + e.toString());
+            }
+
+            JSONObject jsonObject = new JSONObject(json);
+
+            if (jsonObject.get("session") != null) {
+                JSONObject sessionJSON = new JSONObject(jsonObject.get("session").toString());
+                String JSESSION_ID = sessionJSON.get("value").toString();
+                MainActivity.setJsessionId(JSESSION_ID);
+                MainActivity.setmUsername(username);
+            }
+        } catch (Exception e) {
+            Log.e("BATU", "Error converting result " + e.toString());
+        }
     }
 
     public void setActionBarTitle(String title) {
@@ -203,7 +279,6 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
 
 
 }

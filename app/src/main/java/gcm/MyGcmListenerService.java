@@ -20,6 +20,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -28,7 +29,7 @@ import android.util.Log;
 
 import com.google.android.gms.gcm.GcmListenerService;
 
-import login.MainActivity;
+import navigation.NavigationActivity;
 import project.ozyegin.vestel.com.vesteljiramobile.R;
 
 public class MyGcmListenerService extends GcmListenerService {
@@ -46,13 +47,13 @@ public class MyGcmListenerService extends GcmListenerService {
     @Override
     public void onMessageReceived(String from, Bundle data) {
         String message = data.getString("message");
-        Log.e(TAG, "From: " + from);
-        Log.e(TAG, "Message: " + message);
 
         if (from.startsWith("/topics/")) {
-            // message received from some topic.
+            Log.e(TAG, "From: " + from);
+            Log.e(TAG, "TOPICS MSG: " + message);
         } else {
-            // normal downstream message.
+            Log.e(TAG, "From: " + from);
+            Log.e(TAG, "Message: " + message);
         }
 
         // [START_EXCLUDE]
@@ -78,10 +79,22 @@ public class MyGcmListenerService extends GcmListenerService {
      * @param message GCM message received.
      */
     public void sendNotification(String message) {
-        Intent intent = new Intent(this, MainActivity.class);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("mypre", MODE_PRIVATE);
+        String username                     = sharedPreferences.getString("username", "");
+        String password                     = sharedPreferences.getString("password", "");
+
+        String[] temp   = message.split(" ");
+        String issueKey = temp[temp.length - 1];
+
+        Intent intent = new Intent(this, NavigationActivity.class);
+        intent.putExtra("GCM_CLICKED",true);
+        intent.putExtra("USERNAME",username);
+        intent.putExtra("PASSWORD", password);
+        intent.putExtra("ISSUE_KEY", issueKey);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
-                PendingIntent.FLAG_ONE_SHOT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent, PendingIntent.FLAG_ONE_SHOT);
+
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)

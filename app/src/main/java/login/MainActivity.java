@@ -44,7 +44,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import gcm.GCMConnectionProvider;
 import gcm.QuickstartPreferences;
 import gcm.RegistrationIntentService;
 import navigation.NavigationActivity;
@@ -315,10 +314,6 @@ public class MainActivity extends AppCompatActivity {
                     JSONObject sessionJSON = new JSONObject(jsonObject.get("session").toString());
                     JSESSION_ID = sessionJSON.get("value").toString();
 
-                    //TODO: Test notification service
-                    //GCMConnectionProvider gcmProvider = new GCMConnectionProvider();
-                    //gcmProvider.sendMessage("Batuhan Kandıran created issue RDSS-2560","batuhanka");
-
                     Intent intent = new Intent(getBaseContext(), NavigationActivity.class);
                     intent.putExtra("username", username);
                     intent.putExtra("password", password);
@@ -360,6 +355,10 @@ public class MainActivity extends AppCompatActivity {
 
     public static String getJsessionId() {
         return JSESSION_ID;
+    }
+
+    public static void setJsessionId(String jsessionId) {
+        JSESSION_ID = jsessionId;
     }
 
     public static void setRegisterToken(String registerToken) {
